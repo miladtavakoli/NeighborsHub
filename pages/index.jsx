@@ -35,7 +35,7 @@ const Test = () => {
             padding: "100px",
             boxSizing: "border-box",
             backgroundColor: "#bcab91",
-            
+
             color: "black",
             display: "flex",
             flexDirection: "column",
@@ -207,8 +207,8 @@ const Test = () => {
             human experience. After this real-life incident, I revisited an idea
             that had long lingered in my mind—an application I had set aside due
             to migration concerns. This experience fueled my determination to
-            revive the project. And our motto became clear: "A Neighbor May be
-            Closer Than Family."
+            revive the project. And our motto became clear: A Neighbor May be
+            Closer Than Family.
           </p>
         </div>
         <div
