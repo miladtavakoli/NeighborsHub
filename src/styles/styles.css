@@ -1,0 +1,15 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: "Ephesis-Regular";
+  src: url("../assets/fonts/Ephesis/Ephesis-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Pacifico-Regular";
+    src: url("../assets/fonts/Pacifico/Pacifico-Regular.ttf");
+  }
