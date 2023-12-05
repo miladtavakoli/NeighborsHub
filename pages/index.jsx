@@ -341,6 +341,7 @@ const AboutUs = () => {
           style={{
             height: "100vh",
             backgroundImage: `url(${Neighbors.src})`,
+            backgroundAttachment: "fixed",
           }}
         ></Grid>
         <Grid
