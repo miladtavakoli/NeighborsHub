@@ -1,49 +1,45 @@
-import "../src/styles/styles.css";
-import Typed from "typed.js";
-import Image123 from "../src/assets/images/photo_2023-12-02_00-09-19.jpg";
+import "styles/styles.css";
 import Image from "next/image";
-import FirstBackgroundImage from "../src/assets/images/photo_2023-12-02_00-45-20.jpg";
-import CanadaBoy from "../src/assets/images/_ea7c54e7-e6f7-482f-8fd7-db3c79391715.jpg";
-import Khers from "../src/assets/images/_b1cff5a2-7aa1-4143-b764-f4382980831e.jpg";
-import Neigh from "../src/assets/images/photo_2023-12-02_00-01-55.jpg";
-const Test = () => {
-  return (
-    <>
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            backgroundImage: `url(${FirstBackgroundImage.src})`,
+import CanadaBoy from "assets/images/canadaBoy.jpg";
+import AngryBear from "assets/images/angryBear.jpg";
+import Neighbors from "assets/images/neighbors.jpg";
+import Coding from "assets/images/coding.jpg";
+import Grid from "@mui/material/Grid";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+const AboutUs = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  console.log(matches, "gggggggggg");
+  return matches ? (
+    <Grid container>
+      <Grid container alignContent={"center"}>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          sx={{
+            height: "100vh",
+            backgroundImage: `url(${Coding.src})`,
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
             boxShadow: "#333333 0px 0px 40px 15px inset",
           }}
-        ></div>
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "100px",
-            boxSizing: "border-box",
-            backgroundColor: "#bcab91",
+        />
 
-            color: "black",
-            display: "flex",
-            flexDirection: "column",
-          }}
+        <Grid
+          item
+          container
+          md={6}
+          xs={12}
+          justifyContent={"center"}
+          alignItems={"center"}
+          alignContent={"center"}
+          sx={{ height: "100vh" }}
         >
           <h1
             style={{
-              width: "100%",
               fontSize: "80px",
               margin: "10px 0",
               fontWeight: "bolder",
@@ -56,12 +52,9 @@ const Test = () => {
           </h1>
           <h1
             style={{
-              width: "100%",
               fontSize: "30px",
               fontWeight: "200",
               color: "#6d4e2c",
-              // textDecoration: 'underline',
-              // textUnderlineOffset: '10px',
               fontFamily: "Pacifico-Regular",
               fontStyle: "italic",
               textAlign: "center",
@@ -69,28 +62,24 @@ const Test = () => {
           >
             A Tale of Connection Beyond Borders
           </h1>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
       {/* ///////////////////////////////// */}
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "100px",
-            boxSizing: "border-box",
-            background: 'radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)',
-            flexDirection: "column",
-            display: "flex",
+      <Grid container>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          container
+          alignItems={"center"}
+          justifyContent={"center"}
+          direction={"column"}
+          sx={{
+            height: "100vh",
+            background:
+              "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
             color: "#cbccce",
+            p: 10,
           }}
         >
           <p
@@ -99,128 +88,287 @@ const Test = () => {
               fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Pacifico-Regular",
-              fontStyle: 'italic'
+              fontStyle: "italic",
             }}
           >
-            As a newly arrived international student in Canada, I greatly
-            believe in helping fellow immigrants and embracing the cultural
-            diversity that defines this new chapter of my life.
+            {`As a recent international student in Canada, I'm passionate about
+            supporting fellow immigrants and embracing the rich cultural
+            diversity of my new life. One chilly October evening, while video
+            calling my family, the silent streets left me feeling isolated. Yet,
+            a neighbor from house number 1957 would soon teach me the true
+            meaning of community`}
           </p>
-        </div>
-        <div
+        </Grid>
+        <Grid
+          md={6}
+          xs={12}
           style={{
-            height: "100%",
-            width: "50%",
+            height: "100vh",
             backgroundImage: `url(${CanadaBoy.src})`,
             boxShadow: "#333333 0px 0px 40px 15px inset",
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "100% 0",
           }}
-        ></div>
-      </div>
+        ></Grid>
+      </Grid>
       {/* ///////////////////////////////// */}
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            backgroundImage: `url(${Khers.src})`,
+      <Grid container>
+        <Grid
+          container
+          md={6}
+          xs={12}
+          item
+          sx={{
+            height: "100vh",
+            backgroundImage: `url(${AngryBear.src})`,
             boxShadow: "#061123 0px 0px 40px 15px inset",
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
           }}
-        ></div>
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "100px",
-            boxSizing: "border-box",
+        ></Grid>
+        <Grid
+          container
+          md={6}
+          xs={12}
+          item
+          alignItems={"center"}
+          justifyContent={"center"}
+          sx={{
+            height: "100vh",
             backgroundColor: "#061123",
             color: "white",
-            flexDirection: "column",
-            display: "flex",
+            p: 10,
           }}
         >
           <p
-            style={{ fontSize: "30px", fontWeight: "lighter", lineHeight: 1.5 }}
+            style={{
+              fontSize: "30px",
+              fontWeight: "lighter",
+              lineHeight: 1.5,
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+            }}
           >
-            One chilly evening in early October, while video calling my family,
-            the emptiness of the silent streets around 9 PM left me feeling
-            isolated and solely surrounded by the melancholy of distance from
-            loved ones and homeland. Lost in thoughts, I was abruptly
-            interrupted by a neighbor from house number 1957, urgently alerting
-            me of a bear sighting just a short distance away. Still in shock, I
-            quickly ended the call to prevent worrying my family and rushed to
-            the lady, asking for guidance as a newcomer unfamiliar with such
-            wildlife situations. With immense kindness, she and her friend came
-            to my aid. Alone and 10,540 kilometers away from anyone familiar,
-            they comforted me, constantly assuring me to remain calm. Together,
-            we swiftly navigated through a different route and they led me
-            safely to my home.
+            {`Abruptly interrupted, I learned of a bear sighting nearby. Panicked and unfamiliar with such situations, I sought guidance. The kindness of my neighbor from house number 1957 and her friend was immediate. Together, we navigated safely home, turning a potential danger into a lesson about the unexpected closeness of neighbors.`}
           </p>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
       {/* ///////////////////////////////// */}
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
+      <Grid container sx={{ height: "100vh" }}>
+        <Grid
+          container
+          item
+          md={6}
+          xs={12}
+          sx={{
+            p: 10,
+            backgroundColor: "gray",
+            color: "white",
+          }}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <p
+            style={{
+              fontSize: "30px",
+              fontWeight: "lighter",
+              lineHeight: 1.5,
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+            }}
+          >
+            {`Gratefully encountering the lady in the following days, I realized that, in a world of freedom, supporting one another is crucial. The experience inspired me to revive a project I had set aside. Now, with a motto of "A Neighbor May be Closer Than Family," I am reminded each time I pass house number 1957 that the true essence of humanity lies in the bonds we build with those around us.`}
+          </p>
+        </Grid>
+        <Grid
+          md={6}
+          xs={12}
           style={{
-            height: "100%",
-            width: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "100px",
-            boxSizing: "border-box",
-            backgroundColor: "white",
-            color: "black",
-            flexDirection: "column",
-            display: "flex",
+            height: "100vh",
+            backgroundImage: `url(${Neighbors.src})`,
+          }}
+        ></Grid>
+      </Grid>
+    </Grid>
+  ) : (
+    <Grid container>
+      <Grid container alignContent={"center"}>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          sx={{
+            height: "100vh",
+            backgroundImage: `url(${Coding.src})`,
+            backgroundAttachment: "fixed",
+            backgroundRepeat: "no-repeat",
+            boxShadow: "#333333 0px 0px 40px 15px inset",
+          }}
+        />
+
+        <Grid
+          item
+          container
+          md={6}
+          xs={12}
+          justifyContent={"center"}
+          alignItems={"center"}
+          alignContent={"center"}
+          sx={{ height: "100vh" }}
+        >
+          <h1
+            style={{
+              fontSize: "80px",
+              margin: "10px 0",
+              fontWeight: "bolder",
+              color: "#402E32",
+              fontFamily: "Ephesis-Regular",
+              textAlign: "center",
+            }}
+          >
+            Neighborly Bonds
+          </h1>
+          <h1
+            style={{
+              fontSize: "30px",
+              fontWeight: "200",
+              color: "#6d4e2c",
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+              textAlign: "center",
+            }}
+          >
+            A Tale of Connection Beyond Borders
+          </h1>
+        </Grid>
+      </Grid>
+      {/* ///////////////////////////////// */}
+      <Grid container>
+        <Grid
+          md={6}
+          xs={12}
+          style={{
+            height: "100vh",
+            backgroundImage: `url(${CanadaBoy.src})`,
+            boxShadow: "#333333 0px 0px 40px 15px inset",
+            backgroundAttachment: "fixed",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "100% 0",
+          }}
+        ></Grid>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          container
+          alignItems={"center"}
+          justifyContent={"center"}
+          direction={"column"}
+          sx={{
+            // height: "100vh",
+            background:
+              "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
+            color: "#cbccce",
+            p: 10,
           }}
         >
           <p
-            style={{ fontSize: "30px", fontWeight: "lighter", lineHeight: 1.5 }}
+            style={{
+              fontSize: "30px",
+              fontWeight: "lighter",
+              lineHeight: 1.5,
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+            }}
           >
-            It was in that moment when I realized that a neighbor can sometimes
-            be closer than family. In the following days, I encountered the
-            lady, and gratefully kissed her hand. Every time I pass by house
-            number 1957, a feeling resonates within me, telling me that this
-            woman, much like a mother, is honored for saving you. Each time I
-            see her, I respectfully tip my hat, offering a dignified and humble
-            greeting. She taught me that in a world of freedom, we must all
-            support one another. I understood that the culture of camaraderie
-            and neighborliness surpasses borders and nations, marking a truly
-            human experience. After this real-life incident, I revisited an idea
-            that had long lingered in my mind—an application I had set aside due
-            to migration concerns. This experience fueled my determination to
-            revive the project. And our motto became clear: A Neighbor May be
-            Closer Than Family.
+            {`As a recent international student in Canada, I'm passionate about
+            supporting fellow immigrants and embracing the rich cultural
+            diversity of my new life. One chilly October evening, while video
+            calling my family, the silent streets left me feeling isolated. Yet,
+            a neighbor from house number 1957 would soon teach me the true
+            meaning of community`}
           </p>
-        </div>
-        <div
-          style={{
-            height: "100%",
-            width: "50%",
-            backgroundImage: `url(${Neigh.src})`,
+        </Grid>
+      </Grid>
+      {/* ///////////////////////////////// */}
+      <Grid container>
+        <Grid
+          container
+          md={6}
+          xs={12}
+          item
+          sx={{
+            height: "100vh",
+            backgroundImage: `url(${AngryBear.src})`,
+            boxShadow: "#061123 0px 0px 40px 15px inset",
+            backgroundAttachment: "fixed",
+            backgroundRepeat: "no-repeat",
           }}
-        ></div>
-      </div>
-    </>
+        />
+        <Grid
+          container
+          md={6}
+          xs={12}
+          item
+          alignItems={"center"}
+          justifyContent={"center"}
+          sx={{
+            // height: "100vh",
+            backgroundColor: "#061123",
+            color: "white",
+            p: 10,
+          }}
+        >
+          <p
+            style={{
+              fontSize: "30px",
+              fontWeight: "lighter",
+              lineHeight: 1.5,
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+            }}
+          >
+            {`Abruptly interrupted, I learned of a bear sighting nearby. Panicked and unfamiliar with such situations, I sought guidance. The kindness of my neighbor from house number 1957 and her friend was immediate. Together, we navigated safely home, turning a potential danger into a lesson about the unexpected closeness of neighbors.`}
+          </p>
+        </Grid>
+      </Grid>
+      {/* ///////////////////////////////// */}
+      <Grid container sx={{ height: "100vh" }}>
+        <Grid
+          md={6}
+          xs={12}
+          style={{
+            height: "100vh",
+            backgroundImage: `url(${Neighbors.src})`,
+          }}
+        ></Grid>
+        <Grid
+          container
+          item
+          md={6}
+          xs={12}
+          sx={{
+            p: 10,
+            backgroundColor: "gray",
+            color: "white",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "30px",
+              fontWeight: "lighter",
+              lineHeight: 1.5,
+              fontFamily: "Pacifico-Regular",
+              fontStyle: "italic",
+            }}
+          >
+            {`Gratefully encountering the lady in the following days, I realized that, in a world of freedom, supporting one another is crucial. The experience inspired me to revive a project I had set aside. Now, with a motto of "A Neighbor May be Closer Than Family," I am reminded each time I pass house number 1957 that the true essence of humanity lies in the bonds we build with those around us.`}
+          </p>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
-export default Test;
+export default AboutUs;
