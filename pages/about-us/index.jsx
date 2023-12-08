@@ -302,7 +302,7 @@ const AboutUs = () => {
           item
           sx={{
             height: "100vh",
-            backgroundImage: `url(${AngryBear.src})`,
+            backgroundImage: `url(${Bear.src})`,
             boxShadow: "#061123 0px 0px 40px 15px inset",
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
