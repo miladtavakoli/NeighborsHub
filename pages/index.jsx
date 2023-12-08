@@ -1,4 +1,2 @@
-const LandingPage = () => {
-  return <div>123</div>;
-};
-export default LandingPage;
+import AboutUs from "./about-us";
+export default AboutUs;
