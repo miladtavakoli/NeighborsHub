@@ -214,6 +214,47 @@ const AboutUs = () => {
           }}
           container
         >
+          <Grid
+            item
+            container
+            md={6}
+            xs={12}
+            justifyContent={"center"}
+            alignItems={"center"}
+            alignContent={"center"}
+            sx={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              textShadow: "0 0 10px  white",
+            }}
+            direction={"column"}
+          >
+            <h1
+              style={{
+                fontSize: "80px",
+                margin: "10px 0",
+                fontWeight: "bolder",
+                color: "#402E32",
+                fontFamily: "Ephesis-Regular",
+                textAlign: "center",
+              }}
+            >
+              Neighbors Hub
+            </h1>
+            <h1
+              style={{
+                fontSize: matchesLg ? "25px" : "30px",
+                fontWeight: "200",
+                color: "#6d4e2c",
+                fontFamily: "Pacifico-Regular",
+                fontStyle: "italic",
+                textAlign: "center",
+              }}
+            >
+              A Tale of Connection Beyond Borders
+            </h1>
+          </Grid>
           <video
             style={{
               // maxWidth: "100%",
@@ -235,43 +276,6 @@ const AboutUs = () => {
             />
             Your browser does not support the video tag.
           </video>
-        </Grid>
-
-        <Grid
-          item
-          container
-          md={6}
-          xs={12}
-          justifyContent={"center"}
-          alignItems={"center"}
-          alignContent={"center"}
-          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p: 1 }}
-          direction={"column"}
-        >
-          <h1
-            style={{
-              fontSize: "80px",
-              margin: "10px 0",
-              fontWeight: "bolder",
-              color: "#402E32",
-              fontFamily: "Ephesis-Regular",
-              textAlign: "center",
-            }}
-          >
-            Neighbors Hub
-          </h1>
-          <h1
-            style={{
-              fontSize: matchesLg ? "25px" : "30px",
-              fontWeight: "200",
-              color: "#6d4e2c",
-              fontFamily: "Pacifico-Regular",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            A Tale of Connection Beyond Borders
-          </h1>
         </Grid>
       </Grid>
       {/* ///////////////////////////////// */}
