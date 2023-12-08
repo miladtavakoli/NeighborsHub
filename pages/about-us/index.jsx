@@ -226,18 +226,25 @@ const AboutUs = () => {
               position: "absolute",
               top: 0,
               bottom: 0,
-              textShadow: "0 0 10px  white",
+              textShadow: "0 0 20px black",
+              // height: "250px",
+              backgroundImage:
+                "radial-gradient( rgb(255,255,255 , 0.1) ,   transparent 70% )",
+              margin: "auto",
+              // border: "1px solid red",
             }}
             direction={"column"}
           >
             <h1
               style={{
-                fontSize: "80px",
+                fontSize: "90px",
                 margin: "10px 0",
                 fontWeight: "bolder",
-                color: "#402E32",
+                color: "white",
                 fontFamily: "Ephesis-Regular",
                 textAlign: "center",
+                fontWeight: "bold",
+                // "-webkit-text-stroke": "1px white" /* width and color */,
               }}
             >
               Neighbors Hub
@@ -246,7 +253,7 @@ const AboutUs = () => {
               style={{
                 fontSize: matchesLg ? "25px" : "30px",
                 fontWeight: "200",
-                color: "#6d4e2c",
+                color: "white",
                 fontFamily: "Pacifico-Regular",
                 fontStyle: "italic",
                 textAlign: "center",
