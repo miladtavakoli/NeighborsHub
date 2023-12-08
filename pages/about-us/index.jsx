@@ -201,7 +201,7 @@ const AboutUs = () => {
     </Grid>
   ) : (
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    <Grid container>
+    <Grid container sx={{ overflowX: "hidden" }}>
       <Grid container alignContent={"center"}>
         <Grid
           item
@@ -218,11 +218,12 @@ const AboutUs = () => {
             style={{
               // maxWidth: "100%",
               maxHeight: "100%",
+              minHeight: "100%",
               height: "100%",
               // width: "300%",
-              position: "absolute",
-              top: "0",
-              right: "0",
+              // position: "absolute",
+              // top: "0",
+              // right: "0",
             }}
             autoPlay
             muted
@@ -244,7 +245,7 @@ const AboutUs = () => {
           justifyContent={"center"}
           alignItems={"center"}
           alignContent={"center"}
-          sx={{ height: "100vh", backgroundColor: "#f3f3f3" }}
+          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p: 1 }}
           direction={"column"}
         >
           <h1
@@ -284,7 +285,7 @@ const AboutUs = () => {
             boxShadow: "#333333 0px 0px 40px 15px inset",
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "100% 0",
+            backgroundPosition: "center",
           }}
         ></Grid>
         <Grid
@@ -311,7 +312,7 @@ const AboutUs = () => {
               fontSize: matchesLg ? "25px" : "30px",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
-              textAlign: "justify",
+              textAlign: "center",
             }}
           >
             {`As a recent international student in Canada, I'm passionate about
@@ -336,6 +337,7 @@ const AboutUs = () => {
             boxShadow: "#061123 0px 0px 40px 15px inset",
             backgroundAttachment: "fixed",
             backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
           }}
         />
         <Grid
@@ -359,7 +361,7 @@ const AboutUs = () => {
               fontSize: matchesLg ? "25px" : "30px",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
-              textAlign: "justify",
+              textAlign: "center",
             }}
           >
             {`Abruptly interrupted, I learned of a bear sighting nearby. Panicked and unfamiliar with such situations, I sought guidance. The kindness of my neighbor from house number 1957 and her friend was immediate. Together, we navigated safely home, turning a potential danger into a lesson about the unexpected closeness of neighbors.`}
@@ -377,6 +379,7 @@ const AboutUs = () => {
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "52%",
+            backgroundPosition: "center",
           }}
         ></Grid>
         <Grid
@@ -397,7 +400,7 @@ const AboutUs = () => {
               // fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
-              textAlign: "justify",
+              textAlign: "center",
             }}
           >
             {`Gratefully encountering the lady in the following days, I realized that, in a world of freedom, supporting one another is crucial. The experience inspired me to revive a project I had set aside. Now, with a motto of "A Neighbor May be Closer Than Family," I am reminded each time I pass house number 1957 that the true essence of humanity lies in the bonds we build with those around us.`}
