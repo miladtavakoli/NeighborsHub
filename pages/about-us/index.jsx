@@ -9,11 +9,11 @@ import Coding from "assets/images/coding.jpg";
 import Grid from "@mui/material/Grid";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import Woman from "assets/images/woman.jpg";
 const AboutUs = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  console.log(matches, "gggggggggg");
+  const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
   return matches ? (
     <Grid container>
       <Grid container alignContent={"center"}>
@@ -23,11 +23,18 @@ const AboutUs = () => {
           xs={12}
           sx={{
             height: "100vh",
-            backgroundImage: `url(${Coding.src})`,
-            backgroundRepeat: "no-repeat",
-            // boxShadow: "#333333 0px 0px 40px 15px inset",
+            justifyContent: "center",
           }}
-        />
+          container
+        >
+          <video height="100%" autoPlay muted loop>
+            <source
+              src={`/neighborsCelebrating_animation (4).mp4`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </Grid>
 
         <Grid
           item
@@ -37,7 +44,7 @@ const AboutUs = () => {
           justifyContent={"center"}
           alignItems={"center"}
           alignContent={"center"}
-          sx={{ height: "100vh" }}
+          sx={{ height: "100vh", backgroundColor: "#f3f3f3" }}
           direction={"column"}
         >
           <h1
@@ -78,15 +85,14 @@ const AboutUs = () => {
           direction={"column"}
           sx={{
             height: "100vh",
-            background:
-              "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
-            color: "#cbccce",
-            p: 10,
+            backgroundColor: "#f3f3f3",
+            // color: "#cbccce",
+            px: matchesLg ? 5 : 10,
           }}
         >
           <p
             style={{
-              fontSize: "30px",
+              fontSize: matchesLg ? "25px" : "30px",
               fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
@@ -138,12 +144,12 @@ const AboutUs = () => {
             height: "100vh",
             backgroundColor: "#061123",
             color: "white",
-            p: 10,
+            px: matchesLg ? 5 : 10,
           }}
         >
           <p
             style={{
-              fontSize: "30px",
+              fontSize: matchesLg ? "25px" : "30px",
               // fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
@@ -162,16 +168,16 @@ const AboutUs = () => {
           md={6}
           xs={12}
           sx={{
-            p: 10,
-            backgroundColor: "gray",
-            color: "white",
+            py: 0,
+            px: matchesLg ? 5 : 10,
+            backgroundColor: "#f3f3f3",
           }}
           justifyContent={"center"}
           alignItems={"center"}
         >
           <p
             style={{
-              fontSize: "30px",
+              fontSize: matchesLg ? "25px" : "30px",
               fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
@@ -185,7 +191,7 @@ const AboutUs = () => {
           xs={12}
           style={{
             height: "100vh",
-            backgroundImage: `url(${Neighbors.src})`,
+            backgroundImage: `url(${Woman.src})`,
             // backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "35% ",
@@ -194,6 +200,7 @@ const AboutUs = () => {
       </Grid>
     </Grid>
   ) : (
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     <Grid container>
       <Grid container alignContent={"center"}>
         <Grid
@@ -202,12 +209,32 @@ const AboutUs = () => {
           xs={12}
           sx={{
             height: "100vh",
-            backgroundImage: `url(${Coding.src})`,
-            backgroundAttachment: "fixed",
-            backgroundRepeat: "no-repeat",
-            boxShadow: "#333333 0px 0px 40px 15px inset",
+            justifyContent: "center",
+            position: "relative",
           }}
-        />
+          container
+        >
+          <video
+            style={{
+              // maxWidth: "100%",
+              maxHeight: "100%",
+              height: "100%",
+              // width: "300%",
+              position: "absolute",
+              top: "0",
+              right: "0",
+            }}
+            autoPlay
+            muted
+            loop
+          >
+            <source
+              src={`/neighborsCelebrating_animation (4).mp4`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </Grid>
 
         <Grid
           item
@@ -217,7 +244,8 @@ const AboutUs = () => {
           justifyContent={"center"}
           alignItems={"center"}
           alignContent={"center"}
-          sx={{ height: "100vh" }}
+          sx={{ height: "100vh", backgroundColor: "#f3f3f3" }}
+          direction={"column"}
         >
           <h1
             style={{
@@ -229,11 +257,11 @@ const AboutUs = () => {
               textAlign: "center",
             }}
           >
-            Neighborly Bonds
+            Neighbors Hub
           </h1>
           <h1
             style={{
-              fontSize: "30px",
+              fontSize: matchesLg ? "25px" : "30px",
               fontWeight: "200",
               color: "#6d4e2c",
               fontFamily: "Pacifico-Regular",
@@ -269,16 +297,18 @@ const AboutUs = () => {
           direction={"column"}
           sx={{
             // height: "100vh",
-            background:
-              "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
-            color: "#cbccce",
-            p: 10,
+            // background:
+            //   "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
+            backgroundColor: "#f3f3f3",
+            // color:
+            //   "radial-gradient( rgba(99,42,14,1) 0%, rgba(99,42,14,1) 50%, rgba(57,23,7,1) 100%)",
+            py: 2,
+            px: 5,
           }}
         >
           <p
             style={{
-              fontSize: "30px",
-              fontWeight: "lighter",
+              fontSize: matchesLg ? "25px" : "30px",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
               textAlign: "justify",
@@ -317,15 +347,16 @@ const AboutUs = () => {
           justifyContent={"center"}
           sx={{
             // height: "100vh",
-            backgroundColor: "#061123",
-            color: "white",
-            p: 10,
+            backgroundColor: "#f3f3f3",
+
+            // color: "white",
+            py: 2,
+            px: 5,
           }}
         >
           <p
             style={{
-              fontSize: "30px",
-              fontWeight: "lighter",
+              fontSize: matchesLg ? "25px" : "30px",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
               textAlign: "justify",
@@ -342,10 +373,10 @@ const AboutUs = () => {
           xs={12}
           sx={{
             height: "100%",
-            backgroundImage: `url(${Neighbors.src})`,
+            backgroundImage: `url(${Woman.src})`,
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
-            backgroundPosition: '52%'
+            backgroundPosition: "52%",
           }}
         ></Grid>
         <Grid
@@ -354,15 +385,16 @@ const AboutUs = () => {
           md={6}
           xs={12}
           sx={{
-            p: 10,
-            backgroundColor: "gray",
-            color: "white",
+            py: 2,
+            px: 5,
+            backgroundColor: "#f3f3f3",
+            // color: "white",
           }}
         >
           <p
             style={{
-              fontSize: "30px",
-              fontWeight: "lighter",
+              fontSize: matchesLg ? "25px" : "30px",
+              // fontWeight: "lighter",
               lineHeight: 1.5,
               fontFamily: "Cinzel",
               textAlign: "justify",
