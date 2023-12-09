@@ -44,7 +44,7 @@ const AboutUs = () => {
           justifyContent={"center"}
           alignItems={"center"}
           alignContent={"center"}
-          sx={{ height: "100vh", backgroundColor: "#f3f3f3" }}
+          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p :3 }}
           direction={"column"}
         >
           <h1
@@ -102,9 +102,7 @@ const AboutUs = () => {
             {`As a recent international student in Canada, I'm passionate about
             supporting fellow immigrants and embracing the rich cultural
             diversity of my new life. One chilly October evening, while video
-            calling my family, the silent streets left me feeling isolated. Yet,
-            a neighbor from house number 1957 would soon teach me the true
-            meaning of community`}
+            calling my family, the silent streets left me feeling isolated.`}
           </p>
         </Grid>
         <Grid
@@ -329,9 +327,7 @@ const AboutUs = () => {
             {`As a recent international student in Canada, I'm passionate about
             supporting fellow immigrants and embracing the rich cultural
             diversity of my new life. One chilly October evening, while video
-            calling my family, the silent streets left me feeling isolated. Yet,
-            a neighbor from house number 1957 would soon teach me the true
-            meaning of community`}
+            calling my family, the silent streets left me feeling isolated.`}
           </p>
         </Grid>
       </Grid>
