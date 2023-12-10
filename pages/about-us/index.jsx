@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 import "styles/styles.css";
 import Image from "next/image";
 import CanadaBoy from "assets/images/canadaBoy.jpg";
@@ -17,7 +19,7 @@ const AboutUs = () => {
   var w = typeof window !== "undefined" && window.innerWidth;
   var h = typeof window !== "undefined" && window.innerHeight;
   return matches ? (
-    <Grid container>
+    <Grid container sx={{ overflowX: "hidden" }}>
       <Grid container alignContent={"center"}>
         <Grid
           item
@@ -116,14 +118,29 @@ const AboutUs = () => {
         <Grid
           md={6}
           xs={12}
+          container
+          justifyContent={"center"}
+          alignItems={"center"}
           style={{
             height: "100vh",
-            backgroundImage: `url(${CanadaBoy.src})`,
+            overflow: "hidden",
+            position: "relative",
+            // backgroundImage: `url(${CanadaBoy.src})`,
             // boxShadow: "#333333 0px 0px 40px 15px inset",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "100% 0",
+            // backgroundRepeat: "no-repeat",
           }}
-        ></Grid>
+        >
+          <img
+            src={CanadaBoy.src}
+            style={{
+              minHeight: "100%",
+              minWidth: "100%",
+              maxHeight: "auto",
+              maxWidth: "auto",
+              position: "absolute",
+            }}
+          />
+        </Grid>
       </Grid>
       {/* ///////////////////////////////// */}
       <Grid container>
@@ -134,11 +151,21 @@ const AboutUs = () => {
           item
           sx={{
             height: "100vh",
-            backgroundImage: `url(${Bear.src})`,
-            // boxShadow: "#061123 0px 0px 40px 15px inset",
-            backgroundRepeat: "no-repeat",
+            overflow: "hidden",
+            position: "relative",
           }}
-        ></Grid>
+        >
+          <img
+            src={Bear.src}
+            style={{
+              minHeight: "100%",
+              minWidth: "100%",
+              maxHeight: "auto",
+              maxWidth: "auto",
+              position: "absolute",
+            }}
+          />
+        </Grid>
         <Grid
           container
           md={6}
@@ -197,12 +224,21 @@ const AboutUs = () => {
           xs={12}
           style={{
             height: "100vh",
-            backgroundImage: `url(${Woman.src})`,
-            // backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "35% ",
+            overflow: "hidden",
+            position: "relative",
           }}
-        ></Grid>
+        >
+          <img
+            src={Woman.src}
+            style={{
+              minHeight: "100%",
+              minWidth: "100%",
+              maxHeight: "auto",
+              maxWidth: "auto",
+              position: "absolute",
+            }}
+          />
+        </Grid>
       </Grid>
     </Grid>
   ) : (
