@@ -14,6 +14,8 @@ const AboutUs = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
+  var w = typeof window !== "undefined" && window.innerWidth;
+  var h = typeof window !== "undefined" && window.innerHeight;
   return matches ? (
     <Grid container>
       <Grid container alignContent={"center"}>
@@ -24,10 +26,16 @@ const AboutUs = () => {
           sx={{
             height: "100vh",
             justifyContent: "center",
+            overflow: "hidden",
           }}
           container
         >
-          <video height="100%" autoPlay muted loop>
+          <video
+            style={w / 2 > h ? { width: "100%" } : { height: "100%" }}
+            autoPlay
+            muted
+            loop
+          >
             <source
               src={`/neighborsCelebrating_animation (4).mp4`}
               type="video/mp4"
@@ -44,7 +52,7 @@ const AboutUs = () => {
           justifyContent={"center"}
           alignItems={"center"}
           alignContent={"center"}
-          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p :3 }}
+          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p: 3 }}
           direction={"column"}
         >
           <h1
@@ -199,8 +207,12 @@ const AboutUs = () => {
     </Grid>
   ) : (
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    <Grid container sx={{ overflowX: "hidden" }}>
-      <Grid container alignContent={"center"}>
+    <Grid container sx={{ overflowX: "hidden", height: "100vh" }}>
+      <Grid
+        sx={{ height: "100vh", overflow: "hidden" }}
+        container
+        alignContent={"center"}
+      >
         <Grid
           item
           md={6}
@@ -209,6 +221,7 @@ const AboutUs = () => {
             height: "100vh",
             justifyContent: "center",
             position: "relative",
+            overflow: "hidden",
           }}
           container
         >
@@ -261,16 +274,17 @@ const AboutUs = () => {
             </h1>
           </Grid>
           <video
-            style={{
-              // maxWidth: "100%",
-              maxHeight: "100%",
-              minHeight: "100%",
-              height: "100%",
-              // width: "300%",
-              // position: "absolute",
-              // top: "0",
-              // right: "0",
-            }}
+            // style={{
+            //   // maxWidth: "100%",
+            //   maxHeight: "100%",
+            //   minHeight: "100%",
+            //   height: "100%",
+            //   // width: "300%",
+            //   // position: "absolute",
+            //   // top: "0",
+            //   // right: "0",
+            // }}
+            style={{ height: "100%" }}
             autoPlay
             muted
             loop
