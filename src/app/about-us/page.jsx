@@ -35,6 +35,7 @@ const AboutUs = () => {
         container
         alignContent={"center"}
         xs={12}
+        item
       >
         <Grid
           item
@@ -51,7 +52,6 @@ const AboutUs = () => {
           <Grid
             item
             container
-            md={6}
             xs={12}
             justifyContent={"center"}
             alignItems={"center"}

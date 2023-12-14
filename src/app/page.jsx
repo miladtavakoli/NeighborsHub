@@ -18,7 +18,7 @@ const LandingPage = () => {
       <Grid container sx={{ pt: 10 }}>
         <Grid container item xs={5} direction={"column"} sx={{ flex: 1 }}>
           <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-            Discover Your Neighborhood's Hidden Gems
+            Discover Your Neighborhood&apos;s Hidden Gems
           </Typography>
           <Typography variant="body1" sx={{ pt: 2 }}>
             Welcome to our neighborhood services and products application.
