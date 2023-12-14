@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import BackgroundImage from "assets/images/landingPage.jpg";
@@ -14,20 +13,20 @@ import Header from "components/header";
 
 const LandingPage = () => {
   return (
-    <Box sx={{ height: "100vh" }}>
-      <Container maxWidth="lg">
-        <Header />
-        <Grid container sx={{ pt: 10 }}>
-          <Grid container item xs={5} direction={"column"} sx={{ flex: 1 }}>
-            <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-              Discover Your Neighborhood's Hidden Gems
-            </Typography>
-            <Typography variant="body1" sx={{ pt: 2 }}>
-              Welcome to our neighborhood services and products application.
-              Connect with your neighbors and explore a wide range of offerings
-              right at your fingertips.
-            </Typography>
-            <Grid sx={{ pt: 4 }}>
+    <Container maxWidth="lg">
+      <Header />
+      <Grid container sx={{ pt: 10 }}>
+        <Grid container item xs={5} direction={"column"} sx={{ flex: 1 }}>
+          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+            Discover Your Neighborhood's Hidden Gems
+          </Typography>
+          <Typography variant="body1" sx={{ pt: 2 }}>
+            Welcome to our neighborhood services and products application.
+            Connect with your neighbors and explore a wide range of offerings
+            right at your fingertips.
+          </Typography>
+          <Grid sx={{ pt: 4 }}>
+            <Link href="/app">
               <Button
                 variant="contained"
                 sx={{
@@ -38,6 +37,8 @@ const LandingPage = () => {
               >
                 Start for free
               </Button>
+            </Link>
+            <Link href="/about-us">
               <Button
                 variant="outlined"
                 sx={{
@@ -49,28 +50,28 @@ const LandingPage = () => {
               >
                 Learn More
               </Button>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            xs={7}
-            justifyContent={"flex-end"}
-            sx={{ flex: 1, height: "calc( 100vh - 300px )" }}
-          >
-            <img
-              src={BackgroundImage.src}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "cover",
-              }}
-              alt="Picture of the author"
-            />
+            </Link>
           </Grid>
         </Grid>
-      </Container>
-    </Box>
+        <Grid
+          container
+          item
+          xs={7}
+          justifyContent={"flex-end"}
+          sx={{ flex: 1, height: "calc( 100vh - 300px )" }}
+        >
+          <img
+            src={BackgroundImage.src}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "cover",
+            }}
+            alt="Picture of the author"
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

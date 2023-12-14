@@ -1,3 +1,4 @@
+"use client";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -20,7 +21,8 @@ const Header = () => {
         flex: 1,
         // backgroundImage: `url(${BackgroundImage.src})`,
         backgroundRepeat: "no-repeat",
-        pt: 5,
+        pt: 4,
+        pb: 3,
       }}
       justifyContent={"space-between"}
     >

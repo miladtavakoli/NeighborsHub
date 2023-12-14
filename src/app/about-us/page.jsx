@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
+import { useState } from "react";
 import "styles/styles.css";
 import Image from "next/image";
 import CanadaBoy from "assets/images/canadaBoy.jpg";
@@ -14,31 +15,163 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Woman from "assets/images/woman.jpg";
 import Header from "components/header";
 import Container from "@mui/material/Container";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { useRouter } from "next/navigation";
+
 const AboutUs = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
   var w = typeof window !== "undefined" && window.innerWidth;
   var h = typeof window !== "undefined" && window.innerHeight;
+  const [navigationValue, setNavigationValue] = useState(2);
+  const router = useRouter();
+
   return matches ? (
     <Grid container sx={{ overflowX: "hidden" }}>
-      <Container maxWidth="lg">
-        <Header />
-      </Container>
-      <Grid container alignContent={"center"}>
+      <Grid
+        sx={{ height: "100vh", overflow: "hidden" }}
+        container
+        alignContent={"center"}
+        xs={12}
+      >
         <Grid
           item
-          md={6}
           xs={12}
           sx={{
             height: "100vh",
-            justifyContent: "center",
+            position: "relative",
             overflow: "hidden",
           }}
           container
+          alignItems={"center"}
+          justifyContent={"center"}
         >
+          <Grid
+            item
+            container
+            md={6}
+            xs={12}
+            justifyContent={"center"}
+            alignItems={"center"}
+            alignContent={"center"}
+            sx={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              textShadow: "0 0 20px black",
+              // height: "250px",
+              backgroundImage:
+                "radial-gradient( rgb(255,255,255 , 0.1) ,   transparent 70% )",
+              margin: "auto",
+              // border: "1px solid red",
+            }}
+            direction={"column"}
+          >
+            <h1
+              style={{
+                fontSize: "90px",
+                margin: "10px 0",
+                fontWeight: "bolder",
+                color: "white",
+                fontFamily: "Ephesis-Regular",
+                textAlign: "center",
+                fontWeight: "bold",
+                // "-webkit-text-stroke": "1px white" /* width and color */,
+              }}
+            >
+              Neighbors Hub
+            </h1>
+            <h1
+              style={{
+                fontSize: matchesLg ? "25px" : "30px",
+                fontWeight: "200",
+                color: "white",
+                fontFamily: "Pacifico-Regular",
+                fontStyle: "italic",
+                textAlign: "center",
+              }}
+            >
+              A Tale of Connection Beyond Borders
+            </h1>
+          </Grid>
+          <Grid
+            style={{
+              position: "absolute",
+              top: 20,
+              left: 0,
+              right: 0,
+              zIndex: 1000,
+            }}
+          >
+            <Grid container justifyContent={"center"}>
+              <BottomNavigation
+                showLabels
+                value={navigationValue}
+                onChange={(event, newValue) => {
+                  setNavigationValue(newValue);
+                }}
+                sx={{
+                  width: "fit-content",
+                  backgroundColor: "white",
+                  borderRadius: "5px",
+                }}
+              >
+                <BottomNavigationAction
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      color: "black!important",
+                      borderBottom: '3px solid black'
+                    },
+                  }}
+                  label="Home"
+                  onClick={() => router.push("/")}
+                />
+                <BottomNavigationAction
+                  label="App"
+                  onClick={() => router.push("/app")}
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      color: "black!important",
+                      borderBottom: '3px solid black'
+                    },
+                  }}
+                />
+                <BottomNavigationAction
+                  label="About Us"
+                  onClick={() => router.push("/about-us")}
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      color: "black!important",
+                      borderBottom: '3px solid black'
+                    },
+                  }}
+                />
+              </BottomNavigation>
+            </Grid>
+          </Grid>
           <video
-            style={w / 2 > h ? { width: "100%" } : { height: "100%" }}
+            style={{
+              marginTop: h * 1.33 > w ? 0 : "-190px",
+              width: w > h * 1.33 ? "100%" : "",
+              height: h * 1.33 > w ? "100%" : "",
+            }}
             autoPlay
             muted
             loop
@@ -49,43 +182,6 @@ const AboutUs = () => {
             />
             Your browser does not support the video tag.
           </video>
-        </Grid>
-
-        <Grid
-          item
-          container
-          md={6}
-          xs={12}
-          justifyContent={"center"}
-          alignItems={"center"}
-          alignContent={"center"}
-          sx={{ height: "100vh", backgroundColor: "#f3f3f3", p: 3 }}
-          direction={"column"}
-        >
-          <h1
-            style={{
-              fontSize: "80px",
-              margin: "10px 0",
-              fontWeight: "bolder",
-              color: "#402E32",
-              fontFamily: "Ephesis-Regular",
-              textAlign: "center",
-            }}
-          >
-            Neighbors Hub
-          </h1>
-          <h1
-            style={{
-              fontSize: "30px",
-              fontWeight: "200",
-              color: "#6d4e2c",
-              fontFamily: "Cinzel",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            A Tale of Connection Beyond Borders
-          </h1>
         </Grid>
       </Grid>
       {/* ///////////////////////////////// */}
