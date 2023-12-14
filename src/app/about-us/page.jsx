@@ -1,9 +1,9 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import "styles/styles.css";
 import Image from "next/image";
 import CanadaBoy from "assets/images/canadaBoy.jpg";
-import AngryBear from "assets/images/angryBear.jpg";
 import Bear from "assets/images/bear.jpg";
 // import Neighbors from "assets/images/neighbors.jpg";
 import Neighbors from "assets/images/neighborsCelebrating.jpg";
@@ -12,6 +12,8 @@ import Grid from "@mui/material/Grid";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Woman from "assets/images/woman.jpg";
+import Header from "components/header";
+import Container from "@mui/material/Container";
 const AboutUs = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
@@ -20,6 +22,9 @@ const AboutUs = () => {
   var h = typeof window !== "undefined" && window.innerHeight;
   return matches ? (
     <Grid container sx={{ overflowX: "hidden" }}>
+      <Container maxWidth="lg">
+        <Header />
+      </Container>
       <Grid container alignContent={"center"}>
         <Grid
           item
