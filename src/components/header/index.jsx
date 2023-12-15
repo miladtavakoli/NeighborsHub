@@ -44,6 +44,7 @@ const Header = () => {
         pb: 3,
       }}
       justifyContent={"space-between"}
+      alignItems={'center'}
     >
       <Hidden mdUp>
         <Grid xs={12} container justifyContent={"space-between"}>
