@@ -10,16 +10,31 @@ import Typography from "@mui/material/Typography";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Header from "components/header";
+import Hidden from "@mui/material/Hidden";
 
 const LandingPage = () => {
   return (
     <Container maxWidth="lg">
       <Header />
-      <Grid container sx={{ pt: 10 }}>
-        <Grid container item xs={5} direction={"column"} sx={{ flex: 1 }}>
-          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-            Discover Your Neighborhood&apos;s Hidden Gems
-          </Typography>
+      <Grid container sx={{ pt: { lg: 10, sm: 3 } }}>
+        <Grid
+          container
+          item
+          md={5}
+          xs={12}
+          direction={"column"}
+          sx={{ flex: 1, p: { md: 0, xs: 5 } }}
+        >
+          <Hidden smDown>
+            <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+              Discover Your Neighborhood&apos;s Hidden Gems
+            </Typography>
+          </Hidden>
+          <Hidden smUp>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              Discover Your Neighborhood&apos;s Hidden Gems
+            </Typography>
+          </Hidden>
           <Typography variant="body1" sx={{ pt: 2 }}>
             Welcome to our neighborhood services and products application.
             Connect with your neighbors and explore a wide range of offerings
@@ -33,6 +48,8 @@ const LandingPage = () => {
                   backgroundColor: "#4F62C9",
                   borderRadius: "15px",
                   boxShadow: "none",
+                  mt: 1,
+                  mr: 1,
                 }}
               >
                 Start for free
@@ -45,7 +62,8 @@ const LandingPage = () => {
                   // backgroundColor: "#4F62C9",
                   borderRadius: "15px",
                   boxShadow: "none",
-                  mx: 1,
+                  mx: { xs: 0, sm: 1 },
+                  mt: 1,
                 }}
               >
                 Learn More
@@ -53,23 +71,29 @@ const LandingPage = () => {
             </Link>
           </Grid>
         </Grid>
-        <Grid
-          container
-          item
-          xs={7}
-          justifyContent={"flex-end"}
-          sx={{ flex: 1, height: "calc( 100vh - 300px )" }}
-        >
-          <img
-            src={BackgroundImage.src}
-            style={{
-              maxWidth: "100%",
-              maxHeight: "100%",
-              objectFit: "cover",
+        <Hidden mdDown>
+          <Grid
+            container
+            item
+            xs={7}
+            justifyContent={"flex-end"}
+            sx={{
+              flex: 1,
+              height: "calc( 100vh - 300px )",
+              pl: { md: 2, lg: 0 },
             }}
-            alt="Picture of the author"
-          />
-        </Grid>
+          >
+            <img
+              src={BackgroundImage.src}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "cover",
+              }}
+              alt="Picture of the author"
+            />
+          </Grid>
+        </Hidden>
       </Grid>
     </Container>
   );
