@@ -123,12 +123,12 @@ const Header = () => {
           </BottomNavigation>
         </Grid>
         <Grid>
-          <Link href="/signup">
+          <Link href="/login">
             <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
-              Sign in
+              Login
             </Button>
           </Link>
-          <Link href="/signin">
+          <Link href="/signup">
             <Button
               variant="contained"
               sx={{
@@ -201,7 +201,7 @@ const Header = () => {
                   <ListItemIcon>
                     <LoginIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Sign In"} />
+                  <ListItemText primary={"SignOut"} />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -211,7 +211,7 @@ const Header = () => {
                   <ListItemIcon>
                     <LogoutIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"SignOut"} />
+                  <ListItemText primary={"Login"} />
                 </ListItemButton>
               </ListItem>
             </Link>
