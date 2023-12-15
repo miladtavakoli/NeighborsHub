@@ -62,7 +62,7 @@ const LandingPage = () => {
                   // backgroundColor: "#4F62C9",
                   borderRadius: "15px",
                   boxShadow: "none",
-                  mx: { xs: 0, sm: 1 },
+                  mx: { xs: 0 },
                   mt: 1,
                 }}
               >

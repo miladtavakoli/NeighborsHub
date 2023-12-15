@@ -44,7 +44,7 @@ const Header = () => {
         pb: 3,
       }}
       justifyContent={"space-between"}
-      alignItems={'center'}
+      alignItems={"center"}
     >
       <Hidden mdUp>
         <Grid xs={12} container justifyContent={"space-between"}>
@@ -164,47 +164,57 @@ const Header = () => {
           <Divider />
 
           <List>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Home"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LocationOnIcon />
-                </ListItemIcon>
-                <ListItemText primary={"App"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LightbulbIcon />
-                </ListItemIcon>
-                <ListItemText primary={"About Us"} />
-              </ListItemButton>
-            </ListItem>
+            <Link href="/">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Home"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/app">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LocationOnIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"App"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/about-us">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LightbulbIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"About Us"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
             <Divider />
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LoginIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Sign In"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LogoutIcon />
-                </ListItemIcon>
-                <ListItemText primary={"SignOut"} />
-              </ListItemButton>
-            </ListItem>
+            <Link href="/signin">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Sign In"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link href="/signup">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"SignOut"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           </List>
         </Grid>
       </Drawer>

@@ -127,7 +127,7 @@ const AboutUs = () => {
                     textShadow: "2px 2px 100px white",
                     "&.Mui-selected": {
                       color: "black!important",
-                      borderBottom: '3px solid black'
+                      borderBottom: "3px solid black",
                     },
                   }}
                   label="Home"
@@ -144,7 +144,7 @@ const AboutUs = () => {
                     textShadow: "2px 2px 100px white",
                     "&.Mui-selected": {
                       color: "black!important",
-                      borderBottom: '3px solid black'
+                      borderBottom: "3px solid black",
                     },
                   }}
                 />
@@ -159,7 +159,7 @@ const AboutUs = () => {
                     textShadow: "2px 2px 100px white",
                     "&.Mui-selected": {
                       color: "black!important",
-                      borderBottom: '3px solid black'
+                      borderBottom: "3px solid black",
                     },
                   }}
                 />
@@ -362,6 +362,81 @@ const AboutUs = () => {
           }}
           container
         >
+          <Grid
+            style={{
+              position: "absolute",
+              top: 20,
+              left: 0,
+              right: 0,
+              zIndex: 1000,
+            }}
+          >
+            <Grid container justifyContent={"center"}>
+              <BottomNavigation
+                showLabels
+                value={navigationValue}
+                onChange={(event, newValue) => {
+                  setNavigationValue(newValue);
+                }}
+                sx={{
+                  width: "fit-content",
+                  backgroundColor: "transparent",
+                  // borderRadius: "5px",
+                  // borderLeft: "2px solid white",
+                  // borderRight: "2px solid white",
+                }}
+              >
+                <BottomNavigationAction
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      color: "white!important",
+                      borderBottom: "2px solid white",
+                      border: "2px solid white",
+                    },
+                  }}
+                  label="Home"
+                  onClick={() => router.push("/")}
+                />
+                <BottomNavigationAction
+                  label="App"
+                  onClick={() => router.push("/app")}
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      color: "white!important",
+                      border: "2px solid white",
+                      borderBottom: "2px solid white",
+                    },
+                  }}
+                />
+                <BottomNavigationAction
+                  label="About Us"
+                  onClick={() => router.push("/about-us")}
+                  sx={{
+                    width: "100px",
+                    // color: "white!important",
+                    fontWeight: "bold",
+                    mx: 2,
+                    textShadow: "2px 2px 100px white",
+                    "&.Mui-selected": {
+                      border: "2px solid white",
+                      color: "white!important",
+                      borderBottom: "2px solid white",
+                    },
+                  }}
+                />
+              </BottomNavigation>
+            </Grid>
+          </Grid>
           <Grid
             item
             container

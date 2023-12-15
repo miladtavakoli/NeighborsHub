@@ -18,3 +18,13 @@ html {
   font-family: "Cinzel";
   src: url("../assets/fonts/Cinzel/Cinzel-VariableFont_wght.ttf");
 }
+
+a {
+  color:black;
+  text-decoration: none;
+
+  &[aria-current] {
+    background-color: #faf9f4;
+    color: #353637;
+  }
+}
