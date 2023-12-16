@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import Header from "components/header";
 
-const PublicLayout = ({ children }) => {
+const HeaderFooter = ({ children }) => {
   return (
     <Container maxWidth="lg">
       <Header />
@@ -10,4 +10,4 @@ const PublicLayout = ({ children }) => {
   );
 };
 
-export default PublicLayout;
+export default HeaderFooter;

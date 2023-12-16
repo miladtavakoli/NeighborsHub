@@ -11,6 +11,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Header from "components/header";
 import Hidden from "@mui/material/Hidden";
+import Layout from "layout/HeaderFooter";
 
 const LandingPage = () => {
   return (
@@ -96,4 +97,12 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+const Test = () => {
+  return (
+    <Layout>
+      <LandingPage />
+    </Layout>
+  );
+};
+
+export default Test;

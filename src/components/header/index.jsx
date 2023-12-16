@@ -123,9 +123,9 @@ const Header = () => {
           </BottomNavigation>
         </Grid>
         <Grid>
-          <Link href="/login">
+          <Link href="/signin">
             <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
-              Login
+              Sign in
             </Button>
           </Link>
           <Link href="/signup">
