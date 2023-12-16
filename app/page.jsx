@@ -25,7 +25,7 @@ const LandingPage = () => {
         sx={{ flex: 1, p: { md: 0, xs: 5 } }}
       >
         <Hidden smDown>
-          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h3" sx={{ fontWeight: "bold", mt: 5 }}>
             Discover Your Neighborhood&apos;s Hidden Gems
           </Typography>
         </Hidden>
@@ -80,13 +80,14 @@ const LandingPage = () => {
             flex: 1,
             height: "calc( 100vh - 300px )",
             pl: { md: 2, lg: 0 },
+            p: { lg: 2 },
           }}
         >
           <img
             src={BackgroundImage.src}
             style={{
               maxWidth: "100%",
-              maxHeight: "100%",
+              maxHeight: "500px",
               objectFit: "cover",
             }}
             alt="Picture of the author"
