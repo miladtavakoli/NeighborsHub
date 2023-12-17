@@ -26,7 +26,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
     console.log(otp, emailPhoneNumber, "gggggg");
     APIS.auth
       .optLoginChecking({
-        email_mobile: emailPhoneNumber.value,
+        mobile: emailPhoneNumber.value,
         otp: otp.value,
       })
       .then(() => {
