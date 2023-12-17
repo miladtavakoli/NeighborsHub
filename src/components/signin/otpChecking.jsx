@@ -15,11 +15,12 @@ import APIS from "services/apis";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
+import { useRouter } from "next/navigation";
 
 const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -31,7 +32,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
       })
       .then(() => {
         enqueueSnackbar("Successful", { variant: "success" });
-        setCurrentState(STATUS.PASSWORD_SETTING);
+        router.push("/app");
       })
       .catch((message) => {
         enqueueSnackbar(message, { variant: "error" });

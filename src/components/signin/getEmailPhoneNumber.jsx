@@ -14,6 +14,7 @@ import APIS from "services/apis";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
+import Link from "next/link";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -98,9 +99,22 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
               mt: 2,
             }}
           >
-            Sign up with google
+            Sign in with google
             <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
           </Button>
+        </Grid>
+        <Divider sx={{ mt: 2 }} />
+
+        <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+          <Typography
+            sx={{ mr: 1, fontSize: "14px" }}
+          >{`You don't have account? `}</Typography>
+          <Link href="/signup">
+            <Typography
+              color="primary"
+              sx={{ fontSize: "14px" }}
+            >{`Submit here`}</Typography>
+          </Link>
         </Grid>
       </Card>
     </Container>
