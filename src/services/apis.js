@@ -13,7 +13,7 @@ const apis = {
     optSending: (data) =>
       apiConfig({ url: "/auth/send-otp-login", method: "post", data }),
     optLoginChecking: (data) =>
-      apiConfig({ url: "}/auth/verify-otp-login", method: "post", data }),
+      apiConfig({ url: "/auth/verify-otp-login", method: "post", data }),
   },
 };
 
