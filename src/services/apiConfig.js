@@ -1,17 +1,22 @@
 import axios from "axios";
 import { BASE_URL } from "services/constants";
 import { useSnackbar } from "notistack";
+const controller = new AbortController();
 
 const apiConfig = ({ method, data, url }) =>
   axios({
     method: method.toUpperCase(),
     url: BASE_URL + url,
     withCredentials: false,
-    "content-type": "application/x-www-form-urlencoded",
+    signal: controller.signal,
+    "content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    ...data,
+    data,
   })
-    .then((res) => console.log(res, "1"))
+    .then((res) => {
+      console.log(res, 'response1');
+      return res;
+    })
     .catch((err) => {
       throw err.response.data.message;
     });
