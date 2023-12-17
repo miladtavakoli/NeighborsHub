@@ -55,42 +55,40 @@ const PasswordChecking = ({
   };
 
   return (
-    <Container maxWidth="xs">
-      <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"}>Enter your password</Typography>
-        <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="password"
-            type="password"
-            name="your password1"
-            autocomplete="one-time-code"
-            {...password}
-          />
-          <Button
-            sx={{ mt: 2 }}
-            fullWidth
-            variant="contained"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
-          </Button>
-          <Button
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            disabled={loading}
-            color="secondary"
-            onClick={handleBack}
-          >
-            Back
-          </Button>
-        </form>
-      </Card>
-    </Container>
+    <>
+      <Typography textAlign={"center"}>Enter your password</Typography>
+      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="password"
+          type="password"
+          name="your password1"
+          autocomplete="one-time-code"
+          {...password}
+        />
+        <Button
+          sx={{ mt: 2 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+        </Button>
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          disabled={loading}
+          color="secondary"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+      </form>
+    </>
   );
 };
 

@@ -5,6 +5,9 @@ import OtpChecking from "components/signin/otpChecking";
 import PasswordChecking from "components/signin/passwordChecking";
 import STATUS from "components/signin/status";
 import { useInputHandler } from "hooks/useInputHandler";
+import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 const Signup = () => {
   const [currentState, setCurrentState] = useState(STATUS.GET_EMAIL_MOBILE);
@@ -37,7 +40,20 @@ const Signup = () => {
     ),
   };
 
-  return state[currentState];
+  return (
+    <Container maxWidth="xs">
+      <Card sx={{ p: 4 }}>
+        <Typography
+          variant="h6"
+          textAlign={"center"}
+          sx={{ mb: 2, color: "gray" }}
+        >
+          Sign In
+        </Typography>
+        {state[currentState]}{" "}
+      </Card>
+    </Container>
+  );
 };
 
 export default Signup;

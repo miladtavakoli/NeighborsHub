@@ -42,7 +42,7 @@ const PasswordSetting = ({
         .then((res) => {
           console.log(res);
           router.push("/app");
-          localStorage.setItem('token' , res.data.data.access_token)
+          localStorage.setItem("token", res.data.data.access_token);
         })
         .catch((message) => {
           enqueueSnackbar(message, { variant: "error" });
@@ -63,52 +63,50 @@ const PasswordSetting = ({
   };
 
   return (
-    <Container maxWidth="xs">
-      <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"}>Submit form</Typography>
-        <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="password"
-            type="password"
-            name="your password1"
-            autocomplete="one-time-code"
-            {...password}
-          />
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="repeat your password"
-            type="password"
-            name="your repeat password"
-            autocomplete="one-time-code"
-            {...repeatPassword}
-          />
-          <Button
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="contained"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
-          </Button>
-          <Button
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            disabled={loading}
-            color="secondary"
-            onClick={handleBack}
-          >
-            Back
-          </Button>
-        </form>
-      </Card>
-    </Container>
+    <>
+      <Typography textAlign={"center"}>Enter your password</Typography>
+      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="password"
+          type="password"
+          name="your password1"
+          autocomplete="one-time-code"
+          {...password}
+        />
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="repeat your password"
+          type="password"
+          name="your repeat password"
+          autocomplete="one-time-code"
+          {...repeatPassword}
+        />
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+        </Button>
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          disabled={loading}
+          color="secondary"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+      </form>
+    </>
   );
 };
 

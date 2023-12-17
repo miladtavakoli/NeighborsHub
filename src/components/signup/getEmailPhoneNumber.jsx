@@ -38,60 +38,58 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
       });
   };
   return (
-    <Container maxWidth="xs">
-      <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"} sx={{ mb: 2, color: "gray" }}>
-          We need something here
-        </Typography>
-        <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="Email Or Phone Number"
-            // autocomplete="off"
-            name="your phone"
-            {...emailPhoneNumber}
-          />
-          <Button
-            sx={{ mt: 2 }}
-            fullWidth
-            variant="contained"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
-          </Button>
-        </form>
-        <Divider sx={{ mt: 2 }} />
-        <Grid container justifyContent={"center"}>
-          <Button
-            variant="outlined"
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              borderRadius: "15px",
-              mt: 2,
-            }}
-          >
-            Sign in with google
-            <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
-          </Button>
-        </Grid>
-        <Divider sx={{ mt: 2 }} />
-        <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+    <>
+      <Typography textAlign={"center"} sx={{ color: "gray" }}>
+        Enter you username
+      </Typography>
+      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="Email Or Phone Number"
+          // autocomplete="off"
+          name="your phone"
+          {...emailPhoneNumber}
+        />
+        <Button
+          sx={{ mt: 2 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+        </Button>
+      </form>
+      <Divider sx={{ mt: 2 }} />
+      <Grid container justifyContent={"center"}>
+        <Button
+          variant="outlined"
+          sx={{
+            color: "black",
+            border: "1px solid black",
+            borderRadius: "15px",
+            mt: 2,
+          }}
+        >
+          Sign in with google
+          <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
+        </Button>
+      </Grid>
+      <Divider sx={{ mt: 2 }} />
+      <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+        <Typography
+          sx={{ mr: 1, fontSize: "14px" }}
+        >{`You have already submited? `}</Typography>
+        <Link href="/signin">
           <Typography
-            sx={{ mr: 1, fontSize: "14px" }}
-          >{`You have already submited? `}</Typography>
-          <Link href="/signin">
-            <Typography
-              color="primary"
-              sx={{ fontSize: "14px" }}
-            >{`login here`}</Typography>
-          </Link>
-        </Grid>
-      </Card>
-    </Container>
+            color="primary"
+            sx={{ fontSize: "14px" }}
+          >{`login here`}</Typography>
+        </Link>
+      </Grid>
+    </>
   );
 };
 

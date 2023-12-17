@@ -48,40 +48,39 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"}>Enter your code</Typography>
-        <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="Code"
-            name='your code'
-            {...otp}
-          />
-          <Button
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="contained"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
-          </Button>
-          <Button
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            disabled={loading}
-            color="secondary"
-            onClick={handleBack}
-          >
-            Back
-          </Button>
-        </form>
-      </Card>
-    </Container>
+    <>
+      <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <Typography textAlign={"center"}>Enter your Code</Typography>
+
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="Code"
+          name="your code"
+          {...otp}
+        />
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+        </Button>
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          disabled={loading}
+          color="secondary"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+      </form>
+    </>
   );
 };
 

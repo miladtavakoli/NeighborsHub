@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 // import { MuiTelInput } from "mui-tel-input";
 // import ReactPhoneInput from 'react-phone-input-material-ui';
@@ -43,81 +41,78 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
       });
   };
   return (
-    <Container maxWidth="xs">
-      <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"} sx={{ mb: 2, color: "gray" }}>
-          Enter Your Username
-        </Typography>
-        {/* <form style={{ width: "100%" }} onSubmit={handleSubmit}> */}
-        <TextField
-          sx={{ mt: 1 }}
-          fullWidth
-          variant="outlined"
-          label="Email Or Phone Number"
-          // autocomplete="off"
-          name="your phone"
-          {...emailPhoneNumber}
-        />
-        <Button
-          sx={{ mt: 2 }}
-          fullWidth
-          variant="contained"
-          type="submit"
-          disabled={loading || !emailPhoneNumber.value}
-          name="passwordLogin"
-          onClick={handleSubmitPassword}
-        >
-          Login With Password
-        </Button>
-        <Button
-          sx={{ mt: 1 }}
-          fullWidth
-          variant="contained"
-          type="submit"
-          color="secondary"
-          name="otpLogin"
-          disabled={
-            loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
-          }
-          onClick={handleSubmitOtp}
-        >
-          {loading ? (
-            <CircularProgress size={25} sx={{ mx: 1 }} />
-          ) : (
-            "Login With OTP"
-          )}
-        </Button>
-        {/* </form> */}
-        <Divider sx={{ mt: 2 }} />
-        <Grid container justifyContent={"center"}>
-          <Button
-            variant="outlined"
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              borderRadius: "15px",
-              mt: 2,
-            }}
-          >
-            Sign in with google
-            <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
-          </Button>
-        </Grid>
-        <Divider sx={{ mt: 2 }} />
+    <>
+      <Typography textAlign={"center"}>Enter your password</Typography>
 
-        <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+      {/* <form style={{ width: "100%" }} onSubmit={handleSubmit}> */}
+      <TextField
+        sx={{ mt: 1 }}
+        fullWidth
+        variant="outlined"
+        label="Email Or Phone Number"
+        // autocomplete="off"
+        name="your phone"
+        {...emailPhoneNumber}
+      />
+      <Button
+        sx={{ mt: 2 }}
+        fullWidth
+        variant="contained"
+        type="submit"
+        disabled={loading || !emailPhoneNumber.value}
+        name="passwordLogin"
+        onClick={handleSubmitPassword}
+      >
+        Login With Password
+      </Button>
+      <Button
+        sx={{ mt: 1 }}
+        fullWidth
+        variant="contained"
+        type="submit"
+        color="secondary"
+        name="otpLogin"
+        disabled={
+          loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
+        }
+        onClick={handleSubmitOtp}
+      >
+        {loading ? (
+          <CircularProgress size={25} sx={{ mx: 1 }} />
+        ) : (
+          "Login With OTP"
+        )}
+      </Button>
+      {/* </form> */}
+      <Divider sx={{ mt: 2 }} />
+      <Grid container justifyContent={"center"}>
+        <Button
+          variant="outlined"
+          sx={{
+            color: "black",
+            border: "1px solid black",
+            borderRadius: "15px",
+            mt: 2,
+          }}
+        >
+          Sign in with google
+          <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
+        </Button>
+      </Grid>
+      <Divider sx={{ mt: 2 }} />
+
+      <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+        <Typography
+          sx={{ mr: 1, fontSize: "14px" }}
+        >{`You don't have account? `}</Typography>
+        <Link href="/signup">
           <Typography
-            sx={{ mr: 1, fontSize: "14px" }}
-          >{`You don't have account? `}</Typography>
-          <Link href="/signup">
-            <Typography
-              color="primary"
-              sx={{ fontSize: "14px" }}
-            >{`Submit here`}</Typography>
-          </Link>
-        </Grid>
-      </Card>
-    </Container>
+            color="primary"
+            sx={{ fontSize: "14px" }}
+          >{`Submit here`}</Typography>
+        </Link>
+      </Grid>
+    </>
   );
 };
 
