@@ -19,14 +19,19 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmitPassword = (e) => {
+    e.preventDefault();
+    setCurrentState(STATUS.PASSWORD_CHECKING);
+  };
+  const handleSubmitOtp = (e) => {
     e.preventDefault();
     setLoading(true);
     APIS.auth
-      .preRegister({
-        email_mobile: emailPhoneNumber.value,
+      .optSending({
+        mobile: emailPhoneNumber.value,
       })
       .then(() => {
+        enqueueSnackbar("Code Sent", { variant: "success" });
         setCurrentState(STATUS.OTP_CHECKING);
       })
       .catch((message) => {
@@ -40,28 +45,48 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
     <Container maxWidth="xs">
       <Card sx={{ p: 4 }}>
         <Typography textAlign={"center"} sx={{ mb: 2, color: "gray" }}>
-          We need something here
+          Enter Your Username
         </Typography>
-        <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <TextField
-            sx={{ mt: 1 }}
-            fullWidth
-            variant="outlined"
-            label="Email Or Phone Number"
-            // autocomplete="off"
-            name='your phone'
-            {...emailPhoneNumber}
-          />
-          <Button
-            sx={{ mt: 2 }}
-            fullWidth
-            variant="contained"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
-          </Button>
-        </form>
+        {/* <form style={{ width: "100%" }} onSubmit={handleSubmit}> */}
+        <TextField
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="outlined"
+          label="Email Or Phone Number"
+          // autocomplete="off"
+          name="your phone"
+          {...emailPhoneNumber}
+        />
+        <Button
+          sx={{ mt: 2 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading || !emailPhoneNumber.value}
+          name="passwordLogin"
+          onClick={handleSubmitPassword}
+        >
+          Login With Password
+        </Button>
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          color="secondary"
+          name="otpLogin"
+          disabled={
+            loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
+          }
+          onClick={handleSubmitOtp}
+        >
+          {loading ? (
+            <CircularProgress size={25} sx={{ mx: 1 }} />
+          ) : (
+            "Login With OTP"
+          )}
+        </Button>
+        {/* </form> */}
         <Divider sx={{ mt: 2 }} />
         <Grid container justifyContent={"center"}>
           <Button

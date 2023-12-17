@@ -25,7 +25,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
     setLoading(true);
     console.log(otp, emailPhoneNumber, "gggggg");
     APIS.auth
-      .otpChecking({
+      .otpSignupChecking({
         email_mobile: emailPhoneNumber.value,
         otp: otp.value,
       })
@@ -55,7 +55,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
             fullWidth
             variant="outlined"
             label="Code"
-            name='your code'
+            name="your code"
             {...otp}
           />
           <Button

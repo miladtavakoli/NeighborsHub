@@ -3,7 +3,7 @@ import { BASE_URL } from "services/constants";
 import { useSnackbar } from "notistack";
 const controller = new AbortController();
 
-const apiConfig = ({ method, data, url }) =>
+const apiConfig = ({ method, data = {}, url }) =>
   axios({
     method: method.toUpperCase(),
     url: BASE_URL + url,
@@ -14,7 +14,7 @@ const apiConfig = ({ method, data, url }) =>
     data,
   })
     .then((res) => {
-      console.log(res, 'response1');
+      console.log(res, "response1");
       return res;
     })
     .catch((err) => {

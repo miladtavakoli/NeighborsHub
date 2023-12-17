@@ -3,6 +3,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
+import { useInputHandler } from "hooks/useInputHandler";
 import TextField from "@mui/material/TextField";
 // import { MuiTelInput } from "mui-tel-input";
 // import ReactPhoneInput from 'react-phone-input-material-ui';
@@ -14,20 +15,31 @@ import APIS from "services/apis";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
+import { useRouter } from "next/navigation";
 
-const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
+const PasswordChecking = ({
+  password,
+  setCurrentState,
+  emailPhoneNumber,
+  otp,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     APIS.auth
-      .preRegister({
+      .passwordLogin({
         email_mobile: emailPhoneNumber.value,
+        password: password.value,
       })
-      .then(() => {
-        setCurrentState(STATUS.OTP_CHECKING);
+      .then((res) => {
+        enqueueSnackbar("Successful", { variant: "success" });
+        console.log(res);
+        router.push("/app");
+        localStorage.setItem("token", res.data.data.access_token);
       })
       .catch((message) => {
         enqueueSnackbar(message, { variant: "error" });
@@ -36,21 +48,26 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         setLoading(false);
       });
   };
+
+  const handleBack = () => {
+    password.onChange({ target: { value: "" } });
+    setCurrentState(STATUS.GET_EMAIL_MOBILE);
+  };
+
   return (
     <Container maxWidth="xs">
       <Card sx={{ p: 4 }}>
-        <Typography textAlign={"center"} sx={{ mb: 2, color: "gray" }}>
-          We need something here
-        </Typography>
+        <Typography textAlign={"center"}>Enter your password</Typography>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
           <TextField
             sx={{ mt: 1 }}
             fullWidth
             variant="outlined"
-            label="Email Or Phone Number"
-            // autocomplete="off"
-            name='your phone'
-            {...emailPhoneNumber}
+            label="password"
+            type="password"
+            name="your password1"
+            autocomplete="one-time-code"
+            {...password}
           />
           <Button
             sx={{ mt: 2 }}
@@ -61,25 +78,20 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           >
             {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
           </Button>
-        </form>
-        <Divider sx={{ mt: 2 }} />
-        <Grid container justifyContent={"center"}>
           <Button
+            sx={{ mt: 1 }}
+            fullWidth
             variant="outlined"
-            sx={{
-              color: "black",
-              border: "1px solid black",
-              borderRadius: "15px",
-              mt: 2,
-            }}
+            disabled={loading}
+            color="secondary"
+            onClick={handleBack}
           >
-            Sign up with google
-            <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
+            Back
           </Button>
-        </Grid>
+        </form>
       </Card>
     </Container>
   );
 };
 
-export default GetEmailPhoneNumber;
+export default PasswordChecking;
