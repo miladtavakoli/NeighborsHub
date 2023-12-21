@@ -27,7 +27,13 @@ const List = () => {
         </Card>
       </Grid>
       <Modal open={open} onClose={handleClose}>
-        <Map />
+        <Grid
+          container
+          justifyContent={"center"}
+          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 180px )" }}
+        >
+          <Map />
+        </Grid>
       </Modal>
     </>
   );

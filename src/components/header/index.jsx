@@ -28,6 +28,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import PersonIcon from '@mui/icons-material/Person';
 
 const Header = () => {
   const [navigationValue, setNavigationValue] = useState(0);
@@ -191,6 +192,17 @@ const Header = () => {
                     <LightbulbIcon />
                   </ListItemIcon>
                   <ListItemText primary={"About Us"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Divider />
+            <Link href="/profile">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Profile"} />
                 </ListItemButton>
               </ListItem>
             </Link>
