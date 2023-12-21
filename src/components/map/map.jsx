@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import Grid from "@mui/material/Grid";
 
-export default function Map() {
+export default function Map({ onClick = () => {} }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng] = useState(-123.1207);
@@ -26,7 +26,7 @@ export default function Map() {
 
   return (
     <Grid container className="map-wrap">
-      <div ref={mapContainer} className="map" />
+      <div ref={mapContainer} className="map" onClick={onClick} />
     </Grid>
   );
 }
