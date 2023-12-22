@@ -21,8 +21,5 @@ const apiConfig = ({ method, data = {}, url }) =>
       throw err.response.data.message;
     });
 
-const useSnackActionTest = (args) => {
-  const { enqueueSnackbar } = useSnackbar();
-  return enqueueSnackbar;
-};
+
 export default apiConfig;

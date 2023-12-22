@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const List = () => {
   const [open, setOpen] = useState(false);
-
+  const [cordinates] = useState([[-123.1207, 49.2827]]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -32,7 +32,7 @@ const List = () => {
           justifyContent={"center"}
           sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 180px )" }}
         >
-          <Map />
+          <Map cordinates={cordinates} isOnList />
         </Grid>
       </Modal>
     </>
