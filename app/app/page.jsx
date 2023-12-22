@@ -44,7 +44,7 @@ const App = () => {
       <Grid
         container
         justifyContent={"center"}
-        sx={{ mt: 3, height: "calc( 100vh - 200px )" }}
+        sx={{ mt: 3, height: "calc( 100vh - 200px )", overflowY: "auto" }}
       >
         {Content[tabValue]}
       </Grid>
