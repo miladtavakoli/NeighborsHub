@@ -7,7 +7,7 @@ import Tab from "@mui/material/Tab";
 import List from "components/list/list";
 import Container from "@mui/material/Container";
 const App = () => {
-  const [tabValue, setTabValue] = useState(1);
+  const [tabValue, setTabValue] = useState(0);
 
   const handleChange = (e, value) => {
     setTabValue(value);
