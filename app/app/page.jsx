@@ -28,6 +28,7 @@ const App = () => {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
+        px: "0!important",
       }}
     >
       <Grid container justifyContent={"center"}>

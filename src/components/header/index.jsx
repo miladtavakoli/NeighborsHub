@@ -28,7 +28,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 
 const Header = () => {
   const [navigationValue, setNavigationValue] = useState(0);
@@ -55,9 +55,9 @@ const Header = () => {
               aria-label="open drawer"
               onClick={() => setOpen(true)}
               edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
+              sx={{ ...(open && { display: "none" }) }}
             >
-              <MenuIcon sx={{ color: "gray", fontSize: "26px" }} />
+              <MenuIcon sx={{ color: "gray", fontSize: "35px" }} />
             </IconButton>
           </Grid>
           <Grid>
@@ -75,15 +75,21 @@ const Header = () => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => setOpen(true)}
+              onClick={() => router.push("/profile")}
               edge="start"
               sx={{
-                mr: 2,
-                ...(open && { display: "none" }),
-                visibility: "hidden",
+                visibility: localStorage.getItem("token") ? "" : "hidden",
               }}
             >
-              <MenuIcon sx={{ color: "gray" }} />
+              <PersonIcon
+                sx={{
+                  color: "gray",
+                  border: "3px solid gray",
+                  p: 0.5,
+                  borderRadius: "100%",
+                  fontSize: "30px",
+                }}
+              />
             </IconButton>
           </Grid>
         </Grid>
@@ -123,24 +129,48 @@ const Header = () => {
             />
           </BottomNavigation>
         </Grid>
-        <Grid>
-          <Link href="/signin">
-            <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
-              Sign in
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button
-              variant="contained"
+        <Grid sx={{ width: "174px" }} container justifyContent={"flex-end"}>
+          {localStorage.getItem("token") ? (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => router.push("/profile")}
+              edge="start"
               sx={{
-                backgroundColor: "#4F62C9",
-                borderRadius: "15px",
-                boxShadow: "none",
+                visibility: localStorage.getItem("token") ? "" : "hidden",
               }}
             >
-              Sign Up
-            </Button>
-          </Link>
+              <PersonIcon
+                sx={{
+                  color: "gray",
+                  border: "3px solid gray",
+                  p: 0.5,
+                  borderRadius: "100%",
+                  fontSize: "30px",
+                }}
+              />
+            </IconButton>
+          ) : (
+            <>
+              <Link href="/signin">
+                <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
+                  Sign in
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#4F62C9",
+                    borderRadius: "15px",
+                    boxShadow: "none",
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Link>
+            </>
+          )}
         </Grid>
       </Hidden>
 
