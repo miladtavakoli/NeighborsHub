@@ -15,15 +15,15 @@ const List = () => {
   const handleOpenModal = () => setOpen(true);
   return (
     <>
-      <Grid container direction="column" sx={{ overflowY: "auto" }}>
+      <Grid container direction="column">
         <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
-          <ListItem handleOpenModal={handleOpenModal} />
+          <ListItem showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
         <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
-          <ListItem handleOpenModal={handleOpenModal} />
+          <ListItem showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
         <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
-          <ListItem handleOpenModal={handleOpenModal} />
+          <ListItem showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
       </Grid>
       <Modal open={open} onClose={handleClose}>

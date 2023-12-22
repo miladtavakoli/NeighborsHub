@@ -6,6 +6,7 @@ import PersonalData from "components/profile/personalData";
 import MapData from "components/profile/mapData";
 import { useState, useMemo } from "react";
 import Grid from "@mui/material/Grid";
+import Container from '@mui/material/Container';
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
 
@@ -18,26 +19,28 @@ const Profile = () => {
   );
 
   return (
-    <Card sx={{ display: "flex", direction: "column", px: 2, py: 1 }}>
-      <Grid container justifyContent={"center"}>
-        <Tabs
-          value={tabValue}
-          onChange={(e, value) => setTabValue(value)}
-          aria-label="basic tabs example"
-          full
-        >
-          <Tab label="Personal Information" />
-          <Tab label="Location" />
-        </Tabs>
-        <Grid
-          container
-          justifyContent={"center"}
-          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 170px )" }}
-        >
-          {Content[tabValue]}
+    <Container maxWidth={"sm"}>
+      <Card sx={{ display: "flex", direction: "column", px: 2, py: 1 }}>
+        <Grid container justifyContent={"center"}>
+          <Tabs
+            value={tabValue}
+            onChange={(e, value) => setTabValue(value)}
+            aria-label="basic tabs example"
+            full
+          >
+            <Tab label="Personal Information" />
+            <Tab label="Location" />
+          </Tabs>
+          <Grid
+            container
+            justifyContent={"center"}
+            sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 170px )" }}
+          >
+            {Content[tabValue]}
+          </Grid>
         </Grid>
-      </Grid>
-    </Card>
+      </Card>
+    </Container>
   );
 };
 export default Profile;

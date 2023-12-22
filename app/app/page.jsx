@@ -1,23 +1,20 @@
 "use client";
 import { useState, useMemo } from "react";
 import Grid from "@mui/material/Grid";
-import Map from "components/map/map";
+import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import List from "components/list/list";
-import Modal from "components/modal/modal";
-import ListItem from "components/list/listItem";
-
+import Container from "@mui/material/Container";
 const App = () => {
   const [tabValue, setTabValue] = useState(1);
-  const [open, setOpen] = useState(false);
+
   const handleChange = (e, value) => {
     setTabValue(value);
   };
-
   const Content = useMemo(
     () => ({
-      0: <Map onClick={() => setOpen(true)} />,
+      0: <MapTab />,
       1: <List />,
       2: <></>,
     }),
@@ -25,28 +22,33 @@ const App = () => {
   );
 
   return (
-    <Grid container justifyContent={"center"}>
-      <Tabs
-        value={tabValue}
-        onChange={handleChange}
-        aria-label="basic tabs example"
-        full
-      >
-        <Tab label="Map" />
-        <Tab label="List" />
-        <Tab label="Filter" />
-      </Tabs>
+    <Container
+      maxWidth="md"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Grid container justifyContent={"center"}>
+        <Tabs
+          value={tabValue}
+          onChange={handleChange}
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Tab label="Map" />
+          <Tab label="List" />
+          <Tab label="Filter" />
+        </Tabs>
+      </Grid>
       <Grid
         container
         justifyContent={"center"}
-        sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 180px )" }}
+        sx={{ mt: 3, height: "calc( 100vh - 200px )" }}
       >
         {Content[tabValue]}
       </Grid>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <ListItem />
-      </Modal>
-    </Grid>
+    </Container>
   );
 };
 
