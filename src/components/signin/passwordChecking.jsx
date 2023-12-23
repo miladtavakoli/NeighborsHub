@@ -39,7 +39,7 @@ const PasswordChecking = ({
         enqueueSnackbar("Successful", { variant: "success" });
         console.log(res);
         router.push("/app");
-        localStorage.setItem("token", res.data.data.access_token);
+        typeof window !== "undefined" && localStorage.setItem("token", res.data.data.access_token);
       })
       .catch((message) => {
         enqueueSnackbar(message, { variant: "error" });

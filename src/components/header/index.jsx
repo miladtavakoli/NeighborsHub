@@ -34,6 +34,8 @@ const Header = () => {
   const [navigationValue, setNavigationValue] = useState(0);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const isAutenticated =
+    typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
   return (
     <Grid
       container
@@ -78,7 +80,7 @@ const Header = () => {
               onClick={() => router.push("/profile")}
               edge="start"
               sx={{
-                visibility: localStorage.getItem("token") ? "" : "hidden",
+                visibility: isAutenticated ? "" : "hidden",
               }}
             >
               <PersonIcon
@@ -130,15 +132,12 @@ const Header = () => {
           </BottomNavigation>
         </Grid>
         <Grid sx={{ width: "174px" }} container justifyContent={"flex-end"}>
-          {localStorage.getItem("token") ? (
+          {isAutenticated ? (
             <IconButton
               color="inherit"
               aria-label="open drawer"
               onClick={() => router.push("/profile")}
               edge="start"
-              sx={{
-                visibility: localStorage.getItem("token") ? "" : "hidden",
-              }}
             >
               <PersonIcon
                 sx={{
