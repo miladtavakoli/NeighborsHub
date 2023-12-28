@@ -1,5 +1,6 @@
 import apiConfig from "services/apiConfig";
-
+import axios from "axios";
+import { MAP_API_KEY } from "constants";
 const apis = {
   auth: {
     preRegister: (data) =>
@@ -15,6 +16,12 @@ const apis = {
     optLoginChecking: (data) =>
       apiConfig({ url: "/auth/verify-otp-login", method: "post", data }),
     logout: () => apiConfig({ url: "/auth/logout", method: "get" }),
+  },
+  address: {
+    getIpLocation: () =>
+      axios.get(
+        `https://api.maptiler.com/geolocation/ip.json?key=${MAP_API_KEY}`
+      ),
   },
 };
 

@@ -6,14 +6,14 @@ import Container from "@mui/material/Container";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 
-const CustomModal = ({ open, onClose, children }) => {
+const CustomModal = ({ open, onClose, children, width = "md" }) => {
   return (
     <Modal
       open={open}
       onClose={onClose}
       sx={{ display: "flex", alignItems: "center" }}
     >
-      <Container maxWidth="md" fullWidth>
+      <Container maxWidth={width} fullWidth>
         <Grid container justifyContent={"flex-end"}>
           <IconButton onClick={onClose} sx={{ p: 1 }}>
             <CloseIcon sx={{ color: "white" }} />

@@ -7,22 +7,24 @@ import MapData from "components/profile/mapData";
 import { useState, useMemo } from "react";
 import Grid from "@mui/material/Grid";
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
 
-  const Content = useMemo(
-    () => ({
-      0: <PersonalData onClick={() => setOpen(true)} />,
-      1: <MapData />,
-    }),
-    []
-  );
+  // const Content = useMemo(
+  //   () => ({
+  //     0: <PersonalData onClick={() => setOpen(true)} />,
+  //     1: <MapData />,
+  //   }),
+  //   []
+  // );
 
   return (
     <Container maxWidth={"sm"}>
       <Card sx={{ display: "flex", direction: "column", px: 2, py: 1 }}>
         <Grid container justifyContent={"center"}>
-          <Tabs
+          {/* <Tabs
             value={tabValue}
             onChange={(e, value) => setTabValue(value)}
             aria-label="basic tabs example"
@@ -30,13 +32,14 @@ const Profile = () => {
           >
             <Tab label="Personal Information" />
             <Tab label="Location" />
-          </Tabs>
+          </Tabs> */}
           <Grid
             container
             justifyContent={"center"}
             sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 170px )" }}
           >
-            {Content[tabValue]}
+            {/* {Content[tabValue]} */}
+            <PersonalData onClick={() => setOpen(true)} />
           </Grid>
         </Grid>
       </Card>
