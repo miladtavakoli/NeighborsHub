@@ -60,24 +60,25 @@ const PersonalData = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      if (navigator?.geolocation?.getCurrentPosition) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setLocation([position.coords.longitude, position.coords.latitude]);
-          },
-          async () => {
-            handleApiLocation();
-          }
-        );
-      } else {
-        handleApiLocation();
-      }
-    })();
-    // navigator?.geolocation?.getCurrentPosition((position) => {
-    //   console.log(position.coords.latitude, position.coords.longitude);
-    // });
-  }, []);
+    if (locationState === LOCATION_STATUS.MAP)
+      (async () => {
+        if (navigator?.geolocation?.getCurrentPosition) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setLocation([
+                position.coords.longitude,
+                position.coords.latitude,
+              ]);
+            },
+            async () => {
+              handleApiLocation();
+            }
+          );
+        } else {
+          handleApiLocation();
+        }
+      })();
+  }, [locationState]);
 
   return (
     <Grid container direction="column" alignItems={"center"}>
