@@ -22,23 +22,21 @@ export default function Map({
 
   useEffect(() => {
     // if (map.current) return; // stops map from intializing more than once
-    if (center) {
-      map.current = new maplibregl.Map({
-        container: mapContainer.current,
-        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
-        center,
-        zoom,
-      });
-      cordinates.forEach((element) => {
-        const marker = new maplibregl.Marker({ color: "#FF0000" })
-          .setLngLat(element)
-          .addTo(map.current);
-        !isOnList &&
-          marker.getElement().addEventListener("click", () => {
-            setOpen(true);
-          });
-      });
-    }
+    map.current = new maplibregl.Map({
+      container: mapContainer.current,
+      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
+      center,
+      zoom,
+    });
+    cordinates.forEach((element) => {
+      const marker = new maplibregl.Marker({ color: "#FF0000" })
+        .setLngLat(element)
+        .addTo(map.current);
+      !isOnList &&
+        marker.getElement().addEventListener("click", () => {
+          setOpen(true);
+        });
+    });
   }, [center, zoom]);
 
   return (

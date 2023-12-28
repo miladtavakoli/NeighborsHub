@@ -64,7 +64,7 @@ const PersonalData = () => {
       if (navigator?.geolocation?.getCurrentPosition) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            setLocation([position.coords.latitude, position.coords.longitude]);
+            setLocation([position.coords.longitude, position.coords.latitude]);
           },
           async () => {
             handleApiLocation();
