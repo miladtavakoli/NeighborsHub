@@ -29,13 +29,50 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PersonIcon from "@mui/icons-material/Person";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useSnackbar } from "notistack";
+import APIS from "services/apis";
 
 const Header = () => {
   const [navigationValue, setNavigationValue] = useState(0);
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuOpen = Boolean(anchorEl);
   const isAutenticated =
     typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePushToProfile = () => {
+    router.push("/profile");
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    APIS.auth
+      .logout()
+      .then(() => {
+        localStorage.removeItem("token");
+        enqueueSnackbar("Log Out Successful", { variant: "info" });
+        router.push("/");
+      })
+      .catch((message) => {
+        enqueueSnackbar(message, { variant: "error" });
+      })
+      .finally(() => {
+        // setLoading(false);
+      });
+  };
+
   return (
     <Grid
       container
@@ -131,24 +168,38 @@ const Header = () => {
             />
           </BottomNavigation>
         </Grid>
-        <Grid sx={{ width: "174px" }} container justifyContent={"flex-end"}>
+        <Grid sx={{ width: "200px" }} container justifyContent={"flex-end"}>
           {isAutenticated ? (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => router.push("/profile")}
-              edge="start"
-            >
-              <PersonIcon
-                sx={{
-                  color: "gray",
-                  border: "3px solid gray",
-                  p: 0.5,
-                  borderRadius: "100%",
-                  fontSize: "30px",
+            <>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleClick}
+                edge="start"
+              >
+                <PersonIcon
+                  sx={{
+                    color: "gray",
+                    border: "3px solid gray",
+                    p: 0.5,
+                    borderRadius: "100%",
+                    fontSize: "30px",
+                  }}
+                />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={menuOpen}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
                 }}
-              />
-            </IconButton>
+              >
+                <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </>
           ) : (
             <>
               <Link href="/signin">

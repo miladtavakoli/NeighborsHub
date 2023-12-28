@@ -14,6 +14,7 @@ const apis = {
       apiConfig({ url: "/auth/send-otp-login", method: "post", data }),
     optLoginChecking: (data) =>
       apiConfig({ url: "/auth/verify-otp-login", method: "post", data }),
+    logout: () => apiConfig({ url: "/auth/logout", method: "get" }),
   },
 };
 
