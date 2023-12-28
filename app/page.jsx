@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import IsometricCity from 'assets/images/isometircCity2.jpg'
 import Header from "components/header";
 import Hidden from "@mui/material/Hidden";
 import Layout from "layout/HeaderFooter";
@@ -84,10 +85,10 @@ const LandingPage = () => {
           }}
         >
           <img
-            src={BackgroundImage.src}
+            src={IsometricCity.src}
             style={{
               maxWidth: "100%",
-              maxHeight: "500px",
+              maxHeight: "600px",
               objectFit: "cover",
             }}
             alt="Picture of the author"
