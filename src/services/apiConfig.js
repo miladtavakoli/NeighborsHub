@@ -7,11 +7,11 @@ const apiConfig = ({ method, data = {}, url }) =>
   axios({
     method: method.toUpperCase(),
     url: BASE_URL + url,
-    withCredentials: false,
     signal: controller.signal,
-    "content-type": "application/json",
-    "Access-Control-Allow-Origin": "*",
     data,
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
   })
     .then((res) => {
       console.log(res, "response1");
@@ -20,6 +20,5 @@ const apiConfig = ({ method, data = {}, url }) =>
     .catch((err) => {
       throw err.response.data.message;
     });
-
 
 export default apiConfig;
