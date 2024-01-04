@@ -1,6 +1,6 @@
 import apiConfig from "services/apiConfig";
 import axios from "axios";
-import { MAP_API_KEY } from "constants";
+import { MAP_API_KEY, GEOCODE_API_KEY } from "constants";
 const apis = {
   auth: {
     preRegister: (data) =>
@@ -22,6 +22,16 @@ const apis = {
       axios.get(
         `https://api.maptiler.com/geolocation/ip.json?key=${MAP_API_KEY}`
       ),
+    turnCordinateToAddress: (cordinate) =>
+      axios.get(
+        `https://geocode.maps.co/reverse?lat=${cordinate[1]}&lon=${cordinate[0]}&api_key=${GEOCODE_API_KEY}`
+      ),
+    turnAddressToCordinate: (address) =>
+      axios.get(
+        `https://geocode.maps.co/search?q=${address}&api_key=${GEOCODE_API_KEY}`
+      ),
+    createAddress: (data) =>
+      apiConfig({ url: "/me/address", method: "post", data }),
   },
 };
 
