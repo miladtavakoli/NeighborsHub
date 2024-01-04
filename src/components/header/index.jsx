@@ -244,7 +244,7 @@ const Header = () => {
           </Grid>
           <Divider />
 
-          <List>
+          <List onClick={() => setOpen(false)}>
             <Link href="/">
               <ListItem disablePadding>
                 <ListItemButton>
@@ -312,7 +312,7 @@ const Header = () => {
                     </ListItemButton>
                   </ListItem>
                 </Link>
-                <Link href="/login">
+                <Link href="/signin">
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
