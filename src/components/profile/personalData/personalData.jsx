@@ -89,6 +89,12 @@ const PersonalData = () => {
   //     })();
   // }, [locationState]);
 
+  const handleRegister = async () => {
+    // const result = await APIS.auth.register({
+    //   email_mobile:
+    // })
+  };
+
   const handleSetSelectedLocation = (location) => {
     setSelectedPoint(location);
   };
@@ -194,7 +200,13 @@ const PersonalData = () => {
           ),
         }}
       />
-      <Button sx={{ mt: 2 }} variant="contained" fullWidth color="primary">
+      <Button
+        sx={{ mt: 2 }}
+        variant="contained"
+        fullWidth
+        color="primary"
+        onClick={handleRegister}
+      >
         submit
       </Button>
       <Divider sx={{ width: "100%", my: 3 }} />

@@ -276,37 +276,54 @@ const Header = () => {
               </ListItem>
             </Link>
             <Divider />
-            <Link href="/profile">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Profile"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Divider />
-            <Link href="/signin">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"SignOut"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link href="/signup">
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <LogoutIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Login"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+
+            {isAutenticated ? (
+              <>
+                <Link href="/profile">
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={"Profile"} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+                <Divider />
+                <ListItem disablePadding onClick={handleLogout}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <LogoutIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Log Out"} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <LoginIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={"Sign Up"} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+                <Link href="/login">
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <LogoutIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={"Sign In"} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+              </>
+            )}
           </List>
         </Grid>
       </Drawer>
