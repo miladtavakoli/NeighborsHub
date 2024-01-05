@@ -32,6 +32,8 @@ const apis = {
       ),
     createAddress: (data) =>
       apiConfig({ url: "/me/address", method: "post", data }),
+    getListOfAddress: (data) =>
+      apiConfig({ url: "/me/address", method: "get" }),
   },
 };
 
