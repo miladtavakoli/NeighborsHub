@@ -10,7 +10,7 @@ const MapTab = () => {
   ]);
   return (
     <Grid container>
-      <Map cordinates={cordinates} />
+      <Map cordinates={cordinates} clickable={false} />
     </Grid>
   );
 };

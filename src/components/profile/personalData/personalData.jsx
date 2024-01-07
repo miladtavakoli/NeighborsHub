@@ -19,7 +19,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IconButton from "@mui/material/IconButton";
 import Select from "react-select";
 import axios from "axios";
-import APIS from "services/apis";
+import Apis from "services/apis";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/Email";
@@ -58,7 +58,7 @@ const PersonalData = () => {
   };
 
   // const handleApiLocation = async () => {
-  //   const response = await APIS.address.getIpLocation();
+  //   const response = await Apis.address.getIpLocation();
   //   if (response?.data) {
   //     if (response.data.longitude && response.data.latitude)
   //       setMapCenter([response.data.longitude, response.data.latitude]);
@@ -90,7 +90,7 @@ const PersonalData = () => {
   // }, [locationState]);
 
   const handleRegister = async () => {
-    // const result = await APIS.auth.register({
+    // const result = await Apis.auth.register({
     //   email_mobile:
     // })
   };
@@ -101,7 +101,7 @@ const PersonalData = () => {
 
   const handleMapSubmit = async () => {
     setLoading(true);
-    const result = await APIS.address.turnCordinateToAddress(selectedPoint);
+    const result = await Apis.address.turnCordinateToAddress(selectedPoint);
     if (result?.data?.display_name) {
       setLocationState(LOCATION_STATUS.MAP_ADDRESS);
       setMapAddress(result.data.display_name);
@@ -111,7 +111,7 @@ const PersonalData = () => {
 
   const handleMapAddressSubmit = async () => {
     setLoading(true);
-    const result = await APIS.address.createAddress({
+    const result = await Apis.address.createAddress({
       location: {
         type: "Point",
         coordinates: [selectedPoint[0], selectedPoint[1]],

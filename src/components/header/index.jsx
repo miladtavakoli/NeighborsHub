@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,7 +32,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useSnackbar } from "notistack";
-import APIS from "services/apis";
+import Apis from "services/apis";
+import { usePathname } from "next/navigation";
+
+const path = {
+  "/": 0,
+  "/app": 1,
+  "/about-us": 2,
+};
 
 const Header = () => {
   const [navigationValue, setNavigationValue] = useState(0);
@@ -43,6 +50,11 @@ const Header = () => {
   const isAutenticated =
     typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
   const { enqueueSnackbar } = useSnackbar();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setNavigationValue(path[pathname]);
+  }, []);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -58,7 +70,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    APIS.auth
+    Apis.auth
       .logout()
       .then(() => {
         localStorage.removeItem("token");

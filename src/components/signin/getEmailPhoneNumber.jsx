@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import Typography from "@mui/material/Typography";
-import APIS from "services/apis";
+import Apis from "services/apis";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
@@ -25,7 +25,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const handleSubmitOtp = (e) => {
     e.preventDefault();
     setLoading(true);
-    APIS.auth
+    Apis.auth
       .optSending({
         mobile: emailPhoneNumber.value,
       })

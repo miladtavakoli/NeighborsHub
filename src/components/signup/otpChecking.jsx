@@ -11,7 +11,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import Typography from "@mui/material/Typography";
-import APIS from "services/apis";
+import Apis from "services/apis";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
@@ -24,7 +24,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
     e.preventDefault();
     setLoading(true);
     console.log(otp, emailPhoneNumber, "gggggg");
-    APIS.auth
+    Apis.auth
       .otpSignupChecking({
         email_mobile: emailPhoneNumber.value,
         otp: otp.value,
