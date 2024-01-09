@@ -8,7 +8,7 @@ const userSlices = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setMyAddresses: (state, payload) => {
+    setMyAddresses: (state, { payload }) => {
       state.addresses = payload;
     },
   },
@@ -17,6 +17,6 @@ const userSlices = createSlice({
 // Action creators are generated for each case reducer function
 export const { setMyAddresses } = userSlices.actions;
 
-export const userAddresses = (state) => state.user.addresses;
+export const myAddressesSelector = (state) => state.user.addresses;
 
 export default userSlices.reducer;

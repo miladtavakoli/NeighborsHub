@@ -16,7 +16,7 @@ const apiConfig = ({ method, data = {}, url, baseURL }) =>
   })
     .then((res) => {
       console.log(res, "response1");
-      return res;
+      return res.data.data;
     })
     .catch((err) => {
       throw err?.response?.data?.message;

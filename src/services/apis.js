@@ -1,7 +1,7 @@
 import apiConfig from "services/apiConfig";
 import axios from "axios";
 import { MAP_API_KEY, GEOCODE_API_KEY } from "constants";
-const apis = {
+const Apis = {
   auth: {
     preRegister: (data) =>
       apiConfig({ url: "/auth/pre-register", method: "post", data }),
@@ -37,4 +37,4 @@ const apis = {
   },
 };
 
-export default apis;
+export default Apis;
