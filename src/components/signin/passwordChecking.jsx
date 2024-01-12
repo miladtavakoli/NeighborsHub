@@ -16,6 +16,9 @@ import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { startLoading, endLoading } from "store/slices/appSlices";
+import { getMyAddresses } from "store/actions/userActions";
 
 const PasswordChecking = ({
   password,
@@ -26,10 +29,12 @@ const PasswordChecking = ({
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    dispatch(startLoading());
     Apis.auth
       .passwordLogin({
         email_mobile: emailPhoneNumber.value,
@@ -37,15 +42,17 @@ const PasswordChecking = ({
       })
       .then((res) => {
         enqueueSnackbar("Successful", { variant: "success" });
-        console.log(res);
+        typeof window !== "undefined" &&
+          localStorage.setItem("token", res.access_token);
+        dispatch(getMyAddresses({ token: res.access_token }));
         router.push("/app");
-        typeof window !== "undefined" && localStorage.setItem("token", res.data.data.access_token);
       })
       .catch((message) => {
         enqueueSnackbar(message, { variant: "error" });
       })
       .finally(() => {
         setLoading(false);
+        dispatch(endLoading());
       });
   };
 

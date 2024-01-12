@@ -15,14 +15,17 @@ import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { startLoading, endLoading } from "store/slices/appSlices";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(startLoading());
+
     Apis.auth
       .preRegister({
         email_mobile: emailPhoneNumber.value,
@@ -34,7 +37,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         enqueueSnackbar(message, { variant: "error" });
       })
       .finally(() => {
-        setLoading(false);
+        dispatch(endLoading());
       });
   };
   return (
@@ -57,9 +60,10 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           fullWidth
           variant="contained"
           type="submit"
-          disabled={loading}
+          // disabled={loading}
         >
-          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+          {/* {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"} */}
+          Submit
         </Button>
       </form>
       <Divider sx={{ mt: 2 }} />

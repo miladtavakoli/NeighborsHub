@@ -16,22 +16,31 @@ import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { startLoading, endLoading } from "store/slices/appSlices";
+import { getMyAddresses } from "store/actions/userActions";
 
 const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(otp, emailPhoneNumber, "gggggg");
+    dispatch(startLoading());
     Apis.auth
       .optLoginChecking({
         mobile: emailPhoneNumber.value,
         otp: otp.value,
       })
-      .then(() => {
+      .then((res) => {
         enqueueSnackbar("Successful", { variant: "success" });
+
+        typeof window !== "undefined" &&
+          localStorage.setItem("token", res.access_token);
+        dispatch(getMyAddresses({ token: res.access_token }));
         router.push("/app");
       })
       .catch((message) => {
@@ -39,6 +48,7 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
       })
       .finally(() => {
         setLoading(false);
+        dispatch(endLoading());
       });
   };
 

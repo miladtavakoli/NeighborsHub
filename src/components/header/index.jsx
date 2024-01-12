@@ -34,6 +34,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useSnackbar } from "notistack";
 import Apis from "services/apis";
 import { usePathname } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { startLoading, endLoading } from "store/slices/appSlices";
 
 const path = {
   "/": 0,
@@ -51,6 +53,7 @@ const Header = () => {
     typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
   const { enqueueSnackbar } = useSnackbar();
   const pathname = usePathname();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNavigationValue(path[pathname]);
@@ -70,6 +73,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    dispatch(startLoading());
     Apis.auth
       .logout()
       .then(() => {
@@ -81,7 +85,7 @@ const Header = () => {
         enqueueSnackbar(message, { variant: "error" });
       })
       .finally(() => {
-        // setLoading(false);
+        dispatch(endLoading());
       });
   };
 
