@@ -11,6 +11,10 @@ const userSlices = createSlice({
     setMyAddresses: (state, { payload }) => {
       state.addresses = payload;
     },
+    addNewAddress: (state, { payload }) => {
+      state.addresses = [...state.addresses, payload];
+    },
+
     updateMyAddress: (state, { payload }) => {
       state.addresses = state.addresses.map((item) =>
         item.id === payload.id ? payload : { ...item, is_main_address: false }
@@ -20,7 +24,8 @@ const userSlices = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setMyAddresses, updateMyAddress } = userSlices.actions;
+export const { setMyAddresses, updateMyAddress, addNewAddress } =
+  userSlices.actions;
 
 export const myAddressesSelector = (state) => state.user.addresses;
 

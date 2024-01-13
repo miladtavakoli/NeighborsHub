@@ -35,7 +35,7 @@ const AddressList = () => {
           {addresses.map((item, index) => (
             <ListItemButton
               selected={item.is_main_address}
-              onClick={(event) => handleListItemClick(item)}
+              onClick={() => handleListItemClick(item)}
               key={item.id}
               sx={{
                 border: "1px solid lightGray",

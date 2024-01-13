@@ -16,6 +16,7 @@ export default function Map({
   center = [0, 0],
   zoom = 0,
   clickable = true,
+  myCordinate,
 }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -41,6 +42,7 @@ export default function Map({
       }),
       "bottom-right"
     );
+
     cordinates.forEach((element) => {
       const marker = new maplibregl.Marker({ color: "#FF0000" })
         .setLngLat(element)
@@ -50,6 +52,11 @@ export default function Map({
           setOpen(true);
         });
     });
+    myCordinate &&
+      new maplibregl.Marker({ color: "lightBlue" })
+        .setLngLat(myCordinate)
+        .addTo(map.current);
+
     if (clickable) {
       var marker = new maptilersdk.Marker();
 
@@ -64,7 +71,6 @@ export default function Map({
   }, []);
 
   useEffect(() => {
-    console.log(center);
     map.current.flyTo({ center });
   }, [center[0], center[1]]);
 

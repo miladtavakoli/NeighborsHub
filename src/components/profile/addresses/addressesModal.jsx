@@ -63,15 +63,11 @@ const AddressesModal = ({ open, handleClose }) => {
       city_id: 1,
     });
     if (result) {
-      const address = result.data?.data?.address?.street;
-      const result2 = await getMyAddresses();
-      dispatch(endLoading());
-
+      dispatch(getMyAddresses());
       enqueueSnackbar("Location Added successfuly", { variant: "success" });
       innerHandleClose();
-    } else {
-      dispatch(endLoading());
     }
+    dispatch(endLoading());
   };
 
   return (
