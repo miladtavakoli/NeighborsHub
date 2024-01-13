@@ -60,7 +60,6 @@ const AddressesModal = ({ open, handleClose }) => {
       street: address + ", " + addressDetails,
       is_main_address: true,
       is_public: true,
-      city_id: 1,
     });
     if (result) {
       dispatch(getMyAddresses());
