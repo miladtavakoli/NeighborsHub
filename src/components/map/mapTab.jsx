@@ -3,6 +3,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
+import Button from "@mui/material/Button";
 
 const MapTab = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -16,14 +17,19 @@ const MapTab = () => {
   ]);
 
   return (
-    <Grid container>
-      <Map
-        cordinates={cordinates}
-        clickable={false}
-        center={initilaCordinate}
-        zoom={zoom}
-        myCordinate={myCordinate}
-      />
+    <Grid container alignContent={'flex-start'}>
+      <Grid container justifyContent={"flex-end"} item xs={12}>
+        <Button variant="contained">Add New Post</Button>
+      </Grid>
+      <Grid item xs={12}>
+        <Map
+          cordinates={cordinates}
+          clickable={false}
+          center={initilaCordinate}
+          zoom={zoom}
+          myCordinate={myCordinate}
+        />
+      </Grid>
     </Grid>
   );
 };

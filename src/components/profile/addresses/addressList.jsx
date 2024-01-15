@@ -60,7 +60,7 @@ const AddressList = () => {
   };
 
   return (
-    <Grid container direction="column" sx={{ px: 1, flex: 1 }}>
+    <Grid container direction="column" sx={{ pl: 1, flex: 1 }}>
       {addresses.length > 0 ? (
         <List component="nav" aria-label="main mailbox folders">
           {addresses.map((item, index) => (

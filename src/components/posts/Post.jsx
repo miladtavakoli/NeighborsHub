@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Button from "@mui/material/Button";
 
-const ListItem = ({ handleOpenModal, showLocationOnMap }) => {
+const Post = ({ handleOpenModal, showLocationOnMap }) => {
   return (
     <>
       <Grid container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
@@ -48,4 +48,4 @@ const ListItem = ({ handleOpenModal, showLocationOnMap }) => {
   );
 };
 
-export default ListItem;
+export default Post;

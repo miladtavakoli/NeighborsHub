@@ -6,7 +6,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import Grid from "@mui/material/Grid";
 import Modal from "components/modal/modal";
-import ListItem from "components/list/listItem";
+import PostsList from "components/posts/PostsList";
 import { MAP_API_KEY } from "constants";
 
 export default function Map({
@@ -84,7 +84,7 @@ export default function Map({
     <Grid container className="map-wrap">
       <div ref={mapContainer} className="map" />
       <Modal open={open} onClose={() => setOpen(false)}>
-        <ListItem />
+        <PostsList />
       </Modal>
     </Grid>
   );

@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import List from "components/list/list";
+import PostsList from "components/posts/PostsList";
 import Container from "@mui/material/Container";
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -15,7 +15,7 @@ const App = () => {
   const Content = useMemo(
     () => ({
       0: <MapTab />,
-      1: <List />,
+      1: <PostsList />,
       2: <></>,
     }),
     []
