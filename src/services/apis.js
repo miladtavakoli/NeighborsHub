@@ -24,7 +24,7 @@ const Apis = {
       ),
     turnCordinateToAddress: (cordinate) =>
       axios.get(
-        `https://geocode.maps.co/reverse?lat=${cordinate[1]}&lon=${cordinate[0]}&api_key=${GEOCODE_API_KEY}`
+        `https://geocode.maps.co/reverse?lat=${cordinate[0]}&lon=${cordinate[1]}&api_key=${GEOCODE_API_KEY}`
       ),
     turnAddressToCordinate: (address) =>
       axios.get(
@@ -34,6 +34,8 @@ const Apis = {
       apiConfig({ url: "/me/address", method: "post", data }),
     updateAddress: ({ id, ...data }) =>
       apiConfig({ url: `/me/address/${id}`, method: "put", data }),
+    deleteAddress: ({ id }) =>
+      apiConfig({ url: `/me/address/${id}`, method: "delete" }),
     getListOfAddress: (data) =>
       apiConfig({ url: "/me/address", method: "get" }),
   },

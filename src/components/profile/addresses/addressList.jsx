@@ -1,15 +1,21 @@
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { myAddressesSelector, updateMyAddress } from "store/slices/userSlices";
-import React from "react";
+import { getMyAddresses } from "store/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
 import Apis from "services/apis";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { useSnackbar } from "notistack";
+import Typography from "@mui/material/Typography";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import IconButton from "@mui/material/IconButton";
+import ConfirmationModal from "components/modal/confirmationModal";
 
 const AddressList = () => {
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const addresses = useSelector(myAddressesSelector);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -28,23 +34,52 @@ const AddressList = () => {
     dispatch(endLoading());
   };
 
+  const handleConfirmationModalOpen = (id) => {
+    setConfirmationModalOpen(id);
+  };
+
+  const handleConfirmationModalClose = () => {
+    setConfirmationModalOpen(false);
+  };
+
+  const handleDelete = async () => {
+    dispatch(startLoading());
+
+    Apis.address
+      .deleteAddress({
+        id: confirmationModalOpen,
+      })
+      .then(() => {
+        enqueueSnackbar("Address Deleted Successfuly", { variant: "info" });
+        dispatch(getMyAddresses());
+      })
+      .finally(() => {
+        handleConfirmationModalClose();
+        dispatch(endLoading());
+      });
+  };
+
   return (
     <Grid container direction="column" sx={{ px: 1, flex: 1 }}>
       {addresses.length > 0 ? (
         <List component="nav" aria-label="main mailbox folders">
           {addresses.map((item, index) => (
-            <ListItemButton
-              selected={item.is_main_address}
-              onClick={() => handleListItemClick(item)}
-              key={item.id}
-              sx={{
-                border: "1px solid lightGray",
-                borderRadius: "15px",
-                mt: 1,
-              }}
-            >
-              <ListItemText primary={item.street} />
-            </ListItemButton>
+            <Grid container key={item.id} sx={{ flexWrap: "nowrap" }}>
+              <ListItemButton
+                selected={item.is_main_address}
+                onClick={() => handleListItemClick(item)}
+                sx={{
+                  border: "1px solid lightGray",
+                  borderRadius: "15px",
+                  mt: 1,
+                }}
+              >
+                <Typography>{item.street}</Typography>
+              </ListItemButton>
+              <IconButton onClick={() => handleConfirmationModalOpen(item.id)}>
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Grid>
           ))}
         </List>
       ) : (
@@ -57,6 +92,13 @@ const AddressList = () => {
           No Address
         </Grid>
       )}
+      <ConfirmationModal
+        open={Boolean(confirmationModalOpen)}
+        handleClose={handleConfirmationModalClose}
+        handleSubmit={handleDelete}
+        text={"Are You Sure?"}
+        width="xs"
+      />
     </Grid>
   );
 };

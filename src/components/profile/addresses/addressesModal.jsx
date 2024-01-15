@@ -55,7 +55,7 @@ const AddressesModal = ({ open, handleClose }) => {
     const result = await Apis.address.createAddress({
       location: {
         type: "Point",
-        coordinates: [state.selectedCordinate[1], state.selectedCordinate[0]],
+        coordinates: [state.selectedCordinate[0], state.selectedCordinate[1]],
       },
       street: address + ", " + addressDetails,
       is_main_address: true,

@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import Map from "components/map/map";
 
 const AddressModalMap = ({ handleSubmit }) => {
-  const [mapCenter, setMapCenter] = useState();
   const [selectedCordinate, setSelectedCordinate] = useState([null, null]);
   const handleSetSelectedLocation = (location) => {
     setSelectedCordinate(location);
@@ -19,11 +18,7 @@ const AddressModalMap = ({ handleSubmit }) => {
         </Typography>
       </Grid>
       <Grid sx={{ flex: 1, mt: 1 }}>
-        <Map
-          center={mapCenter}
-          zoom={"0"}
-          onClick={handleSetSelectedLocation}
-        />
+        <Map zoom={0} onClick={handleSetSelectedLocation} />
       </Grid>
       <Grid>
         <Button

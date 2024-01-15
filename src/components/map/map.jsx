@@ -28,7 +28,7 @@ export default function Map({
     map.current = new maplibregl.Map({
       container: mapContainer.current,
       style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
-      center,
+      center: [center[1], center[0]],
       zoom,
       geolocateControl: true,
     });
@@ -43,27 +43,14 @@ export default function Map({
       "bottom-right"
     );
 
-    cordinates.forEach((element) => {
-      const marker = new maplibregl.Marker({ color: "#FF0000" })
-        .setLngLat(element)
-        .addTo(map.current);
-      !isOnList &&
-        marker.getElement().addEventListener("click", () => {
-          setOpen(true);
-        });
-    });
-    myCordinate &&
-      new maplibregl.Marker({ color: "lightBlue" })
-        .setLngLat(myCordinate)
-        .addTo(map.current);
-
     if (clickable) {
       var marker = new maptilersdk.Marker();
 
       function add_marker(event) {
         var coordinates = event.lngLat;
+        console.log(coordinates, "test");
         marker.setLngLat(coordinates).addTo(map.current);
-        onClick?.([coordinates.lng, coordinates.lat]);
+        onClick?.([coordinates.lat, coordinates.lng]);
       }
 
       map.current.on("click", add_marker);
@@ -71,8 +58,27 @@ export default function Map({
   }, []);
 
   useEffect(() => {
-    map.current.flyTo({ center });
+    myCordinate &&
+      new maplibregl.Marker({ color: "lightBlue" })
+        .setLngLat([myCordinate[1], myCordinate[0]])
+        .addTo(map.current);
+  }, [myCordinate]);
+
+  useEffect(() => {
+    map.current.flyTo({ center: [center[1], center[0]], zoom: 14 });
   }, [center[0], center[1]]);
+
+  useEffect(() => {
+    cordinates.forEach((element) => {
+      const marker = new maplibregl.Marker({ color: "#FF0000" })
+        .setLngLat([element[1], element[0]])
+        .addTo(map.current);
+      !isOnList &&
+        marker.getElement().addEventListener("click", () => {
+          setOpen(true);
+        });
+    });
+  }, [cordinates, isOnList]);
 
   return (
     <Grid container className="map-wrap">
@@ -82,4 +88,8 @@ export default function Map({
       </Modal>
     </Grid>
   );
+}
+
+function revertLocation(cordinate) {
+  return [cordinate[1], cordinate[0]];
 }

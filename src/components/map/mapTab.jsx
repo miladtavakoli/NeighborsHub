@@ -11,10 +11,8 @@ const MapTab = () => {
   const zoom = mainAddress ? 15 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
   const [cordinates] = useState([
-    [-74.05475183105568, 40.74206997218562],
-    [-123.1227, 49.2817],
-    [-123.1257, 49.2857],
-    [-123.1237, 49.2877],
+    [40.74206997218562, -74.05475183105568],
+    [49.2817, -123.1227],
   ]);
 
   return (
