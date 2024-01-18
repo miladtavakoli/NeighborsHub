@@ -1,15 +1,22 @@
 import Apis from "services/apis";
 import { setMyAddresses, addNewAddress } from "store/slices/userSlices";
+import { startLoading, endLoading } from "store/slices/appSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
-  const result = await Apis.address.getListOfAddress();
-  if (result) {
-    dispatch(setMyAddresses(result.addresses?.results || []));
-  }
+  dispatch(startLoading());
+  return Apis.address
+    .getListOfAddress()
+    .then((res) => {
+      dispatch(setMyAddresses(res.addresses?.results || []));
+      return res;
+    })
+    .finally(() => dispatch(endLoading()));
 };
+
 export const addNewAddressAction = (payload) => async (dispatch) => {
-  const result = await Apis.address.createAddress({ ...payload });
-  if (result) {
-    dispatch(addNewAddress(result.address));
-  }
+  dispatch(startLoading());
+  return Apis.address
+    .createAddress({ ...payload })
+    .then((res) => dispatch(addNewAddress(res.address)))
+    .finally(() => dispatch(endLoading()));
 };

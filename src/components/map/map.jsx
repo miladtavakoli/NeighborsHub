@@ -48,7 +48,6 @@ export default function Map({
 
       function add_marker(event) {
         var coordinates = event.lngLat;
-        console.log(coordinates, "test");
         marker.setLngLat(coordinates).addTo(map.current);
         onClick?.([coordinates.lat, coordinates.lng]);
       }

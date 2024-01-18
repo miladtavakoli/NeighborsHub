@@ -96,8 +96,8 @@ const Header = () => {
         flex: 1,
         // backgroundImage: `url(${BackgroundImage.src})`,
         backgroundRepeat: "no-repeat",
-        pt: 4,
-        pb: 3,
+        pt: 2,
+        pb: 2,
       }}
       justifyContent={"space-between"}
       alignItems={"center"}

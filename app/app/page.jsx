@@ -6,8 +6,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PostsList from "components/posts/PostsList";
 import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import CreatePostModal from "components/posts/createPostModal";
+
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
+  const [createPostModalOpen, setCreatePostModalOpen] = useState(false);
 
   const handleChange = (e, value) => {
     setTabValue(value);
@@ -20,6 +24,13 @@ const App = () => {
     }),
     []
   );
+
+  const handleCreatePostModalOpen = () => {
+    setCreatePostModalOpen(true);
+  };
+  const handleCreatePostModalClose = () => {
+    setCreatePostModalOpen(false);
+  };
 
   return (
     <Container
@@ -38,17 +49,26 @@ const App = () => {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Tab label="Map" />
-          <Tab label="List" />
+          <Tab label="Posts" />
           <Tab label="Filter" />
         </Tabs>
+      </Grid>
+      <Grid container justifyContent={"flex-end"} sx={{mt: 2}}>
+        <Button variant="contained" onClick={handleCreatePostModalOpen}>
+          Add New Post
+        </Button>
       </Grid>
       <Grid
         container
         justifyContent={"center"}
-        sx={{ mt: 3, height: "calc( 100vh - 200px )", overflowY: "auto" }}
+        sx={{ mt: 1, height: "calc( 100vh - 220px )", overflowY: "auto" }}
       >
         {Content[tabValue]}
       </Grid>
+      <CreatePostModal
+        open={createPostModalOpen}
+        handleClose={handleCreatePostModalClose}
+      />
     </Container>
   );
 };

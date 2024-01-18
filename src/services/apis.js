@@ -39,6 +39,20 @@ const Apis = {
     getListOfAddress: (data) =>
       apiConfig({ url: "/me/address", method: "get" }),
   },
+  posts: {
+    createPost: (data) =>
+      apiConfig({ url: "/post/me/create", method: "post", data }),
+    getPosts: (data) =>
+      apiConfig({
+        url: `/post?${data.long ? "longitude=" + data.long + "&" : ""}${
+          data.lat ? "latitude=" + data.lat + "&" : ""
+        }${data.zoom ? "distance=" + data.zoom + "&" : ""}${
+          data.hashtag ? "hashtag_title=" + data.hashtag + "&" : ""
+        }${data.search ? "search=" + data.search + "&" : ""}`,
+        method: "get",
+      }),
+    getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
+  },
 };
 
 export default Apis;

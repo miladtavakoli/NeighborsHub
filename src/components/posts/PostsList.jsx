@@ -16,13 +16,13 @@ const PostsList = () => {
   return (
     <>
       <Grid container direction="column">
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
+        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
           <Post showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
+        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
           <Post showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 2 }}>
+        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
           <Post showLocationOnMap handleOpenModal={handleOpenModal} />
         </Card>
       </Grid>
