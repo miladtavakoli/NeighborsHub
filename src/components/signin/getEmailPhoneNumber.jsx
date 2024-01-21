@@ -13,6 +13,7 @@ import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import Link from "next/link";
+import { GoogleLogin } from "@react-oauth/google";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -85,8 +86,16 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
       </Button>
       {/* </form> */}
       <Divider sx={{ mt: 2 }} />
-      <Grid container justifyContent={"center"}>
-        <Button
+      <Grid container justifyContent={"center"} sx={{ mt: 2 }}>
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
+        {/* <Button
           variant="outlined"
           sx={{
             color: "black",
@@ -97,7 +106,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         >
           Sign in with google
           <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
-        </Button>
+        </Button> */}
       </Grid>
       <Divider sx={{ mt: 2 }} />
 
