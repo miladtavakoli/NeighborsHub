@@ -39,9 +39,9 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
         <Grid
           container
           justifyContent={"center"}
-          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 180px )" }}
+          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
         >
-          <Map cordinates={cordinates} center={cordinates[0]} zoom={14} />
+          <Map cordinates={cordinates} center={cordinates[0]} zoom={15} />
         </Grid>
       </Modal>
     </>
