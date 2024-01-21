@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
 import Modal from "components/modal/modal";
-import PostsList from "components/posts/PostsList";
+import PostsList from "components/posts/postsList";
 import {
   myPostsSelector,
   uniqueLocationSelector,
