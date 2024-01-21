@@ -17,6 +17,7 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
     setOpen(true);
   };
 
+  
   return (
     <>
       <Grid container direction="column">

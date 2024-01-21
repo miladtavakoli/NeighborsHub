@@ -8,4 +8,5 @@ const PostTab = () => {
   return <PostList posts={posts} showLocationOnMap />;
 };
 
+
 export default PostTab;
