@@ -6,14 +6,14 @@ import { myAddressesSelector } from "store/slices/userSlices";
 import Modal from "components/modal/modal";
 import PostsList from "components/posts/PostsList";
 import {
-  postsSelector,
   myPostsSelector,
   uniqueLocationSelector,
 } from "store/slices/postsSlices";
+import { getLocationPosts, getMyPosts } from "store/actions/postsActions";
+import { useDispatch } from "react-redux";
 
 const MapTab = () => {
   const myPosts = useSelector(myPostsSelector);
-  const posts = useSelector(postsSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const cordinates = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
@@ -21,20 +21,29 @@ const MapTab = () => {
   const zoom = mainAddress ? 15 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
   const [open, setOpen] = useState(false);
-  const [selectedPosts, setSelectedPosts] = useState([]);
+  const [selectedPosts, setSelectedPosts] = useState();
+  const dispatch = useDispatch();
 
-  const handleMarkerClicked = () => {
-    setSelectedPosts(posts);
+  const handleMarkerClicked = async (item) => {
+    const result = await dispatch(
+      getLocationPosts({
+        lat: item[0],
+        long: item[1],
+        zoom: "1",
+      })
+    );
+    setSelectedPosts(result.posts.results);
     setOpen(true);
   };
 
-  const handleMyMarkerClicked = () => {
-    setSelectedPosts(myPosts);
+  const handleMyMarkerClicked = async () => {
+    const result = await dispatch(getMyPosts());
+    setSelectedPosts(result.posts.results);
     setOpen(true);
   };
 
   const handleClose = () => {
-    setSelectedPosts([]);
+    // setSelectedPosts([]);
     setOpen(false);
   };
 

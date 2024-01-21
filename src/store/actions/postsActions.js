@@ -17,6 +17,17 @@ export const getPosts = (data) => async (dispatch) => {
   // .finally(() => dispatch(endLoading()));
 };
 
+export const getLocationPosts = (data) => async (dispatch) => {
+  dispatch(startLoading());
+  return Apis.posts
+    .getPosts(data)
+    .then((res) => {
+      console.log(res, "test");
+      return res;
+    })
+    .finally(() => dispatch(endLoading()));
+};
+
 export const getUniqueLocation = (data) => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.setUniqueLocation(data).then((res) => {
@@ -31,6 +42,7 @@ export const getMyPosts = () => async (dispatch) => {
   return Apis.posts.getMyPosts().then((res) => {
     console.log(res, "test");
     dispatch(setMyPosts(res.posts?.results || []));
+    return res;
   });
   // .finally(() => dispatch(endLoading()));
 };
