@@ -1,13 +1,27 @@
 import Apis from "services/apis";
 // import { , addNewAddress } from "store/slices/userSlices";
-import { addPost, setPosts, setMyPosts } from "store/slices/postsSlices";
+import {
+  addPost,
+  setPosts,
+  setMyPosts,
+  setUniqueLocation,
+} from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 
 export const getPosts = (data) => async (dispatch) => {
   // dispatch(startLoading());
   return Apis.posts.getPosts(data).then((res) => {
     console.log(res, "test");
-    dispatch(setPosts(res.addresses?.results || []));
+    dispatch(setPosts(res.posts?.results || []));
+  });
+  // .finally(() => dispatch(endLoading()));
+};
+
+export const getUniqueLocation = (data) => async (dispatch) => {
+  // dispatch(startLoading());
+  return Apis.posts.setUniqueLocation(data).then((res) => {
+    console.log(res, "test");
+    dispatch(setUniqueLocation(res.posts?.results || []));
   });
   // .finally(() => dispatch(endLoading()));
 };

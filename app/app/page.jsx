@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import PostsList from "components/posts/PostsList";
+import PostsTab from "components/posts/postsTab";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import CreatePostModal from "components/posts/createPostModal";
@@ -19,7 +19,7 @@ const App = () => {
   const Content = useMemo(
     () => ({
       0: <MapTab />,
-      1: <PostsList />,
+      1: <PostsTab />,
       2: <></>,
     }),
     []
@@ -53,7 +53,7 @@ const App = () => {
           <Tab label="Filter" />
         </Tabs>
       </Grid>
-      <Grid container justifyContent={"flex-end"} sx={{mt: 2}}>
+      <Grid container justifyContent={"flex-end"} sx={{ mt: 2 }}>
         <Button variant="contained" onClick={handleCreatePostModalOpen}>
           Add New Post
         </Button>

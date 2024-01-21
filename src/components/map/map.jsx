@@ -5,23 +5,21 @@ import * as maptilersdk from "@maptiler/sdk";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import Grid from "@mui/material/Grid";
-import Modal from "components/modal/modal";
-import PostsList from "components/posts/PostsList";
+
 import { MAP_API_KEY } from "constants";
 
 export default function Map({
   onClick,
   cordinates = [],
-  isOnList,
+  myCordinate,
+  handleMarkerClicked,
+  handleMyMarkerClicked,
   center = [0, 0],
   zoom = 0,
-  clickable = true,
-  myCordinate,
 }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [API_KEY] = useState(MAP_API_KEY);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
@@ -43,13 +41,13 @@ export default function Map({
       "bottom-right"
     );
 
-    if (clickable) {
+    if (onClick) {
       var marker = new maptilersdk.Marker();
 
       function add_marker(event) {
         var coordinates = event.lngLat;
         marker.setLngLat(coordinates).addTo(map.current);
-        onClick?.([coordinates.lat, coordinates.lng]);
+        onClick([coordinates.lat, coordinates.lng]);
       }
 
       map.current.on("click", add_marker);
@@ -57,10 +55,15 @@ export default function Map({
   }, []);
 
   useEffect(() => {
-    myCordinate &&
-      new maplibregl.Marker({ color: "lightBlue" })
+    if (myCordinate) {
+      const marker = new maplibregl.Marker({ color: "lightBlue" })
         .setLngLat([myCordinate[1], myCordinate[0]])
         .addTo(map.current);
+      handleMyMarkerClicked &&
+        marker.getElement().addEventListener("click", () => {
+          handleMyMarkerClicked();
+        });
+    }
   }, [myCordinate]);
 
   useEffect(() => {
@@ -68,27 +71,21 @@ export default function Map({
   }, [center[0], center[1]]);
 
   useEffect(() => {
+    console.log(cordinates, "test123123");
     cordinates.forEach((element) => {
       const marker = new maplibregl.Marker({ color: "#FF0000" })
         .setLngLat([element[1], element[0]])
         .addTo(map.current);
-      !isOnList &&
+      handleMarkerClicked &&
         marker.getElement().addEventListener("click", () => {
-          setOpen(true);
+          handleMarkerClicked(element);
         });
     });
-  }, [cordinates, isOnList]);
+  }, [cordinates, handleMarkerClicked]);
 
   return (
     <Grid container className="map-wrap">
       <div ref={mapContainer} className="map" />
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <PostsList />
-      </Modal>
     </Grid>
   );
-}
-
-function revertLocation(cordinate) {
-  return [cordinate[1], cordinate[0]];
 }

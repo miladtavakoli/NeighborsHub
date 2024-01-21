@@ -5,26 +5,30 @@ import Map from "components/map/map";
 import Modal from "components/modal/modal";
 import { useState } from "react";
 
-const PostsList = () => {
+const PostsList = ({ posts = [] }) => {
   const [open, setOpen] = useState(false);
-  const [cordinates] = useState([[49.2827, -123.1207]]);
+  const [cordinates, setCordinate] = useState([[49.2827, -123.1207]]);
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleOpenModal = () => setOpen(true);
+  const handleOpenModal = (post) => {};
   return (
     <>
       <Grid container direction="column">
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
-          <Post showLocationOnMap handleOpenModal={handleOpenModal} />
-        </Card>
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
-          <Post showLocationOnMap handleOpenModal={handleOpenModal} />
-        </Card>
-        <Card container direction={"column"} sx={{ p: 2, mx: 1, my: 1 }}>
-          <Post showLocationOnMap handleOpenModal={handleOpenModal} />
-        </Card>
+        {posts.map((item, index) => (
+          <Card
+            key={index}
+            container
+            direction={"column"}
+            sx={{ p: 2, mx: 1, my: 1 }}
+          >
+            <Post
+              showLocationOnMap
+              handleOpenModal={() => handleOpenModal(item)}
+            />
+          </Card>
+        ))}
       </Grid>
       <Modal open={open} onClose={handleClose}>
         <Grid
@@ -32,12 +36,7 @@ const PostsList = () => {
           justifyContent={"center"}
           sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 180px )" }}
         >
-          <Map
-            cordinates={cordinates}
-            isOnList
-            center={cordinates[0]}
-            zoom={14}
-          />
+          <Map cordinates={cordinates} center={cordinates[0]} zoom={14} />
         </Grid>
       </Modal>
     </>

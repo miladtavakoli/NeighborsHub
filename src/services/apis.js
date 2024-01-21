@@ -44,14 +44,25 @@ const Apis = {
       apiConfig({ url: "/post/me/create", method: "post", data }),
     getPosts: (data) =>
       apiConfig({
-        url: `/post?${data.long ? "longitude=" + data.long + "&" : ""}${
+        url: `/post/?${data.long ? "longitude=" + data.long + "&" : ""}${
           data.lat ? "latitude=" + data.lat + "&" : ""
         }${data.zoom ? "distance=" + data.zoom + "&" : ""}${
           data.hashtag ? "hashtag_title=" + data.hashtag + "&" : ""
-        }${data.search ? "search=" + data.search + "&" : ""}`,
+        }${data.offset ? "offset=" + data.offset + "&" : ""}${
+          data.limit ? "limit=" + data.limit + "&" : ""
+        }${data.count ? "count=" + data.count + "&" : ""}`,
         method: "get",
       }),
     getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
+    setUniqueLocation: (data) =>
+      apiConfig({
+        url: `/post/location-count?${
+          data.offset ? "offset=" + data.offset + "&" : ""
+        }${data.limit ? "limit=" + data.limit + "&" : ""}${
+          data.count ? "count=" + data.count + "&" : ""
+        }`,
+        method: "get",
+      }),
   },
 };
 
