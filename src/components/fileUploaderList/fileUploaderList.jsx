@@ -3,13 +3,7 @@ import Grid from "@mui/material/Grid";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 
-const FileUploaderList = () => {
-  const [files, setFiles] = useState([]);
-
-  const handleAddFileToList = (e) => {
-    setFiles((prevState) => [...prevState, ...e.target.files]);
-  };
-
+const FileUploaderList = ({ files, handleAddFileToList }) => {
   return (
     <Grid container>
       {files.map((item, index) => (

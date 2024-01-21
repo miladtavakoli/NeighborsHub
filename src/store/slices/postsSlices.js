@@ -20,7 +20,7 @@ const postsSlices = createSlice({
       state.myPosts = payload;
     },
     setUniqueLocation: (state, { payload }) => {
-      state.uniqueLocation = payload;
+      state.uniqueLocation = payload.map((item) => item.location.coordinates);
     },
   },
 });

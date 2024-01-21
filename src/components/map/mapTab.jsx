@@ -12,24 +12,24 @@ import {
 } from "store/slices/postsSlices";
 
 const MapTab = () => {
+  const myPosts = useSelector(myPostsSelector);
+  const posts = useSelector(postsSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
+  const cordinates = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
   const zoom = mainAddress ? 15 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
-  const cordinates = useSelector(uniqueLocationSelector).map(
-    (item) => item.location.coordinates
-  );
   const [open, setOpen] = useState(false);
   const [selectedPosts, setSelectedPosts] = useState([]);
-  const myPosts = useSelector(myPostsSelector);
-  const posts = useSelector(postsSelector);
 
   const handleMarkerClicked = () => {
+    setSelectedPosts(posts);
     setOpen(true);
   };
 
   const handleMyMarkerClicked = () => {
+    setSelectedPosts(myPosts);
     setOpen(true);
   };
 
@@ -42,7 +42,6 @@ const MapTab = () => {
     <Grid container alignContent={"flex-start"}>
       <Map
         cordinates={cordinates}
-        clickable={false}
         center={initilaCordinate}
         zoom={zoom}
         myCordinate={myCordinate}
@@ -50,7 +49,7 @@ const MapTab = () => {
         handleMyMarkerClicked={handleMyMarkerClicked}
       />
       <Modal open={open} onClose={handleClose}>
-        <PostsList posts={[1]} />
+        <PostsList posts={selectedPosts} />
       </Modal>
     </Grid>
   );

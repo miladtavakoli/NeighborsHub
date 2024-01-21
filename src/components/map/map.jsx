@@ -11,7 +11,7 @@ import { MAP_API_KEY } from "constants";
 export default function Map({
   onClick,
   cordinates = [],
-  myCordinate,
+  myCordinate = [],
   handleMarkerClicked,
   handleMyMarkerClicked,
   center = [0, 0],
@@ -55,7 +55,7 @@ export default function Map({
   }, []);
 
   useEffect(() => {
-    if (myCordinate) {
+    if (myCordinate[0]) {
       const marker = new maplibregl.Marker({ color: "lightBlue" })
         .setLngLat([myCordinate[1], myCordinate[0]])
         .addTo(map.current);
@@ -64,14 +64,13 @@ export default function Map({
           handleMyMarkerClicked();
         });
     }
-  }, [myCordinate]);
+  }, [myCordinate[0]]);
 
   useEffect(() => {
     map.current.flyTo({ center: [center[1], center[0]], zoom: 14 });
   }, [center[0], center[1]]);
 
   useEffect(() => {
-    console.log(cordinates, "test123123");
     cordinates.forEach((element) => {
       const marker = new maplibregl.Marker({ color: "#FF0000" })
         .setLngLat([element[1], element[0]])
@@ -81,7 +80,7 @@ export default function Map({
           handleMarkerClicked(element);
         });
     });
-  }, [cordinates, handleMarkerClicked]);
+  }, [cordinates]);
 
   return (
     <Grid container className="map-wrap">

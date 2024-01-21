@@ -25,6 +25,7 @@ const CreatePostModal = ({ open, handleClose }) => {
   const addresses = useSelector(myAddressesSelector);
   const [selectedAddress, setSelectedAddress] = useState({});
   const { enqueueSnackbar } = useSnackbar();
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setSelectedAddress(addresses.find((item) => item.is_main_address));
@@ -38,17 +39,23 @@ const CreatePostModal = ({ open, handleClose }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      createPost({
-        title: title.value,
-        body: description.value,
-        address_id: selectedAddress.id,
-        medias: [],
-      })
-    ).then(() => {
+    console.log(files, "test123123123");
+    let formData = new FormData();
+    formData.append(`title`, title.value);
+    formData.append(`body`, description.value);
+    formData.append(`address_id`, selectedAddress.id);
+    files.forEach((item, index) => {
+      formData.append(`medias[${index}]`, item);
+    });
+
+    dispatch(createPost(formData)).then(() => {
       enqueueSnackbar("Post Created Successfuly", { variant: "success" });
       handleClose();
     });
+  };
+
+  const handleAddFileToList = (e) => {
+    setFiles((prevState) => [...prevState, ...e.target.files]);
   };
 
   return (
@@ -75,7 +82,10 @@ const CreatePostModal = ({ open, handleClose }) => {
           />
         )}
         <Grid sx={{ mt: 2 }}>
-          <FileUploaderList />
+          <FileUploaderList
+            files={files}
+            handleAddFileToList={handleAddFileToList}
+          />
         </Grid>
         <Button
           fullWidth

@@ -19,7 +19,11 @@ const CustomModal = ({ open, onClose, children, width = "md" }) => {
             <CloseIcon sx={{ color: "white" }} />
           </IconButton>
         </Grid>
-        <Card container direction={"column"} sx={{ p: 2 }}>
+        <Card
+          container
+          direction={"column"}
+          sx={{ p: 2, maxHeight: "calc( 100vh - 300px )", overflowY: "auto" }}
+        >
           {children}
         </Card>
       </Container>

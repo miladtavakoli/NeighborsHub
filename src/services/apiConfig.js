@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "services/constants";
+import { APIS_BASE_URL } from "services/constants";
 import { useSnackbar } from "notistack";
 const controller = new AbortController();
 
@@ -7,11 +7,12 @@ const apiConfig = ({ method, token, data = {}, url, baseURL }) =>
   axios({
     method: method.toUpperCase(),
     url,
-    baseURL: baseURL ? baseURL : BASE_URL,
+    baseURL: baseURL ? baseURL : APIS_BASE_URL,
     signal: controller.signal,
     data,
     headers: {
       Authorization: token ? token : localStorage.getItem("token"),
+      "Content-Type": "multipart/form-data",
     },
   })
     .then((res) => {
