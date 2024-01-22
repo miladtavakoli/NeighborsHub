@@ -13,11 +13,17 @@ import { useSnackbar } from "notistack";
 import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import Link from "next/link";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import React, { useCallback } from "react";
+import { googleAuth } from "store/actions/authActions";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmitPassword = (e) => {
     e.preventDefault();
@@ -41,6 +47,15 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         setLoading(false);
       });
   };
+
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      dispatch(googleAuth({ code: tokenResponse.access_token })).then(() =>
+        router.push("/app")
+      );
+    },
+  });
+
   return (
     <>
       <Typography textAlign={"center"}>Enter your password</Typography>
@@ -87,26 +102,23 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
       {/* </form> */}
       <Divider sx={{ mt: 2 }} />
       <Grid container justifyContent={"center"} sx={{ mt: 2 }}>
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        />
-        {/* <Button
+        {/* <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={handleGoogleLoginFailuer}
+          useOneTap
+        /> */}
+        <Button
           variant="outlined"
           sx={{
             color: "black",
             border: "1px solid black",
             borderRadius: "15px",
-            mt: 2,
           }}
+          onClick={() => login()}
         >
           Sign in with google
           <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
-        </Button> */}
+        </Button>
       </Grid>
       <Divider sx={{ mt: 2 }} />
 

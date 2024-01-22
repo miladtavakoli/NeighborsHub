@@ -16,6 +16,8 @@ const Apis = {
     optLoginChecking: (data) =>
       apiConfig({ url: "/auth/verify-otp-login", method: "post", data }),
     logout: () => apiConfig({ url: "/auth/logout", method: "get" }),
+    googleAuth: (data) =>
+      apiConfig({ url: `/auth/login/google?code=${data.code}`, method: "get" }),
   },
   address: {
     getIpLocation: () =>
@@ -41,7 +43,11 @@ const Apis = {
   },
   posts: {
     createPost: (data) =>
-      apiConfig({ url: "/post/me/create", method: "post", data }),
+      apiConfig({
+        url: "/post/me/create",
+        method: "post",
+        data: { ...data, isFormData: true },
+      }),
     getPosts: (data) =>
       apiConfig({
         url: `/post/?${data.long ? "longitude=" + data.long + "&" : ""}${

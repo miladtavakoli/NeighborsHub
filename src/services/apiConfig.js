@@ -3,7 +3,7 @@ import { APIS_BASE_URL } from "services/constants";
 import { useSnackbar } from "notistack";
 const controller = new AbortController();
 
-const apiConfig = ({ method, token, data = {}, url, baseURL }) =>
+const apiConfig = ({ method, token, data = {}, url, baseURL, isFormData }) =>
   axios({
     method: method.toUpperCase(),
     url,
@@ -12,7 +12,7 @@ const apiConfig = ({ method, token, data = {}, url, baseURL }) =>
     data,
     headers: {
       Authorization: token ? token : localStorage.getItem("token"),
-      "Content-Type": "multipart/form-data",
+      "Content-Type": isFormData ? "multipart/form-data" : "application/json",
     },
   })
     .then((res) => {

@@ -9,16 +9,15 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const App = ({ children }) => {
   return (
-    <Provider store={makeStore}>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
-          <GoogleOAuthProvider clientId="1092960991760-7ih57lpsujsf5at6toka7o0vd24ogm21.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="1092960991760-7ih57lpsujsf5at6toka7o0vd24ogm21.apps.googleusercontent.com">
+      <Provider store={makeStore}>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
             <Bootstrap>{children}</Bootstrap>
-          </GoogleOAuthProvider>
-          ;
-        </SnackbarProvider>
-      </ThemeProvider>
-    </Provider>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </Provider>
+    </GoogleOAuthProvider>
   );
 };
 
