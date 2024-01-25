@@ -48,11 +48,7 @@ const Bootstrap = ({ children }) => {
   return (
     <>
       {!firstLoading && children}
-      <Backdrop sx={{ zIndex: 1395 }} open={isLoading} onClick={() => {}}>
-        {isLoading && (
-          <CircularProgress sx={{ color: "white", zIndex: 1399 }} />
-        )}
-      </Backdrop>
+      <Backdrop sx={{ zIndex: 1395 }} open={isLoading} onClick={() => {}}>{isLoading && (<CircularProgress sx={{ color: "white", zIndex: 1399 }} />)}</Backdrop>
     </>
   );
 };

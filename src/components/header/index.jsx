@@ -125,7 +125,7 @@ const Header = () => {
               alignItems: "flex-end",
               fontSize: "24px",
               textDecoration: "underline",
-              color: "#F39B13",
+              color: "black",
               fontWeight: "bold",
             }}
           >
@@ -170,7 +170,7 @@ const Header = () => {
               alignItems: "flex-end",
               fontSize: "24px",
               textDecoration: "underline",
-              color: "#F39B13",
+              color: "black",
               fontWeight: "bold",
             }}
           >
