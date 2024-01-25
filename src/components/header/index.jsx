@@ -64,7 +64,7 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const handleClick = (event) => {
+  const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -88,6 +88,10 @@ const Header = () => {
       .finally(() => {
         dispatch(endLoading());
       });
+  };
+
+  const handlePushtoMyPosts = () => {
+    router.push("/my-posts");
   };
 
   return (
@@ -117,31 +121,31 @@ const Header = () => {
             </IconButton>
           </Grid>
           <Grid>
-          <Typography
-            sx={{
-              // fontFamily: "Ephesis-Regular",
-              fontWeight: "bolder",
-              display: "flex",
-              alignItems: "flex-end",
-              fontSize: "24px",
-              textDecoration: "underline",
-              color: "black",
-              fontWeight: "bold",
-            }}
-          >
-            <LocationOn
+            <Typography
               sx={{
-                fontSize: "35px",
+                // fontFamily: "Ephesis-Regular",
+                fontWeight: "bolder",
+                display: "flex",
+                alignItems: "flex-end",
+                fontSize: "24px",
+                textDecoration: "underline",
+                color: "black",
+                fontWeight: "bold",
               }}
-            />
-            NeighborsHub
-          </Typography>
+            >
+              <LocationOn
+                sx={{
+                  fontSize: "35px",
+                }}
+              />
+              NeighborsHub
+            </Typography>
           </Grid>
           <Grid>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => router.push("/profile")}
+              onClick={handleOpenMenu}
               edge="start"
               sx={{
                 visibility: isAutenticated ? "" : "hidden",
@@ -157,6 +161,19 @@ const Header = () => {
                 }}
               />
             </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={menuOpen}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
+              <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
           </Grid>
         </Grid>
       </Hidden>
@@ -211,7 +228,7 @@ const Header = () => {
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                onClick={handleClick}
+                onClick={handleOpenMenu}
                 edge="start"
               >
                 <PersonIcon
@@ -234,6 +251,7 @@ const Header = () => {
                 }}
               >
                 <MenuItem onClick={handlePushToProfile}>Profile</MenuItem>
+                <MenuItem onClick={handlePushtoMyPosts}>My Posts</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </>

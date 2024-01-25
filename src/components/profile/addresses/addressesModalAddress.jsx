@@ -24,7 +24,7 @@ const AddressesModalAddress = ({
 
   return (
     <Grid
-      sx={{ height: "auto" }}
+      sx={{ height: "100%" }}
       container
       direction={"column"}
       justifyContent={"flex-start"}

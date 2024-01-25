@@ -11,7 +11,11 @@ const AddressModalMap = ({ handleSubmit }) => {
   };
 
   return (
-    <Grid sx={{ height: "500px" }} container direction={"column"}>
+    <Grid
+      sx={{ height: "100%" }}
+      container
+      direction={"column"}
+    >
       <Grid>
         <Typography textAlign={"center"} sx={{ color: "gray" }}>
           Select your location on map

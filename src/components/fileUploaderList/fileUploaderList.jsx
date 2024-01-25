@@ -1,13 +1,23 @@
-import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 
-const FileUploaderList = ({ files, handleAddFileToList }) => {
+const FileUploaderList = ({
+  files,
+  handleAddFileToList,
+  handleRemoveFromList,
+}) => {
   return (
     <Grid container>
       {files.map((item, index) => (
-        <UploadedFileThumbnail file={item} key={index} />
+        <UploadedFileThumbnail
+          file={item}
+          key={index}
+          index={index}
+          handleRemoveFromList={handleRemoveFromList}
+        />
       ))}
       <FileUploader handleAddFile={handleAddFileToList} />
     </Grid>
@@ -23,8 +33,8 @@ const FileUploader = ({ handleAddFile }) => {
       sx={{
         border: "1px dashed lightGray",
         borderRadius: "10px",
-        width: "70px",
-        height: "70px",
+        width: "90px",
+        height: "90px",
         position: "relative",
         cursor: "pointer",
         m: 1,
@@ -44,6 +54,7 @@ const FileUploader = ({ handleAddFile }) => {
           cursor: "pointer",
         }}
         multiple
+        accept="image/png, image/gif, image/jpeg"
       />
       <AddIcon
         sx={{
@@ -62,9 +73,9 @@ const FileUploader = ({ handleAddFile }) => {
   );
 };
 
-const UploadedFileThumbnail = ({ file }) => {
+const UploadedFileThumbnail = ({ file, index, handleRemoveFromList }) => {
+  var url = URL.createObjectURL(file);
   const lastIndex = file.name.lastIndexOf(".");
-  const fileType = file.name.slice(lastIndex + 1);
   return (
     <Grid
       container
@@ -73,14 +84,32 @@ const UploadedFileThumbnail = ({ file }) => {
       sx={{
         border: "1px dashed lightGray",
         borderRadius: "10px",
-        width: "70px",
-        height: "70px",
+        width: "90px",
+        height: "90px",
         position: "relative",
         m: 1,
+        overflow: "hidden",
       }}
     >
-      <Typography>{fileType}</Typography>
-      {/* <img src={file} alt="name123" /> */}
+      <img
+        width={"100%"}
+        height={"100%"}
+        style={{ objectFit: "contain" }}
+        src={url}
+        alt="name123"
+      />
+      <IconButton
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          color: "gray",
+          p: "3px!important",
+        }}
+        onClick={() => handleRemoveFromList(index)}
+      >
+        <DeleteIcon />
+      </IconButton>
     </Grid>
   );
 };

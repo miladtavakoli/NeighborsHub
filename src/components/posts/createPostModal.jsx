@@ -59,6 +59,12 @@ const CreatePostModal = ({ open, handleClose }) => {
     setFiles((prevState) => [...prevState, ...e.target.files]);
   };
 
+  const handleRemoveFromList = (selectedItemIndex) => {
+    setFiles((prevState) =>
+      prevState.filter((item, index) => index !== selectedItemIndex)
+    );
+  };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Grid container direction={"column"} sx={{ position: "relative" }}>
@@ -119,6 +125,7 @@ const CreatePostModal = ({ open, handleClose }) => {
             <FileUploaderList
               files={files}
               handleAddFileToList={handleAddFileToList}
+              handleRemoveFromList={handleRemoveFromList}
             />
           </Grid>
           <Button

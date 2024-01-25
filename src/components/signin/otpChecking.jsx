@@ -22,13 +22,11 @@ import { getMyAddresses } from "store/actions/userActions";
 
 const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
     dispatch(startLoading());
     Apis.auth
       .optLoginChecking({
@@ -47,7 +45,6 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
         enqueueSnackbar(message, { variant: "error" });
       })
       .finally(() => {
-        setLoading(false);
         dispatch(endLoading());
       });
   };
@@ -75,15 +72,13 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
           fullWidth
           variant="contained"
           type="submit"
-          disabled={loading}
         >
-          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+          Submit
         </Button>
         <Button
           sx={{ mt: 1 }}
           fullWidth
           variant="outlined"
-          disabled={loading}
           color="secondary"
           onClick={handleBack}
         >

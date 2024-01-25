@@ -27,13 +27,11 @@ const PasswordChecking = ({
   otp,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
     dispatch(startLoading());
     Apis.auth
       .passwordLogin({
@@ -51,7 +49,6 @@ const PasswordChecking = ({
         enqueueSnackbar(message, { variant: "error" });
       })
       .finally(() => {
-        setLoading(false);
         dispatch(endLoading());
       });
   };
@@ -80,15 +77,13 @@ const PasswordChecking = ({
           fullWidth
           variant="contained"
           type="submit"
-          disabled={loading}
         >
-          {loading ? <CircularProgress size={25} sx={{ mx: 1 }} /> : "Submit"}
+          Submit
         </Button>
         <Button
           sx={{ mt: 1 }}
           fullWidth
           variant="outlined"
-          disabled={loading}
           color="secondary"
           onClick={handleBack}
         >

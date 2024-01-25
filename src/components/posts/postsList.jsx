@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import Map from "components/map/map";
 import Modal from "components/modal/modal";
 import { useState } from "react";
+import Typography from "@mui/material/Typography";
 
 const PostsList = ({ posts = [], showLocationOnMap = false }) => {
   const [open, setOpen] = useState(false);
@@ -15,28 +16,41 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
   const handleOpenModal = (post) => {
     setCordinate([post.address.location.coordinates]);
     setOpen(true);
-    
   };
-
 
   return (
     <>
-      <Grid container direction="column">
-        {posts.map((item, index) => (
-          <Card
-            key={index}
-            container
-            direction={"column"}
-            sx={{ p: 2, mx: 1, my: 1 }}
-          >
-            <Post
-              showLocationOnMap={showLocationOnMap}
-              handleOpenModal={() => handleOpenModal(item)}
-              data={item}
-            />
-          </Card>
-        ))}
-      </Grid>
+      {posts.length > 0 ? (
+        <Grid container direction="column">
+          {posts.map((item, index) => (
+            <Card
+              key={index}
+              container
+              direction={"column"}
+              sx={{ p: 2, mx: 1, my: 1 }}
+            >
+              <Post
+                showLocationOnMap={showLocationOnMap}
+                handleOpenModal={() => handleOpenModal(item)}
+                data={item}
+              />
+            </Card>
+          ))}
+        </Grid>
+      ) : (
+        <Grid
+          container
+          direction="column"
+          sx={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            pb: 8,
+          }}
+        >
+          <Typography>There is notting here</Typography>
+        </Grid>
+      )}
       <Modal open={open} onClose={handleClose}>
         <Grid
           container
