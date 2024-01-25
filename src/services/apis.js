@@ -46,7 +46,8 @@ const Apis = {
       apiConfig({
         url: "/post/me/create",
         method: "post",
-        data: { ...data, isFormData: true },
+        data,
+        isFormData: true,
       }),
     getPosts: (data) =>
       apiConfig({

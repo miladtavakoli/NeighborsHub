@@ -36,6 +36,7 @@ import Apis from "services/apis";
 import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
+import LocationOn from "@mui/icons-material/LocationOn";
 
 const path = {
   "/": 0,
@@ -116,15 +117,25 @@ const Header = () => {
             </IconButton>
           </Grid>
           <Grid>
-            <Typography
-              variant="h4"
+          <Typography
+            sx={{
+              // fontFamily: "Ephesis-Regular",
+              fontWeight: "bolder",
+              display: "flex",
+              alignItems: "flex-end",
+              fontSize: "24px",
+              textDecoration: "underline",
+              color: "#F39B13",
+              fontWeight: "bold",
+            }}
+          >
+            <LocationOn
               sx={{
-                fontFamily: "Ephesis-Regular",
-                fontWeight: "bolder",
+                fontSize: "35px",
               }}
-            >
-              Neighbors Hub
-            </Typography>
+            />
+            NeighborsHub
+          </Typography>
           </Grid>
           <Grid>
             <IconButton
@@ -152,13 +163,23 @@ const Header = () => {
       <Hidden mdDown>
         <Grid>
           <Typography
-            variant="h4"
             sx={{
-              fontFamily: "Ephesis-Regular",
+              // fontFamily: "Ephesis-Regular",
               fontWeight: "bolder",
+              display: "flex",
+              alignItems: "flex-end",
+              fontSize: "24px",
+              textDecoration: "underline",
+              color: "#F39B13",
+              fontWeight: "bold",
             }}
           >
-            Neighbors Hub
+            <LocationOn
+              sx={{
+                fontSize: "35px",
+              }}
+            />
+            NeighborsHub
           </Typography>
         </Grid>
         <Grid>

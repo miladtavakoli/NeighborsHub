@@ -36,7 +36,7 @@ const Bootstrap = ({ children }) => {
           getPosts({
             lat: cordinates[0],
             long: cordinates[1],
-            zoom: 100000,
+            zoom: 1000,
             offset: "0",
             limit: 30,
           })
