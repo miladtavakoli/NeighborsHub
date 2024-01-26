@@ -36,6 +36,7 @@ import Apis from "services/apis";
 import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
+import { clearStore } from "store/actions/appActions";
 import LocationOn from "@mui/icons-material/LocationOn";
 
 const path = {
@@ -79,6 +80,7 @@ const Header = () => {
       .logout()
       .then(() => {
         localStorage.removeItem("token");
+        dispatch(clearStore());
         enqueueSnackbar("Log Out Successful", { variant: "info" });
         router.push("/");
       })
@@ -91,7 +93,8 @@ const Header = () => {
   };
 
   const handlePushtoMyPosts = () => {
-    router.push("/my-posts");
+    router.push("/app/my-posts");
+    setAnchorEl(null);
   };
 
   return (

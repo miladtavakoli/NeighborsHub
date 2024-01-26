@@ -70,6 +70,8 @@ const Apis = {
         }`,
         method: "get",
       }),
+    deletePost: (data) =>
+      apiConfig({ url: `/post/me/${data.id}`, method: "delete" }),
   },
 };
 

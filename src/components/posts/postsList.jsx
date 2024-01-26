@@ -5,10 +5,16 @@ import Map from "components/map/map";
 import Modal from "components/modal/modal";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import { myAddressesSelector } from "store/slices/userSlices";
 
 const PostsList = ({ posts = [], showLocationOnMap = false }) => {
   const [open, setOpen] = useState(false);
   const [cordinates, setCordinate] = useState([[49.2827, -123.1207]]);
+  const myAddressCordinate = useSelector(myAddressesSelector);
+  const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
+  const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -23,16 +29,12 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
       {posts.length > 0 ? (
         <Grid container direction="column">
           {posts.map((item, index) => (
-            <Card
-              key={index}
-              container
-              direction={"column"}
-              sx={{ p: 2, mx: 1, my: 1 }}
-            >
+            <Card key={index} sx={{ my: 1 }}>
               <Post
                 showLocationOnMap={showLocationOnMap}
                 handleOpenModal={() => handleOpenModal(item)}
                 data={item}
+                handleClosePostsList={handleClose}
               />
             </Card>
           ))}
@@ -57,7 +59,12 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
           justifyContent={"center"}
           sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
         >
-          <Map cordinates={cordinates} center={cordinates[0]} zoom={15} />
+          <Map
+            myCordinate={initilaCordinate}
+            cordinates={cordinates}
+            center={cordinates[0]}
+            zoom={15}
+          />
         </Grid>
       </Modal>
     </>

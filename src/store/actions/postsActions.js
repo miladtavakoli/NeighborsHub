@@ -4,7 +4,9 @@ import {
   addPost,
   setPosts,
   setMyPosts,
+  removePost,
   setUniqueLocation,
+  setLocationPosts,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 
@@ -22,6 +24,7 @@ export const getLocationPosts = (data) => async (dispatch) => {
   return Apis.posts
     .getPosts(data)
     .then((res) => {
+      dispatch(setLocationPosts(res.posts?.results || []));
       console.log(res, "test");
       return res;
     })
@@ -54,6 +57,17 @@ export const createPost = (data) => async (dispatch) => {
     .then((res) => {
       console.log(res, "test");
       dispatch(addPost(res.post || []));
+    })
+    .finally(() => dispatch(endLoading()));
+};
+
+export const deletePost = (data) => async (dispatch) => {
+  dispatch(startLoading());
+  return Apis.posts
+    .deletePost(data)
+    .then((res) => {
+      console.log(res, "test");
+      dispatch(removePost(data));
     })
     .finally(() => dispatch(endLoading()));
 };

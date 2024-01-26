@@ -11,7 +11,7 @@ const ConfirmationModal = ({
   width,
 }) => {
   return (
-    <Modal open={open} handleClose={handleClose} width={width}>
+    <Modal open={open} onClose={handleClose} width={width}>
       <Grid container direction="column">
         <Typography>{text}</Typography>
       </Grid>

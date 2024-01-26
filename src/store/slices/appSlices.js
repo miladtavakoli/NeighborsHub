@@ -14,11 +14,12 @@ const appSlices = createSlice({
     endLoading: (state) => {
       if (state.loading) state.loading -= 1;
     },
+    clearApp: () => initialState,
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { startLoading, endLoading } = appSlices.actions;
+export const { startLoading, endLoading, clearApp } = appSlices.actions;
 
 export const loadingSelector = (state) => state.app.loading;
 

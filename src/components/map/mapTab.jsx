@@ -8,43 +8,46 @@ import PostsList from "components/posts/postsList";
 import {
   myPostsSelector,
   uniqueLocationSelector,
+  locationPostSelector,
 } from "store/slices/postsSlices";
 import { getLocationPosts, getMyPosts } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 
 const MapTab = () => {
   const myPosts = useSelector(myPostsSelector);
+  const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const cordinates = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
   const zoom = mainAddress ? 15 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(null);
   const [selectedPosts, setSelectedPosts] = useState();
+  const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
 
   const handleMarkerClicked = async (item) => {
-    const result = await dispatch(
+    dispatch(
       getLocationPosts({
         lat: item[0],
         long: item[1],
         zoom: "1",
       })
-    );
-    setSelectedPosts(result.posts.results);
-    setOpen(true);
+    ).then(() => {
+      setIsMyPosts(false);
+      setOpen(true);
+    });
   };
 
   const handleMyMarkerClicked = async () => {
-    const result = await dispatch(getMyPosts());
-    setSelectedPosts(result.posts.results);
+    setIsMyPosts(true);
     setOpen(true);
   };
 
   const handleClose = () => {
-    // setSelectedPosts([]);
-    setOpen(false);
+    setSelectedPosts([]);
+    setOpen(null);
   };
 
   return (
@@ -58,7 +61,7 @@ const MapTab = () => {
         handleMyMarkerClicked={handleMyMarkerClicked}
       />
       <Modal open={open} onClose={handleClose}>
-        <PostsList posts={selectedPosts} />
+        <PostsList posts={isMyPosts ? myPosts : locationPosts} />
       </Modal>
     </Grid>
   );
