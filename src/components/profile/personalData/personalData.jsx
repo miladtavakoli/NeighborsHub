@@ -10,10 +10,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useSnackbar } from "notistack";
 import { myInfoSelector } from "store/slices/userSlices";
 import { useInputHandler } from "hooks/useInputHandler";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Divider from "@mui/material/Divider";
 import PhoneNumberDialog from "components/profile/personalData/phoneNumberDialog";
 import EmailDialog from "components/profile/personalData/emailDialog";
+import { updateMyInfo } from "store/actions/userActions";
 
 const PersonalData = () => {
   const myInfo = useSelector(myInfoSelector);
@@ -24,6 +25,7 @@ const PersonalData = () => {
   const email = useInputHandler("");
   const [openPhoneNumberDialog, setOpenPhoneNumberDialog] = useState(false);
   const [openEmailDialog, setOpenEmailDialog] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     firstName.onChange({ target: { value: myInfo.first_name } });
@@ -33,6 +35,18 @@ const PersonalData = () => {
   }, [myInfo]);
 
   const handleRegister = async () => {
+    dispatch(
+      updateMyInfo({ first_name: firstName.value, last_name: lastName.value })
+    )
+      .then((res) => {
+        enqueueSnackbar("Profile Updated Successfuly", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
     // const result = await Apis.auth.register({
     //   email_mobile:
     // })

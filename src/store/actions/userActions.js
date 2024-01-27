@@ -26,6 +26,14 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
+export const updateMyInfo = (data) => async (dispatch) => {
+  dispatch(startLoading());
+  return Apis.user
+    .updateMyInfo(data)
+    .then((res) => dispatch(setMyInfo(res)))
+    .finally(() => dispatch(endLoading()));
+};
+
 export const myInfoAction = () => async (dispatch) => {
   dispatch(startLoading());
   return Apis.user

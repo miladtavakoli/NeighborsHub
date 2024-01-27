@@ -21,6 +21,7 @@ const Apis = {
   },
   user: {
     myInfo: () => apiConfig({ url: "/me", method: "get" }),
+    updateMyInfo: (data) => apiConfig({ url: "/me", method: "put", data }),
     sendOtpToEmail: (data) =>
       apiConfig({ url: "/auth/send-verify-email", method: "post", data }),
     verifyEmailOtp: (data) =>
