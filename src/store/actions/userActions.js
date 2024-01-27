@@ -1,5 +1,9 @@
 import Apis from "services/apis";
-import { setMyAddresses, addNewAddress } from "store/slices/userSlices";
+import {
+  setMyAddresses,
+  addNewAddress,
+  setMyInfo,
+} from "store/slices/userSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
@@ -18,5 +22,13 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
   return Apis.address
     .createAddress({ ...payload })
     .then((res) => dispatch(addNewAddress(res.address)))
+    .finally(() => dispatch(endLoading()));
+};
+
+export const myInfoAction = () => async (dispatch) => {
+  dispatch(startLoading());
+  return Apis.user
+    .myInfo()
+    .then((res) => dispatch(setMyInfo(res.user)))
     .finally(() => dispatch(endLoading()));
 };

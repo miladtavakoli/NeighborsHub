@@ -22,13 +22,22 @@ const userSlices = createSlice({
       );
     },
     clearUser: () => initialState,
+    setMyInfo: (state, { payload }) => {
+      state.myInfo = payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setMyAddresses, updateMyAddress, addNewAddress, clearUser } =
-  userSlices.actions;
+export const {
+  setMyAddresses,
+  updateMyAddress,
+  addNewAddress,
+  clearUser,
+  setMyInfo,
+} = userSlices.actions;
 
 export const myAddressesSelector = (state) => state.user.addresses;
+export const myInfoSelector = (state) => state.user.myInfo;
 
 export default userSlices.reducer;

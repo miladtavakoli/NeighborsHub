@@ -7,6 +7,7 @@ import {
   getMyPosts,
   getUniqueLocation,
 } from "store/actions/postsActions";
+import { myInfoAction } from "store/actions/userActions";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { loadingSelector } from "store/slices/appSlices";
@@ -41,6 +42,7 @@ const Bootstrap = ({ children }) => {
             limit: 30,
           })
         );
+        dispatch(myInfoAction());
       })
       .catch(() => setFirstLoading(false));
   }, []);
@@ -48,7 +50,11 @@ const Bootstrap = ({ children }) => {
   return (
     <>
       {!firstLoading && children}
-      <Backdrop sx={{ zIndex: 1395 }} open={isLoading} onClick={() => {}}>{isLoading && (<CircularProgress sx={{ color: "white", zIndex: 1399 }} />)}</Backdrop>
+      <Backdrop sx={{ zIndex: 1395 }} open={isLoading} onClick={() => {}}>
+        {isLoading && (
+          <CircularProgress sx={{ color: "white", zIndex: 1399 }} />
+        )}
+      </Backdrop>
     </>
   );
 };

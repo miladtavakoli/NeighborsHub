@@ -8,10 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import ConfirmationModal from "components/modal/confirmationModal";
 import { deletePost } from "store/actions/postsActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { myInfoSelector } from "store/slices/userSlices";
 
 const Post = ({
   handleOpenModal,
@@ -23,6 +24,8 @@ const Post = ({
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
+  const myInfo = useSelector(myInfoSelector);
+  const isMyPost = myInfo.id === data.created_by.id;
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -75,12 +78,25 @@ const Post = ({
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleOpenConfirmationModal}>
-            <DeleteIcon /> Delete
-          </MenuItem>
+          {showLocationOnMap && (
+            <MenuItem
+              onClick={() => handleOpenModal(data)}
+              // sx={{ color: "red" }}
+            >
+              <LocationOnIcon sx={{ mr: 0.5 }} /> Show On Map
+            </MenuItem>
+          )}
+          {isMyPost && (
+            <MenuItem
+              onClick={handleOpenConfirmationModal}
+              sx={{ color: "red" }}
+            >
+              <DeleteIcon /> Delete
+            </MenuItem>
+          )}
         </Menu>
       </Grid>
-      <Grid
+      {/* <Grid
         container
         justifyContent={"space-between"}
         direction={"row-reverse"}
@@ -99,11 +115,11 @@ const Post = ({
               Show On Map
             </Typography>
           </Button>
-        )}
-        {/* <Typography color="primary" sx={{ mt: 1, pl: 1 }} variant="subtitle1">
+        )} */}
+      {/* <Typography color="primary" sx={{ mt: 1, pl: 1 }} variant="subtitle1">
             10$ - 20$
           </Typography> */}
-      </Grid>
+      {/* </Grid> */}
       <Typography sx={{ mt: 1, px: 3, color: "gray" }} variant="subtitle1">
         {data.body}
       </Typography>

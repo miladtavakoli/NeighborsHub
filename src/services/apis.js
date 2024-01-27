@@ -19,6 +19,9 @@ const Apis = {
     googleAuth: (data) =>
       apiConfig({ url: `/auth/login/google?code=${data.code}`, method: "get" }),
   },
+  user: {
+    myInfo: () => apiConfig({ url: "/me", method: "get" }),
+  },
   address: {
     getIpLocation: () =>
       axios.get(
