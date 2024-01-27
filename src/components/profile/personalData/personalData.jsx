@@ -12,6 +12,8 @@ import { myInfoSelector } from "store/slices/userSlices";
 import { useInputHandler } from "hooks/useInputHandler";
 import { useSelector } from "react-redux";
 import Divider from "@mui/material/Divider";
+import PhoneNumberDialog from "components/profile/personalData/phoneNumberDialog";
+import EmailDialog from "components/profile/personalData/emailDialog";
 
 const PersonalData = () => {
   const myInfo = useSelector(myInfoSelector);
@@ -20,43 +22,29 @@ const PersonalData = () => {
   const lastName = useInputHandler(myInfo?.last_name);
   const phoneNumber = useInputHandler(myInfo?.mobile);
   const email = useInputHandler(myInfo?.email);
-
-  // const handleApiLocation = async () => {
-  //   const response = await Apis.address.getIpLocation();
-  //   if (response?.data) {
-  //     if (response.data.longitude && response.data.latitude)
-  //       setMapCenter([response.data.longitude, response.data.latitude]);
-  //   } else {
-  //     setZoom(1);
-  //     setMapCenter([0, 0]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (locationState === STATUS.MAP)
-  //     (async () => {
-  //       if (navigator?.geolocation?.getCurrentPosition) {
-  //         navigator.geolocation.getCurrentPosition(
-  //           (position) => {
-  //             setMapCenter([
-  //               position.coords.longitude,
-  //               position.coords.latitude,
-  //             ]);
-  //           },
-  //           async () => {
-  //             handleApiLocation();
-  //           }
-  //         );
-  //       } else {
-  //         handleApiLocation();
-  //       }
-  //     })();
-  // }, [locationState]);
+  const [openPhoneNumberDialog, setOpenPhoneNumberDialog] = useState(false);
+  const [openEmailDialog, setOpenEmailDialog] = useState(false);
 
   const handleRegister = async () => {
     // const result = await Apis.auth.register({
     //   email_mobile:
     // })
+  };
+
+  const handleOpenPhoneNumberDialog = () => {
+    setOpenPhoneNumberDialog(true);
+  };
+
+  const handleOpenEmailDialog = () => {
+    setOpenEmailDialog(true);
+  };
+
+  const handleClosePhoneNumberDialog = () => {
+    setOpenPhoneNumberDialog(false);
+  };
+
+  const handleClostEmailDialog = () => {
+    setOpenEmailDialog(false);
   };
 
   return (
@@ -106,6 +94,7 @@ const PersonalData = () => {
         fullWidth
         sx={{ my: 1 }}
         label="phoneNumber"
+        onClick={handleOpenPhoneNumberDialog}
         InputProps={{
           endAdornment: (
             <InputAdornment>
@@ -126,7 +115,16 @@ const PersonalData = () => {
             </InputAdornment>
           ),
         }}
+        onClick={handleOpenEmailDialog}
         {...email}
+      />
+      <PhoneNumberDialog
+        open={openPhoneNumberDialog}
+        handleClose={handleClosePhoneNumberDialog}
+      />
+      <EmailDialog
+        open={openEmailDialog}
+        handleClose={handleClostEmailDialog}
       />
     </Grid>
   );
