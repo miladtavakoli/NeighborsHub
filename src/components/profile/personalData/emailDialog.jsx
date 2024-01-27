@@ -36,7 +36,7 @@ const EmailDialog = ({ open, handleClose }) => {
       .then(() => {
         setState(STATES.CODE);
         enqueueSnackbar("Code was sent to your email address", {
-          variant: "success",
+          variant: "info",
         });
       })
       .catch((err) => {
@@ -63,7 +63,7 @@ const EmailDialog = ({ open, handleClose }) => {
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} width="sm">
       {state === STATES.EMAIL ? (
         <Grid container direction="column">
           <TextField

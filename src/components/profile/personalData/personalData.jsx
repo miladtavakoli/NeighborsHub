@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
@@ -18,12 +18,19 @@ import EmailDialog from "components/profile/personalData/emailDialog";
 const PersonalData = () => {
   const myInfo = useSelector(myInfoSelector);
   const { enqueueSnackbar } = useSnackbar();
-  const firstName = useInputHandler(myInfo?.first_name);
-  const lastName = useInputHandler(myInfo?.last_name);
-  const phoneNumber = useInputHandler(myInfo?.mobile);
-  const email = useInputHandler(myInfo?.email);
+  const firstName = useInputHandler("");
+  const lastName = useInputHandler("");
+  const phoneNumber = useInputHandler("");
+  const email = useInputHandler("");
   const [openPhoneNumberDialog, setOpenPhoneNumberDialog] = useState(false);
   const [openEmailDialog, setOpenEmailDialog] = useState(false);
+
+  useEffect(() => {
+    firstName.onChange({ target: { value: myInfo.first_name } });
+    lastName.onChange({ target: { value: myInfo.last_name } });
+    phoneNumber.onChange({ target: { value: myInfo.mobile } });
+    email.onChange({ target: { value: myInfo.email } });
+  }, [myInfo]);
 
   const handleRegister = async () => {
     // const result = await Apis.auth.register({

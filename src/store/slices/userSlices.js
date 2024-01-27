@@ -29,7 +29,7 @@ const userSlices = createSlice({
       state.myInfo = { ...state.myInfo, email: payload.email };
     },
     phoneNumberUpdate: (state, { payload }) => {
-      state.myInfo = { ...state.myInfo, phoneNumber: payload.phoneNumber };
+      state.myInfo = { ...state.myInfo, mobile: payload.mobile };
     },
   },
 });

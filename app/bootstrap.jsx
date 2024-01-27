@@ -21,6 +21,7 @@ const Bootstrap = ({ children }) => {
     dispatch(getMyAddresses())
       .then((res) => {
         setFirstLoading(false);
+        dispatch(myInfoAction());
         const defaultAddress = res.addresses.results.find(
           (item) => item.is_main_address
         );
@@ -42,7 +43,6 @@ const Bootstrap = ({ children }) => {
             limit: 30,
           })
         );
-        dispatch(myInfoAction());
       })
       .catch(() => setFirstLoading(false));
   }, []);

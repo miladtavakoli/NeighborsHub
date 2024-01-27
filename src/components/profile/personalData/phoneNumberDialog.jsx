@@ -22,12 +22,6 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSubmitPhoneNumber = () => {
-    dispatch(sendOtpToPhone({ mobile: phoneNumber.value })).then(() => {
-      setState(STATES.CODE);
-    });
-  };
-
   useEffect(() => {
     if (!open) {
       setState(STATES.PHONE_NUMBER);
@@ -35,6 +29,20 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
       code.onChange({ target: { value: "" } });
     }
   }, [open]);
+
+  const handleSubmitPhoneNumber = () => {
+    dispatch(sendOtpToPhone({ mobile: phoneNumber.value }))
+      .then(() => {
+        enqueueSnackbar("A Code Was Sent To Your Phone", {
+          variant: "info",
+        });
+        setState(STATES.CODE);
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
+  };
 
   const handleSubmitCode = () => {
     dispatch(verifyPhoneOtp({ mobile: phoneNumber.value, otp: code.value }))
@@ -48,8 +56,13 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
       });
   };
 
+  const handleBack = () => {
+    setState(STATES.PHONE_NUMBER);
+    code.onChange({ target: { value: "" } });
+  };
+
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} width="sm">
       {state === STATES.PHONE_NUMBER ? (
         <Grid container direction="column">
           <TextField
@@ -71,6 +84,7 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
             fullWidth
             color="primary"
             onClick={handleSubmitPhoneNumber}
+            disabled={!phoneNumber.value}
           >
             submit
           </Button>
@@ -90,15 +104,29 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
             }}
             {...code}
           />
-          <Button
-            sx={{ mt: 1 }}
-            variant="contained"
-            fullWidth
-            color="primary"
-            onClick={handleSubmitCode}
-          >
-            submit
-          </Button>
+          <Grid container>
+            <Grid item xs={6} sx={{ px: 0.5 }}>
+              <Button
+                variant="outlined"
+                fullWidth
+                color="primary"
+                onClick={handleBack}
+              >
+                back
+              </Button>
+            </Grid>
+            <Grid item xs={6} sx={{ px: 0.5 }}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                onClick={handleSubmitCode}
+                disabled={!code.value}
+              >
+                submit
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       ) : (
         <></>
