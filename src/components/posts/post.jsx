@@ -80,7 +80,10 @@ const Post = ({
         >
           {showLocationOnMap && (
             <MenuItem
-              onClick={() => handleOpenModal(data)}
+              onClick={() => {
+                handleOpenModal(data);
+                setAnchorEl(null);
+              }}
               // sx={{ color: "red" }}
             >
               <LocationOnIcon sx={{ mr: 0.5 }} /> Show On Map
@@ -88,7 +91,10 @@ const Post = ({
           )}
           {isMyPost && (
             <MenuItem
-              onClick={handleOpenConfirmationModal}
+              onClick={() => {
+                handleOpenConfirmationModal();
+                setAnchorEl(null);
+              }}
               sx={{ color: "red" }}
             >
               <DeleteIcon /> Delete
