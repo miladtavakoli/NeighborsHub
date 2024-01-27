@@ -7,7 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import Button from "@mui/material/Button";
 import EmailIcon from "@mui/icons-material/Email";
-import { sendOtpToEmail, verifyEmailOtp } from "store/actions/authActions";
+import { sendOtpToEmail, verifyEmailOtp } from "store/actions/userActions";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 
@@ -30,12 +30,15 @@ const EmailDialog = ({ open, handleClose }) => {
   };
 
   const handleSubmitCode = () => {
-    dispatch(verifyEmailOtp({ email: email.value, otp: code.value })).then(
-      () => {
+    dispatch(verifyEmailOtp({ email: email.value, otp: code.value }))
+      .then(() => {
         handleClose();
         enqueueSnackbar("Email Edited Successfuly", { variant: "success" });
-      }
-    );
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
   };
 
   return (

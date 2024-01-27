@@ -1,12 +1,12 @@
 import Modal from "components/modal/modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useInputHandler } from "hooks/useInputHandler";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import Button from "@mui/material/Button";
-import { sendOtpToPhone, verifyPhoneOtp } from "store/actions/authActions";
+import { sendOtpToPhone, verifyPhoneOtp } from "store/actions/userActions";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 
@@ -28,13 +28,24 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
     });
   };
 
+  useEffect(() => {
+    if (!open) {
+      setState(STATES.PHONE_NUMBER);
+      phoneNumber.onChange({ target: { value: "" } });
+      code.onChange({ target: { value: "" } });
+    }
+  }, [open]);
+
   const handleSubmitCode = () => {
-    dispatch(verifyPhoneOtp({ mobile: phoneNumber.value, otp: code.value })).then(
-      () => {
+    dispatch(verifyPhoneOtp({ mobile: phoneNumber.value, otp: code.value }))
+      .then(() => {
         handleClose();
         enqueueSnackbar("Mobile Edited Successfuly", { variant: "success" });
-      }
-    );
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
   };
 
   return (
