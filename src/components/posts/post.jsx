@@ -9,6 +9,9 @@ import { useState } from "react";
 import ConfirmationModal from "components/modal/confirmationModal";
 import { deletePost } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const Post = ({
   handleOpenModal,
@@ -18,6 +21,16 @@ const Post = ({
 }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const menuOpen = Boolean(anchorEl);
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleOpenConfirmationModal = () => {
     setOpen(true);
@@ -49,9 +62,23 @@ const Post = ({
         <Typography sx={{ mt: 2, fontWeight: "bold", px: 2 }} variant="h5">
           {data.title}
         </Typography>
-        <IconButton onClick={handleOpenConfirmationModal}>
-          <DeleteIcon />
+
+        <IconButton onClick={handleOpenMenu}>
+          <MoreVertIcon />
         </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={menuOpen}
+          onClose={handleCloseMenu}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleOpenConfirmationModal}>
+            <DeleteIcon /> Delete
+          </MenuItem>
+        </Menu>
       </Grid>
       <Grid
         container
