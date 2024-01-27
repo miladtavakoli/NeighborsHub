@@ -49,7 +49,7 @@ export const verifyEmailOtp = (data) => async (dispatch) => {
   return Apis.user
     .verifyEmailOtp(data)
     .then((res) => {
-      dispatch(emailUpdate());
+      dispatch(emailUpdate(data));
       return res;
     })
     .finally(() => dispatch(endLoading()));

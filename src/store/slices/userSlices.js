@@ -25,6 +25,12 @@ const userSlices = createSlice({
     setMyInfo: (state, { payload }) => {
       state.myInfo = payload;
     },
+    emailUpdate: (state, { payload }) => {
+      state.myInfo = { ...state.myInfo, email: payload.email };
+    },
+    phoneNumberUpdate: (state, { payload }) => {
+      state.myInfo = { ...state.myInfo, phoneNumber: payload.phoneNumber };
+    },
   },
 });
 
@@ -35,6 +41,8 @@ export const {
   addNewAddress,
   clearUser,
   setMyInfo,
+  emailUpdate,
+  phoneNumberUpdate,
 } = userSlices.actions;
 
 export const myAddressesSelector = (state) => state.user.addresses;

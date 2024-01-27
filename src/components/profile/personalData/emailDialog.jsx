@@ -1,5 +1,5 @@
 import Modal from "components/modal/modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useInputHandler } from "hooks/useInputHandler";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -23,10 +23,26 @@ const EmailDialog = ({ open, handleClose }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
+  useEffect(() => {
+    if (!open) {
+      setState(STATES.EMAIL);
+      email.onChange({ target: { value: "" } });
+      code.onChange({ target: { value: "" } });
+    }
+  }, [open]);
+
   const handleSubmitEmail = () => {
-    dispatch(sendOtpToEmail({ email: email.value })).then(() => {
-      setState(STATES.CODE);
-    });
+    dispatch(sendOtpToEmail({ email: email.value }))
+      .then(() => {
+        setState(STATES.CODE);
+        enqueueSnackbar("Code was sent to your email address", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
   };
 
   const handleSubmitCode = () => {
@@ -39,6 +55,11 @@ const EmailDialog = ({ open, handleClose }) => {
         console.log(err);
         enqueueSnackbar(err, { variant: "error" });
       });
+  };
+
+  const handleBack = () => {
+    setState(STATES.EMAIL);
+    code.onChange({ target: { value: "" } });
   };
 
   return (
@@ -58,15 +79,18 @@ const EmailDialog = ({ open, handleClose }) => {
             }}
             {...email}
           />
-          <Button
-            sx={{ mt: 1 }}
-            variant="contained"
-            fullWidth
-            color="primary"
-            onClick={handleSubmitEmail}
-          >
-            submit
-          </Button>
+          <Grid container>
+            <Button
+              sx={{ mt: 1 }}
+              variant="contained"
+              fullWidth
+              color="primary"
+              onClick={handleSubmitEmail}
+              disabled={!email.value}
+            >
+              submit
+            </Button>
+          </Grid>
         </Grid>
       ) : state === STATES.CODE ? (
         <Grid container direction="column">
@@ -83,15 +107,29 @@ const EmailDialog = ({ open, handleClose }) => {
             }}
             {...code}
           />
-          <Button
-            sx={{ mt: 1 }}
-            variant="contained"
-            fullWidth
-            color="primary"
-            onClick={handleSubmitCode}
-          >
-            submit
-          </Button>
+          <Grid container>
+            <Grid item xs={6} sx={{ px: 0.5 }}>
+              <Button
+                variant="outlined"
+                fullWidth
+                color="primary"
+                onClick={handleBack}
+              >
+                back
+              </Button>
+            </Grid>
+            <Grid item xs={6} sx={{ px: 0.5 }}>
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                onClick={handleSubmitCode}
+                disabled={!code.value}
+              >
+                submit
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       ) : (
         <></>
