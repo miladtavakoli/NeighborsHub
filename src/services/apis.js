@@ -18,7 +18,11 @@ const Apis = {
     logout: () => apiConfig({ url: "/auth/logout", method: "get" }),
     googleAuth: (data) =>
       apiConfig({ url: `/auth/login/google?code=${data.code}`, method: "get" }),
-  },
+    sendOtpToEmail: (data) => apiConfig({ url: "/auth/send-verify-email", method: "post", data }),
+    verifyEmailOtp: (data) => apiConfig({ url: "/auth/verify-email", method: "post", data }),
+    sendOtpToPhone: (data) => apiConfig({ url: "/auth/send-verify-mobile", method: "post", data }),
+    verifyPhoneOtp: (data) => apiConfig({ url: "/auth/verify-mobile", method: "post", data }),
+    },
   user: {
     myInfo: () => apiConfig({ url: "/me", method: "get" }),
   },

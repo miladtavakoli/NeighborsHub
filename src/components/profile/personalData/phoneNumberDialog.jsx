@@ -6,6 +6,9 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import Button from "@mui/material/Button";
+import { sendOtpToPhone, verifyPhoneOtp } from "store/actions/authActions";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 const STATES = {
   PHONE_NUMBER: "PHONE_NUMBER",
@@ -16,12 +19,23 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
   const phoneNumber = useInputHandler("");
   const code = useInputHandler("");
   const [state, setState] = useState(STATES.PHONE_NUMBER);
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmitPhoneNumber = () => {
-    setState(STATES.CODE);
+    dispatch(sendOtpToPhone({ mobile: phoneNumber.value })).then(() => {
+      setState(STATES.CODE);
+    });
   };
 
-  const handleSubmitCode = () => {};
+  const handleSubmitCode = () => {
+    dispatch(verifyPhoneOtp({ mobile: phoneNumber.value, otp: code.value })).then(
+      () => {
+        handleClose();
+        enqueueSnackbar("Mobile Edited Successfuly", { variant: "success" });
+      }
+    );
+  };
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -70,7 +84,7 @@ const PhoneNumberDialog = ({ open, handleClose }) => {
             variant="contained"
             fullWidth
             color="primary"
-            onClick={handleSubmitPhoneNumber}
+            onClick={handleSubmitCode}
           >
             submit
           </Button>
