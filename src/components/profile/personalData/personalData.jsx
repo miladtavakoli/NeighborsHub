@@ -8,16 +8,18 @@ import EmailIcon from "@mui/icons-material/Email";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import PersonIcon from "@mui/icons-material/Person";
 import { useSnackbar } from "notistack";
+import { myInfoSelector } from "store/slices/userSlices";
+import { useInputHandler } from "hooks/useInputHandler";
+import { useSelector } from "react-redux";
+import Divider from "@mui/material/Divider";
 
 const PersonalData = () => {
-  const [address, setAddress] = useState("");
-  const [countries, setCountries] = useState(null);
-  const [mapCenter, setMapCenter] = useState();
-  const [zoom, setZoom] = useState(0);
-  const [selectedPoint, setSelectedPoint] = useState([null, null]);
-  const [mapAddress, setMapAddress] = useState("");
-  const [mapAddressDetails, setMapAddressDetails] = useState("");
+  const myInfo = useSelector(myInfoSelector);
   const { enqueueSnackbar } = useSnackbar();
+  const firstName = useInputHandler(myInfo?.first_name);
+  const lastName = useInputHandler(myInfo?.last_name);
+  const phoneNumber = useInputHandler(myInfo?.mobile);
+  const email = useInputHandler(myInfo?.email);
 
   // const handleApiLocation = async () => {
   //   const response = await Apis.address.getIpLocation();
@@ -75,6 +77,7 @@ const PersonalData = () => {
             </InputAdornment>
           ),
         }}
+        {...firstName}
       />
       <TextField
         fullWidth
@@ -87,7 +90,18 @@ const PersonalData = () => {
             </InputAdornment>
           ),
         }}
+        {...lastName}
       />
+      <Button
+        sx={{ mt: 1 }}
+        variant="contained"
+        fullWidth
+        color="primary"
+        onClick={handleRegister}
+      >
+        submit
+      </Button>
+      <Divider sx={{ width: "100%", my: 2 }} />
       <TextField
         fullWidth
         sx={{ my: 1 }}
@@ -99,6 +113,7 @@ const PersonalData = () => {
             </InputAdornment>
           ),
         }}
+        {...phoneNumber}
       />
       <TextField
         fullWidth
@@ -111,16 +126,8 @@ const PersonalData = () => {
             </InputAdornment>
           ),
         }}
+        {...email}
       />
-      <Button
-        sx={{ mt: 2 }}
-        variant="contained"
-        fullWidth
-        color="primary"
-        onClick={handleRegister}
-      >
-        submit
-      </Button>
     </Grid>
   );
 };
