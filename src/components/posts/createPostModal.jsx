@@ -49,10 +49,15 @@ const CreatePostModal = ({ open, handleClose }) => {
       formData.append(`medias[${index}]`, item);
     });
 
-    dispatch(createPost(formData)).then(() => {
-      enqueueSnackbar("Post Created Successfuly", { variant: "success" });
-      handleClose();
-    });
+    dispatch(createPost(formData))
+      .then(() => {
+        enqueueSnackbar("Post Created Successfuly", { variant: "success" });
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err, { variant: "error" });
+      });
   };
 
   const handleAddFileToList = (e) => {

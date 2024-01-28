@@ -13,6 +13,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { myInfoSelector } from "store/slices/userSlices";
+import LandscapeIcon from "@mui/icons-material/Landscape";
 
 const Post = ({
   handleOpenModal,
@@ -51,15 +52,24 @@ const Post = ({
 
   return (
     <Grid container direction={"column"} sx={{ pb: 3 }}>
-      <Grid container sx={{ backgroundColor: "black" }}>
-        <img
-          src={BASE_URL + data.media?.[0]?.file}
-          style={{
-            width: "100%",
-            height: "300px",
-            objectFit: "contain",
-          }}
-        />
+      <Grid
+        container
+        sx={{ backgroundColor: "black" }}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        {data.media?.length > 1 ? (
+          <img
+            src={BASE_URL + data.media?.[0]?.file}
+            style={{
+              width: "100%",
+              height: "300px",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
+        )}
       </Grid>
       <Grid container justifyContent={"space-between"}>
         <Typography sx={{ mt: 2, fontWeight: "bold", px: 2 }} variant="h5">

@@ -54,7 +54,7 @@ const FileUploader = ({ handleAddFile }) => {
           cursor: "pointer",
         }}
         multiple
-        accept="image/png, image/gif, image/jpeg"
+        accept="image/png, image/gif, image/jpeg, video/mp4, video/x-m4v, video/*"
       />
       <AddIcon
         sx={{
@@ -75,7 +75,8 @@ const FileUploader = ({ handleAddFile }) => {
 
 const UploadedFileThumbnail = ({ file, index, handleRemoveFromList }) => {
   var url = URL.createObjectURL(file);
-  const lastIndex = file.name.lastIndexOf(".");
+  const isImage = file.type.split("/")[0] === "image";
+
   return (
     <Grid
       container
@@ -91,13 +92,17 @@ const UploadedFileThumbnail = ({ file, index, handleRemoveFromList }) => {
         overflow: "hidden",
       }}
     >
-      <img
-        width={"100%"}
-        height={"100%"}
-        style={{ objectFit: "contain" }}
-        src={url}
-        alt="name123"
-      />
+      {isImage ? (
+        <img
+          width={"100%"}
+          height={"100%"}
+          style={{ objectFit: "contain" }}
+          src={url}
+          alt="name123"
+        />
+      ) : (
+        <video src={url} width={"100%"} height={"100%"} />
+      )}
       <IconButton
         sx={{
           position: "absolute",
