@@ -14,6 +14,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { myInfoSelector } from "store/slices/userSlices";
 import LandscapeIcon from "@mui/icons-material/Landscape";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Post = ({
   handleOpenModal,
@@ -58,15 +60,33 @@ const Post = ({
         justifyContent={"center"}
         alignItems={"center"}
       >
-        {data.media?.length > 1 ? (
-          <img
-            src={BASE_URL + data.media?.[0]?.file}
-            style={{
-              width: "100%",
-              height: "300px",
-              objectFit: "contain",
-            }}
-          />
+        {data.media?.length >= 1 ? (
+          <Carousel showArrows showThumbs={false} showStatus={false}>
+            {data.media.map((item, index) => (
+              <div key={index}>
+                {["jpg", "jpeg", "png", "gif"].includes(
+                  item.file.split(".").pop()
+                ) ? (
+                  <img
+                    src={BASE_URL + item?.file}
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      objectFit: "contain",
+                    }}
+                    key={index}
+                  />
+                ) : (
+                  <video
+                    src={url}
+                    width={"100%"}
+                    height={"100%"}
+                    style={{ objectFit: "contain" }}
+                  />
+                )}
+              </div>
+            ))}
+          </Carousel>
         ) : (
           <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
         )}
