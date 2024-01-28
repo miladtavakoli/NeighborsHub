@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import ConfirmationModal from "components/modal/confirmationModal";
-import { deletePost } from "store/actions/postsActions";
+import { deletePost, getDetailsPost } from "store/actions/postsActions";
 import { useDispatch, useSelector } from "react-redux";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
@@ -15,6 +15,7 @@ import { myInfoSelector } from "store/slices/userSlices";
 import LandscapeIcon from "@mui/icons-material/Landscape";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Button from "@mui/material/Button";
 
 const Post = ({
   handleOpenModal,
@@ -49,6 +50,10 @@ const Post = ({
       handleClose();
       handleClosePostsList();
     });
+  };
+
+  const handleMoreDetails = () => {
+    dispatch(getDetailsPost({ id: data.id }));
   };
 
   return (
@@ -137,33 +142,16 @@ const Post = ({
           )}
         </Menu>
       </Grid>
-      {/* <Grid
-        container
-        justifyContent={"space-between"}
-        direction={"row-reverse"}
-        sx={{ px: 2 }}
-      >
-        {showLocationOnMap && (
-          <Button
-            variant="text"
-            color="primary"
-            sx={{ pl: 1, display: "flex", alignItems: "flex-start" }}
-            onClick={() => handleOpenModal(data)}
-          >
-            <LocationOnIcon sx={{ mr: 0.5 }} />
-            <Typography sx={{ pt: 0.4 }} variant="subtitle2">
-              {" "}
-              Show On Map
-            </Typography>
-          </Button>
-        )} */}
-      {/* <Typography color="primary" sx={{ mt: 1, pl: 1 }} variant="subtitle1">
-            10$ - 20$
-          </Typography> */}
-      {/* </Grid> */}
       <Typography sx={{ mt: 1, px: 3, color: "gray" }} variant="subtitle1">
         {data.body}
       </Typography>
+      <Button
+        variant="text"
+        // sx={{ mt: 1, px: 3, color: "gray" }}
+        onClick={handleMoreDetails}
+      >
+        More Details
+      </Button>
       <ConfirmationModal
         open={open}
         handleClose={handleClose}

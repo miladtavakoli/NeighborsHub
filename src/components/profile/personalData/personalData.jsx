@@ -19,6 +19,7 @@ import { updateMyInfo } from "store/actions/userActions";
 const PersonalData = () => {
   const myInfo = useSelector(myInfoSelector);
   const { enqueueSnackbar } = useSnackbar();
+  const [avatar, setAvatar] = useState("");
   const firstName = useInputHandler("");
   const lastName = useInputHandler("");
   const phoneNumber = useInputHandler("");
@@ -32,6 +33,7 @@ const PersonalData = () => {
     lastName.onChange({ target: { value: myInfo.last_name } });
     phoneNumber.onChange({ target: { value: myInfo.mobile } });
     email.onChange({ target: { value: myInfo.email } });
+    setAvatar(myInfo?.avatar?.media?.file);
   }, [myInfo]);
 
   const handleRegister = async () => {
@@ -72,7 +74,7 @@ const PersonalData = () => {
     <Grid container direction="column" alignItems={"center"}>
       <Avatar
         alt="Remy Sharp"
-        // src="/static/images/avatar/1.jpg"
+        src={avatar}
         sx={{ width: "100px", height: "100px", my: 3 }}
       />
       <TextField

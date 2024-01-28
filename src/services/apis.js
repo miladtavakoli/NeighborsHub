@@ -72,6 +72,11 @@ const Apis = {
         }${data.count ? "count=" + data.count + "&" : ""}`,
         method: "get",
       }),
+    getDetailsPost: (data) =>
+      apiConfig({
+        url: `/post/${data.id}`,
+        method: "get",
+      }),
     getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
     setUniqueLocation: (data) =>
       apiConfig({

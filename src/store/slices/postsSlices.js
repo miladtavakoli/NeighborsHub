@@ -33,6 +33,17 @@ const postsSlices = createSlice({
     removePost: (state, { payload }) => {
       state.myPosts = state.myPosts.filter((item) => item.id !== payload.id);
     },
+    moreDetailsPost: (state, { payload }) => {
+      if (payload.is_owner) {
+        state.myPosts = state.myPosts.map((item) =>
+          item.id === payload.id ? { ...item, ...payload } : item
+        );
+      } else {
+        state.posts = state.posts.map((item) =>
+          item.id === payload.id ? { ...item, ...payload } : item
+        );
+      }
+    },
   },
 });
 
@@ -46,6 +57,7 @@ export const {
   removePost,
   setLocationPosts,
   removelocationPosts,
+  moreDetailsPost,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;

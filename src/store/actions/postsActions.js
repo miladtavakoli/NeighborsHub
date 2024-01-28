@@ -4,6 +4,7 @@ import {
   addPost,
   setPosts,
   setMyPosts,
+  moreDetailsPost,
   removePost,
   setUniqueLocation,
   setLocationPosts,
@@ -17,6 +18,17 @@ export const getPosts = (data) => async (dispatch) => {
     dispatch(setPosts(res.posts?.results || []));
   });
   // .finally(() => dispatch(endLoading()));
+};
+
+export const getDetailsPost = (data) => async (dispatch) => {
+  dispatch(startLoading());
+  return Apis.posts
+    .getDetailsPost(data)
+    .then((res) => {
+      console.log(res, "test");
+      dispatch(moreDetailsPost(res.post || []));
+    })
+    .finally(() => dispatch(endLoading()));
 };
 
 export const getLocationPosts = (data) => async (dispatch) => {
