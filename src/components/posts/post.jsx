@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Button from "@mui/material/Button";
 import { BASE_URL } from "services/constants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -73,7 +72,7 @@ const Post = ({
                   item.file.split(".").pop()
                 ) ? (
                   <img
-                    src={BASE_URL + item?.file}
+                    src={item?.file}
                     style={{
                       width: "100%",
                       height: "300px",
@@ -83,8 +82,8 @@ const Post = ({
                   />
                 ) : (
                   <video
-                    src={BASE_URL + item?.file}
-                    width={"100%"}
+                    src={item?.file}
+                    width={"90%"}
                     height={"300px"}
                     style={{ objectFit: "contain" }}
                     controls
