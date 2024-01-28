@@ -61,7 +61,12 @@ const Post = ({
         alignItems={"center"}
       >
         {data.media?.length >= 1 ? (
-          <Carousel showArrows showThumbs={false} showStatus={false}>
+          <Carousel
+            showArrows
+            showThumbs={false}
+            showStatus={false}
+            width={"100%"}
+          >
             {data.media.map((item, index) => (
               <div key={index}>
                 {["jpg", "jpeg", "png", "gif"].includes(
@@ -78,7 +83,7 @@ const Post = ({
                   />
                 ) : (
                   <video
-                    src={url}
+                    src={BASE_URL + item?.file}
                     width={"100%"}
                     height={"100%"}
                     style={{ objectFit: "contain" }}
