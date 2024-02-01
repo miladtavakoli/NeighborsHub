@@ -64,7 +64,12 @@ const AddressList = () => {
       {addresses.length > 0 ? (
         <List component="nav" aria-label="main mailbox folders">
           {addresses.map((item, index) => (
-            <Grid container key={item.id} sx={{ flexWrap: "nowrap" }}>
+            <Grid
+              container
+              alignItems={"center"}
+              key={item.id}
+              sx={{ flexWrap: "nowrap" }}
+            >
               <ListItemButton
                 selected={item.is_main_address}
                 onClick={() => handleListItemClick(item)}
@@ -76,7 +81,10 @@ const AddressList = () => {
               >
                 <Typography>{item.street}</Typography>
               </ListItemButton>
-              <IconButton onClick={() => handleConfirmationModalOpen(item.id)}>
+              <IconButton
+                onClick={() => handleConfirmationModalOpen(item.id)}
+                sx={{ ml: 1 }}
+              >
                 <DeleteOutlineIcon />
               </IconButton>
             </Grid>
@@ -89,7 +97,7 @@ const AddressList = () => {
           alignItems={"center"}
           sx={{ flex: 1 }}
         >
-          No Address
+          {/* No Address */}
         </Grid>
       )}
       <ConfirmationModal

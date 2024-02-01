@@ -17,7 +17,7 @@ const Addresses = () => {
   };
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" sx={{ flex: 1 }}>
       <Grid container justifyContent={"flex-end"}>
         <Button variant="contained" onClick={handleOpenModal}>
           <PlaceIcon />
@@ -27,7 +27,7 @@ const Addresses = () => {
       <Grid
         container
         direction={"column"}
-        sx={{ height: "calc( 100vh - 330px )", overflow: "auto", mt: 1 }}
+        sx={{ maxHeight: "calc( 100vh - 330px )", overflow: "auto", mt: 1 }}
       >
         <AddressList />
       </Grid>

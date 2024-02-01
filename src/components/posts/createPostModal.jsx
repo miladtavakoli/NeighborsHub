@@ -18,6 +18,7 @@ import { createPost } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
+import Address from "components/profile/addresses/addresses";
 
 const CreatePostModal = ({ open, handleClose }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const CreatePostModal = ({ open, handleClose }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = useState([]);
   const isCompletedProfile = Boolean(addresses.length);
+  const isLogin = Boolean(localStorage.getItem("token"));
 
   useEffect(() => {
     setSelectedAddress(addresses.find((item) => item.is_main_address));
@@ -70,10 +72,14 @@ const CreatePostModal = ({ open, handleClose }) => {
     );
   };
 
+  const handleCloseAddressModal = () => {
+    setAddressListModalOpen(false);
+  };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Grid container direction={"column"} sx={{ position: "relative" }}>
-        {!isCompletedProfile && (
+        {!isLogin && (
           <Grid
             sx={{
               position: "absolute",
@@ -90,21 +96,48 @@ const CreatePostModal = ({ open, handleClose }) => {
               zIndex: 1000,
             }}
           >
-            <Typography>
-              You have To complete your personal information and add an address
-              before adding new post
-            </Typography>
-            <Grid sx={{ mt: 2 }}>
-              <Link href="/profile">
-                <Button variant="contained">Go To Profile</Button>
-              </Link>
-            </Grid>
+            {/* {!isLogin ? (
+              <>
+                <Typography>
+                  You need to sign in to your account to create a post
+                </Typography>
+                <Grid sx={{ mt: 2 }}>
+                  <Link href="/signin">
+                    <Button variant="contained">Sign in</Button>
+                  </Link>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Typography>
+                  `You have To complete your personal information and add an
+                  address before adding new post`
+                </Typography>
+                <Grid sx={{ mt: 2 }}>
+                  <Link href="/profile">
+                    <Button variant="contained">Go To Profile</Button>
+                  </Link>
+                </Grid>
+              </>
+            )} */}
+            {!isLogin && (
+              <>
+                <Typography>
+                  You need to sign in to your account to create a post
+                </Typography>
+                <Grid sx={{ mt: 2 }}>
+                  <Link href="/signin">
+                    <Button variant="contained">Sign in</Button>
+                  </Link>
+                </Grid>
+              </>
+            )}
           </Grid>
         )}
         <Grid
           container
           direction={"column"}
-          sx={{ filter: isCompletedProfile ? "" : "blur(4px)" }}
+          sx={{ filter: isLogin ? "" : "blur(4px)" }}
         >
           <Typography variant="h6" textAlign={"center"}>
             Create Post
@@ -117,15 +150,13 @@ const CreatePostModal = ({ open, handleClose }) => {
             sx={{ mt: 2 }}
             label="Description"
           />
-          {addresses.length > 1 && (
-            <TextField
-              multiline
-              sx={{ mt: 2, cursor: "pointer" }}
-              label="Address"
-              onClick={() => setAddressListModalOpen(true)}
-              value={selectedAddress?.street}
-            />
-          )}
+          <TextField
+            multiline
+            sx={{ mt: 2, cursor: "pointer" }}
+            label="Address"
+            onClick={() => setAddressListModalOpen(true)}
+            value={selectedAddress?.street}
+          />
           <Grid sx={{ mt: 2 }}>
             <FileUploaderList
               files={files}
@@ -138,17 +169,15 @@ const CreatePostModal = ({ open, handleClose }) => {
             variant="contained"
             sx={{ mt: 2 }}
             onClick={handleSubmit}
+            disabled={!title.value || !description.value || !selectedAddress}
           >
             Submit
           </Button>
         </Grid>
       </Grid>
 
-      <Modal
-        open={addressListModalOpen}
-        onClose={() => setAddressListModalOpen(false)}
-      >
-        <Typography textAlign={"center"}>Choose Your Address</Typography>
+      <Modal open={addressListModalOpen} onClose={handleCloseAddressModal}>
+        {/* <Typography textAlign={"center"}>Choose Your Address</Typography>
         <List component="nav" aria-label="main mailbox folders">
           {addresses.map((item, index) => (
             <Grid
@@ -169,7 +198,24 @@ const CreatePostModal = ({ open, handleClose }) => {
               </ListItemButton>
             </Grid>
           ))}
-        </List>
+        </List> */}
+        <Grid
+          container
+          direction={"column"}
+          justifyContent={"space-between"}
+          sx={{ minHeight: "300px" }}
+        >
+          <Address />
+          <Grid container justifyContent={"flex-end"} sx={{ mt: 2 }}>
+            <Button
+              fullWidth
+              onClick={handleCloseAddressModal}
+              variant="contained"
+            >
+              Close
+            </Button>
+          </Grid>
+        </Grid>
       </Modal>
     </Modal>
   );

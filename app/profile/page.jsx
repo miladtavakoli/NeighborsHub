@@ -23,14 +23,29 @@ const Profile = () => {
   return (
     <Container
       maxWidth={"sm"}
-      sx={{ overflowY: "auto", height: "calc( 100vh - 150px )", pb: 1, px: 0 }}
+      sx={{
+        overflowY: "auto",
+        height: "calc( 100vh - 150px )",
+        pb: 1,
+        px: 0,
+        direction: "column",
+        display: "flex",
+      }}
     >
-      <Card sx={{ display: "flex", flexDirection: "column", px: 2, py: 3 }}>
-        <Grid container sx={{ width: "100%" , justifyContent: 'center' }}>
+      <Card
+        sx={{ display: "flex", flexDirection: "column", px: 2, py: 3, flex: 1 }}
+      >
+        <Grid container sx={{ width: "100%", justifyContent: "center" }}>
           <Tabs
-            sx={{ width: "100%", justifyContent: "center", display: "flex" , '& .MuiTabs-scroller':{
-              display: 'flex', justifyContent: 'center'
-            } }}
+            sx={{
+              width: "100%",
+              justifyContent: "center",
+              display: "flex",
+              "& .MuiTabs-scroller": {
+                display: "flex",
+                justifyContent: "center",
+              },
+            }}
             value={value}
             onChange={handleChange}
           >
