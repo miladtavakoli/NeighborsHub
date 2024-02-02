@@ -22,27 +22,7 @@ const Bootstrap = ({ children }) => {
       .then((res) => {
         setFirstLoading(false);
         dispatch(myInfoAction());
-        const defaultAddress = res.addresses.results.find(
-          (item) => item.is_main_address
-        );
-        const cordinates = defaultAddress.location.coordinates;
-        dispatch(
-          getUniqueLocation({
-            offset: 0,
-            limit: 1000,
-            count: 1000,
-          })
-        );
         dispatch(getMyPosts());
-        dispatch(
-          getPosts({
-            lat: cordinates[0],
-            long: cordinates[1],
-            zoom: 1000,
-            offset: "0",
-            limit: 30,
-          })
-        );
       })
       .catch(() => setFirstLoading(false));
   }, []);

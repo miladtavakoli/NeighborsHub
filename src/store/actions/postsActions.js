@@ -43,9 +43,9 @@ export const getLocationPosts = (data) => async (dispatch) => {
     .finally(() => dispatch(endLoading()));
 };
 
-export const getUniqueLocation = (data) => async (dispatch) => {
+export const getUniqueLocation = (data, signal) => async (dispatch) => {
   // dispatch(startLoading());
-  return Apis.posts.setUniqueLocation(data).then((res) => {
+  return Apis.posts.getUniqueLocation(data, signal).then((res) => {
     console.log(res, "test");
     dispatch(setUniqueLocation(res.posts?.results || []));
   });

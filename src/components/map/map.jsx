@@ -8,6 +8,8 @@ import Grid from "@mui/material/Grid";
 
 import { MAP_API_KEY } from "constants";
 
+const addedCordinates = [];
+
 export default function Map({
   onClick,
   cordinates = [],
@@ -16,6 +18,9 @@ export default function Map({
   handleMyMarkerClicked,
   center = [0, 0],
   zoom = 0,
+  handleZoomChanged,
+  handleCenterChanged,
+  handleDistanceChanged,
 }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -26,10 +31,12 @@ export default function Map({
     map.current = new maplibregl.Map({
       container: mapContainer.current,
       style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
-      center: [center[1], center[0]],
+      center,
       zoom,
       geolocateControl: true,
     });
+    map.current.scrollZoom.setWheelZoomRate(1);
+    map.current.scrollZoom.setZoomRate(1);
     map.current.addControl(new maplibregl.NavigationControl(), "top-right");
     map.current.addControl(
       new maplibregl.GeolocateControl({
@@ -40,7 +47,7 @@ export default function Map({
       }),
       "bottom-right"
     );
-
+    //////////////////////////////////////////////////////////////////////////
     if (onClick) {
       var marker = new maptilersdk.Marker();
 
@@ -52,12 +59,35 @@ export default function Map({
 
       map.current.on("click", add_marker);
     }
+
+    //////////////////////////////////////////////////////////////////////////
+    map.current.on("zoomend", () => {
+      const currentZoom = map.current.getZoom();
+      handleZoomChanged?.(currentZoom);
+      var bounds = map.current.getBounds();
+
+      var groundWidth = (bounds.getEast() - bounds.getWest()) * 100;
+      handleDistanceChanged?.(groundWidth);
+    });
+
+    //////////////////////////////////////////////////////////////////////////
+    map.current.on("moveend", () => {
+      var newCenter = map.current.getCenter();
+      console.log(newCenter, "addedCordinates");
+      handleCenterChanged?.(newCenter);
+    });
+
+    //////////////////////////////////////////////////////////////////////////
+    var bounds = map.current.getBounds();
+
+    var groundWidth = (bounds.getEast() - bounds.getWest()) * 100;
+    handleDistanceChanged?.(groundWidth);
   }, []);
 
   useEffect(() => {
     if (myCordinate[0]) {
       const marker = new maplibregl.Marker({ color: "lightBlue" })
-        .setLngLat([myCordinate[1], myCordinate[0]])
+        .setLngLat(myCordinate)
         .addTo(map.current);
       handleMyMarkerClicked &&
         marker.getElement().addEventListener("click", () => {
@@ -67,18 +97,24 @@ export default function Map({
   }, [myCordinate[0]]);
 
   useEffect(() => {
-    map.current.flyTo({ center: [center[1], center[0]], zoom: 14 });
+    map.current.flyTo({ center, zoom: 14 });
   }, [center[0], center[1]]);
 
   useEffect(() => {
     cordinates.forEach((element) => {
-      const marker = new maplibregl.Marker({ color: "#FF0000" })
-        .setLngLat([element[1], element[0]])
-        .addTo(map.current);
-      handleMarkerClicked &&
-        marker.getElement().addEventListener("click", () => {
-          handleMarkerClicked(element);
-        });
+      const temp = addedCordinates.find(
+        (item) => item[0] === element[0] && item[1] === element[1]
+      );
+      if (!temp) {
+        const marker = new maplibregl.Marker({ color: "#FF0000" })
+          .setLngLat(element)
+          .addTo(map.current);
+        handleMarkerClicked &&
+          marker.getElement().addEventListener("click", () => {
+            handleMarkerClicked(element);
+          });
+        addedCordinates.push(element);
+      }
     });
   }, [cordinates]);
 

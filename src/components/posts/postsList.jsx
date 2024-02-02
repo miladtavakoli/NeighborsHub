@@ -7,13 +7,15 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
+import { postsSelector } from "store/slices/postsSlices";
 
-const PostsList = ({ posts = [], showLocationOnMap = false }) => {
+const PostsList = ({ showLocationOnMap = false }) => {
   const [open, setOpen] = useState(false);
   const [cordinates, setCordinate] = useState([[49.2827, -123.1207]]);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
+  const posts = useSelector(postsSelector);
 
   const handleClose = () => {
     setOpen(false);

@@ -27,7 +27,17 @@ const postsSlices = createSlice({
       state.myPosts = payload;
     },
     setUniqueLocation: (state, { payload }) => {
-      state.uniqueLocation = payload.map((item) => item.location.coordinates);
+      state.uniqueLocation = [
+        ...state.uniqueLocation,
+        ...payload
+          .map((item) => item.location.coordinates)
+          .filter(
+            (item) =>
+              !state.uniqueLocation.find(
+                (item2) => item2[0] === item[0] && item2[1] !== item[0]
+              )
+          ),
+      ];
     },
     clearPosts: () => initialState,
     removePost: (state, { payload }) => {

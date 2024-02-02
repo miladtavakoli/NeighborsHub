@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
@@ -8,10 +8,12 @@ import PostsTab from "components/posts/postsTab";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import CreatePostModal from "components/posts/createPostModal";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
   const [createPostModalOpen, setCreatePostModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChange = (e, value) => {
     setTabValue(value);

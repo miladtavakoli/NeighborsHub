@@ -63,14 +63,26 @@ const Apis = {
       }),
     getPosts: (data) =>
       apiConfig({
-        url: `/post/?${data.long ? "longitude=" + data.long + "&" : ""}${
-          data.lat ? "latitude=" + data.lat + "&" : ""
-        }${data.zoom ? "distance=" + data.zoom + "&" : ""}${
-          data.hashtag ? "hashtag_title=" + data.hashtag + "&" : ""
-        }${data.offset ? "offset=" + data.offset + "&" : ""}${
-          data.limit ? "limit=" + data.limit + "&" : ""
-        }${data.count ? "count=" + data.count + "&" : ""}`,
+        url: `/post/`,
         method: "get",
+        params: {
+          ...data,
+          user_distance: Math.round(data.distance),
+          user_latitude: data.lat,
+          user_longitude: data.long,
+        },
+      }),
+    getLocationPosts: (data) =>
+      apiConfig({
+        url: `/post/`,
+        method: "get",
+        params: {
+          ...data,
+          post_latitude: data.lat,
+          post_longitude: data.long,
+          user_latitude: data.myAddressLat,
+          user_longitude: data.myAddressLong,
+        },
       }),
     getDetailsPost: (data) =>
       apiConfig({
@@ -78,14 +90,18 @@ const Apis = {
         method: "get",
       }),
     getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
-    setUniqueLocation: (data) =>
+    getUniqueLocation: (data, signal) =>
       apiConfig({
-        url: `/post/location-count?${
-          data.offset ? "offset=" + data.offset + "&" : ""
-        }${data.limit ? "limit=" + data.limit + "&" : ""}${
-          data.count ? "count=" + data.count + "&" : ""
-        }`,
+        url: `/post/location-count`,
         method: "get",
+        params: {
+          user_latitude: data.lat,
+          user_longitude: data.long,
+          user_distance: Math.round(data.distance),
+          offset: data.offset,
+          limit: data.limit,
+        },
+        signal,
       }),
     deletePost: (data) =>
       apiConfig({ url: `/post/me/${data.id}`, method: "delete" }),
