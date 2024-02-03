@@ -5,7 +5,7 @@ import * as maptilersdk from "@maptiler/sdk";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import Grid from "@mui/material/Grid";
-
+// import { ScaleControl } from "maplibre-gl";
 import { MAP_API_KEY } from "constants";
 
 const addedCordinates = [];
@@ -20,7 +20,7 @@ export default function Map({
   zoom = 0,
   handleZoomChanged,
   handleCenterChanged,
-  handleDistanceChanged,
+  handleBounds,
 }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -66,8 +66,12 @@ export default function Map({
       handleZoomChanged?.(currentZoom);
       var bounds = map.current.getBounds();
 
-      var groundWidth = (bounds.getEast() - bounds.getWest()) * 100;
-      handleDistanceChanged?.(groundWidth);
+      handleBounds?.(
+        bounds.getEast(),
+        bounds.getWest(),
+        bounds.getNorth(),
+        bounds.getSouth()
+      );
     });
 
     //////////////////////////////////////////////////////////////////////////
@@ -80,8 +84,21 @@ export default function Map({
     //////////////////////////////////////////////////////////////////////////
     var bounds = map.current.getBounds();
 
-    var groundWidth = (bounds.getEast() - bounds.getWest()) * 100;
-    handleDistanceChanged?.(groundWidth);
+    handleBounds?.(
+      bounds.getEast(),
+      bounds.getWest(),
+      bounds.getNorth(),
+      bounds.getSouth()
+    );
+    //////////////////////////////////////////////////////////////////////////
+
+    // let scale = new ScaleControl({
+    //   maxWidth: 500,
+    //   unit: "imperial",
+    // });
+    // map.current.addControl(scale);
+
+    // scale.setUnit("metric");
   }, []);
 
   useEffect(() => {

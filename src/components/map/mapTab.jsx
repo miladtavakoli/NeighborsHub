@@ -30,19 +30,46 @@ const MapTab = () => {
   const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
 
-  const [currentDistance, setCurrentDistance] = useState(3.8);
+  const [latBounds, setLatBounds] = useState([0, 0]);
+  const [longBounds, setLongBounds] = useState([0, 0]);
   const [currentCenter, setCurrentCenter] = useState(initilaCordinate);
 
-  useEffect(() => {
-    if (currentDistance) {
-      controller = new AbortController();
+  function calcCrow(lon1, lon2, lat1, lat2) {
+    var R = 6371; // km
+    var dLat = toRad(lat2 - lat1);
+    var dLon = toRad(lon2 - lon1);
+    var lat1 = toRad(lat1);
+    var lat2 = toRad(lat2);
 
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+  }
+
+  // Converts numeric degrees to radians
+  function toRad(Value) {
+    return (Value * Math.PI) / 180;
+  }
+
+  useEffect(() => {
+    if (latBounds[0]) {
+      controller = new AbortController();
+      console.log(longBounds[0], longBounds[1], latBounds[0], latBounds[1]);
       dispatch(
         getUniqueLocation(
           {
             long: currentCenter[0],
             lat: currentCenter[1],
-            distance: currentDistance * 100,
+            distance:
+              calcCrow(
+                longBounds[0],
+                longBounds[1],
+                latBounds[0],
+                latBounds[1]
+              ) * 1000,
             offset: 0,
             limit: 30,
           },
@@ -50,7 +77,14 @@ const MapTab = () => {
         )
       );
     }
-  }, [currentDistance, currentCenter[0], currentCenter[1]]);
+  }, [
+    latBounds[0],
+    latBounds[1],
+    longBounds[0],
+    longBounds[1],
+    currentCenter[0],
+    currentCenter[1],
+  ]);
 
   // useEffect(() => {
   //   console.log(currentCenter, currentDistance);
@@ -102,8 +136,9 @@ const MapTab = () => {
     controller?.abort();
   };
 
-  const handleDistanceChanged = (distance) => {
-    setCurrentDistance(distance);
+  const handleBounds = (long1, long2, lat1, lat2) => {
+    setLongBounds([long1, long2]);
+    setLatBounds([lat1, lat2]);
     controller?.abort();
   };
 
@@ -117,7 +152,7 @@ const MapTab = () => {
         handleMarkerClicked={handleMarkerClicked}
         handleMyMarkerClicked={handleMyMarkerClicked}
         handleCenterChanged={handleCenterChanged}
-        handleDistanceChanged={handleDistanceChanged}
+        handleBounds={handleBounds}
       />
       <Modal open={open} onClose={handleClose}>
         <PostsList posts={isMyPosts ? myPosts : locationPosts} />
