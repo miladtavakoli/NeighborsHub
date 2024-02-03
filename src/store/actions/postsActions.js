@@ -34,7 +34,7 @@ export const getDetailsPost = (data) => async (dispatch) => {
 export const getLocationPosts = (data) => async (dispatch) => {
   dispatch(startLoading());
   return Apis.posts
-    .getPosts(data)
+    .getLocationPosts(data)
     .then((res) => {
       dispatch(setLocationPosts(res.posts?.results || []));
       console.log(res, "test");

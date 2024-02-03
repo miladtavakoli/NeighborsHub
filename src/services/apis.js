@@ -77,9 +77,9 @@ const Apis = {
         url: `/post/`,
         method: "get",
         params: {
-          ...data,
           post_latitude: data.lat,
           post_longitude: data.long,
+          user_distance: 10,
           user_latitude: data.myAddressLat,
           user_longitude: data.myAddressLong,
         },
