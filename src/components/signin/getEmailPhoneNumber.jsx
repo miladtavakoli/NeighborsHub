@@ -111,8 +111,6 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
               padding: "12px 20px",
             },
           }}
-          {...emailPhoneNumber}
-          // size="small"
           InputLabelProps={{
             sx: {
               color: "darkenGray",
@@ -120,6 +118,8 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
               fontWeight: "bold",
             },
           }}
+          {...emailPhoneNumber}
+          // size="small"
         />
         <Button
           sx={{

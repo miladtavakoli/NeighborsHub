@@ -66,7 +66,12 @@ const Signup = () => {
           sx={{ p: { lg: 6, md: 4, sm: 10, xs: 2 } }}
           direction="column"
         >
-          <Grid container justifyContent={"center"} direction={"column"}>
+          <Grid
+            container
+            justifyContent={"center"}
+            direction={"column"}
+            sx={{ flex: 1 }}
+          >
             <Typography
               variant="h2"
               textAlign={"center"}
