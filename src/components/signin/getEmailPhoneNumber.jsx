@@ -108,7 +108,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
               borderRadius: "10px!important",
             },
             "& .MuiInputBase-input": {
-              padding: "12px 8px",
+              padding: "12px 20px",
             },
           }}
           {...emailPhoneNumber}
@@ -145,6 +145,9 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
             height: "47px",
             fontSize: "13px",
             backgroundColor: "#e85a02",
+            "&:hover": {
+              backgroundColor: "#f27527",
+            },
           }}
           fullWidth
           variant="contained"
