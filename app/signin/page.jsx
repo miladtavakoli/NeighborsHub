@@ -4,10 +4,8 @@ import Grid from "@mui/material/Grid";
 const Signin = () => {
   return (
     <Grid
-      sx={{ height: "calc( 100vh - 200px )" }}
+      sx={{ height: "calc( 100vh - 120px )", flexDirection: "column" }}
       container
-      justifyContent={"center"}
-      alignItems={"center"}
     >
       <SigninComponent />
     </Grid>

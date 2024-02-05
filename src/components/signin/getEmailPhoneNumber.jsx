@@ -18,6 +18,7 @@ import React, { useCallback } from "react";
 import { googleAuth } from "store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import GoogleGLogo from "assets/svgs/google__G__logo.svg";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -57,51 +58,15 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   });
 
   return (
-    <>
-      <Typography textAlign={"center"}>Enter your password</Typography>
-
-      {/* <form style={{ width: "100%" }} onSubmit={handleSubmit}> */}
-      <TextField
-        sx={{ mt: 1 }}
-        fullWidth
-        variant="outlined"
-        label="Email Or Phone Number"
-        // autocomplete="off"
-        name="your phone"
-        {...emailPhoneNumber}
-      />
-      <Button
-        sx={{ mt: 2 }}
-        fullWidth
-        variant="contained"
-        type="submit"
-        disabled={loading || !emailPhoneNumber.value}
-        name="passwordLogin"
-        onClick={handleSubmitPassword}
-      >
-        Login With Password
-      </Button>
-      <Button
-        sx={{ mt: 1 }}
-        fullWidth
-        variant="contained"
-        type="submit"
-        color="secondary"
-        name="otpLogin"
-        disabled={
-          loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
-        }
-        onClick={handleSubmitOtp}
-      >
-        {loading ? (
-          <CircularProgress size={25} sx={{ mx: 1 }} />
-        ) : (
-          "Login With OTP"
-        )}
-      </Button>
-      {/* </form> */}
-      <Divider sx={{ mt: 2 }} />
-      <Grid container justifyContent={"center"} sx={{ mt: 2 }}>
+    <Grid
+      container
+      item
+      xs={8}
+      direction="column"
+      justifyContent={"space-between"}
+      sx={{ flex: 1 }}
+    >
+      <Grid container justifyContent={"center"}>
         {/* <GoogleLogin
           onSuccess={handleGoogleLogin}
           onError={handleGoogleLoginFailuer}
@@ -109,20 +74,99 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         /> */}
         <Button
           variant="outlined"
+          fullWidth
           sx={{
             color: "black",
-            border: "1px solid black",
-            borderRadius: "15px",
+            border: "1px solid gray",
+            // width: "70%",
+            fontSize: "14px",
+            py: 1,
+            borderRadius: "10px",
+            height: "47px",
           }}
           onClick={() => login()}
         >
-          Sign in with google
-          <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
+          <img src={GoogleGLogo.src} />
+          <Typography sx={{ fontSize: "13px", ml: 1 }}>
+            Sign in with google
+          </Typography>
         </Button>
       </Grid>
-      <Divider sx={{ mt: 2 }} />
+      <Divider sx={{ my: 3 }} />
 
-      <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
+      <Grid container direction={"column"} justifyContent={"center"}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Email Or Phone Number"
+          // autocomplete="off"
+          name="your phone"
+          sx={{
+            borderRadius: "30px",
+            "& .MuiOutlinedInput-notchedOutline": {
+              fontSize: "12px",
+              borderRadius: "10px!important",
+            },
+            "& .MuiInputBase-input": {
+              padding: "12px 8px",
+            },
+          }}
+          {...emailPhoneNumber}
+          // size="small"
+          InputLabelProps={{
+            sx: {
+              color: "darkenGray",
+              fontSize: "12px",
+              fontWeight: "bold",
+            },
+          }}
+        />
+        <Button
+          sx={{
+            mt: 2,
+            borderRadius: "10px",
+            height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#0298e8",
+          }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          disabled={loading || !emailPhoneNumber.value}
+          name="passwordLogin"
+          onClick={handleSubmitPassword}
+        >
+          Login With Password
+        </Button>
+        <Button
+          sx={{
+            mt: 2,
+            borderRadius: "10px",
+            height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#e85a02",
+          }}
+          fullWidth
+          variant="contained"
+          type="submit"
+          color="secondary"
+          name="otpLogin"
+          disabled={
+            loading || !emailPhoneNumber.value || isNaN(emailPhoneNumber.value)
+          }
+          onClick={handleSubmitOtp}
+        >
+          {loading ? (
+            <CircularProgress size={25} sx={{ mx: 1 }} />
+          ) : (
+            "Login With OTP"
+          )}
+        </Button>
+      </Grid>
+
+      <Divider sx={{ my: 3 }} />
+
+      <Grid container justifyContent={"center"}>
         <Typography
           sx={{ mr: 1, fontSize: "14px" }}
         >{`You don't have account? `}</Typography>
@@ -133,7 +177,7 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           >{`Submit here`}</Typography>
         </Link>
       </Grid>
-    </>
+    </Grid>
   );
 };
 
