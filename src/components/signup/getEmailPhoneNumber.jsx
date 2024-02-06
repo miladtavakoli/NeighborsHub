@@ -17,6 +17,8 @@ import STATUS from "components/signup/status";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
+import GoogleGLogo from "assets/svgs/google__G__logo.svg";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -40,14 +42,36 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
         dispatch(endLoading());
       });
   };
+
+  const login = useGoogleLogin({
+    // onSuccess: (tokenResponse) => {
+    //   dispatch(googleAuth({ code: tokenResponse.access_token })).then(() =>
+    //     router.push("/app")
+    //   );
+    // },
+  });
+
   return (
     <>
-      <Typography textAlign={"center"} sx={{ color: "gray" }}>
-        Enter you username
-      </Typography>
       <form style={{ width: "100%" }} onSubmit={handleSubmit}>
         <TextField
-          sx={{ mt: 1 }}
+          sx={{
+            borderRadius: "30px",
+            "& .MuiOutlinedInput-notchedOutline": {
+              fontSize: "12px",
+              borderRadius: "10px!important",
+            },
+            "& .MuiInputBase-input": {
+              padding: "12px 20px",
+            },
+          }}
+          InputLabelProps={{
+            sx: {
+              color: "darkenGray",
+              fontSize: "12px",
+              fontWeight: "bold",
+            },
+          }}
           fullWidth
           variant="outlined"
           label="Email Or Phone Number"
@@ -56,7 +80,13 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           {...emailPhoneNumber}
         />
         <Button
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            borderRadius: "10px",
+            height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#0298e8",
+          }}
           fullWidth
           variant="contained"
           type="submit"
@@ -66,22 +96,35 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
           Submit
         </Button>
       </form>
-      <Divider sx={{ mt: 2 }} />
+      <Divider sx={{ my: 3 }} />
+
       <Grid container justifyContent={"center"}>
+        {/* <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={handleGoogleLoginFailuer}
+          useOneTap
+        /> */}
         <Button
           variant="outlined"
+          fullWidth
           sx={{
             color: "black",
-            border: "1px solid black",
-            borderRadius: "15px",
-            mt: 2,
+            border: "1px solid gray",
+            // width: "70%",
+            fontSize: "14px",
+            py: 1,
+            borderRadius: "10px",
+            height: "47px",
           }}
+          onClick={() => login()}
         >
-          Sign in with google
-          <GoogleIcon sx={{ fontSize: "20px", ml: 1 }} />
+          <img src={GoogleGLogo.src} />
+          <Typography sx={{ fontSize: "13px", ml: 1 }}>
+            Sign Up with google
+          </Typography>
         </Button>
       </Grid>
-      <Divider sx={{ mt: 2 }} />
+      <Divider sx={{ my: 3 }} />
       <Grid sx={{ mt: 2 }} container justifyContent={"center"}>
         <Typography
           sx={{ mr: 1, fontSize: "14px" }}

@@ -48,10 +48,26 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
 
   return (
     <>
-      <Typography textAlign={"center"}>Enter your code</Typography>
       <form style={{ width: "100%" }} onSubmit={handleSubmit}>
         <TextField
-          sx={{ mt: 1 }}
+          sx={{
+            mt: 1,
+            borderRadius: "30px",
+            "& .MuiOutlinedInput-notchedOutline": {
+              fontSize: "12px",
+              borderRadius: "10px!important",
+            },
+            "& .MuiInputBase-input": {
+              padding: "12px 20px",
+            },
+          }}
+          InputLabelProps={{
+            sx: {
+              color: "darkenGray",
+              fontSize: "12px",
+              fontWeight: "bold",
+            },
+          }}
           fullWidth
           variant="outlined"
           label="Code"
@@ -59,7 +75,13 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
           {...otp}
         />
         <Button
-          sx={{ mt: 1 }}
+          sx={{
+            mt: 3,
+            borderRadius: "10px",
+            height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#0298e8",
+          }}
           fullWidth
           variant="contained"
           type="submit"
@@ -69,7 +91,20 @@ const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
           Submit
         </Button>
         <Button
-          sx={{ mt: 1 }}
+          sx={{
+            mt: 2,
+            borderRadius: "10px",
+            height: "47px",
+            fontSize: "13px",
+            backgroundColor: "transparent",
+            border: "1px solid #e85a02",
+            color: "#e85a02",
+            "&:hover": {
+              backgroundColor: "#f27527",
+              border: "1px solid #e85a02",
+              color: "white",
+            },
+          }}
           fullWidth
           variant="outlined"
           // disabled={loading}
