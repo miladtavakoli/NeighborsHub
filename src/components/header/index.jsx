@@ -157,10 +157,10 @@ const Header = () => {
               <PersonIcon
                 sx={{
                   color: "gray",
-                  border: "3px solid gray",
+                  border: "1px solid gray",
                   p: 0.5,
                   borderRadius: "100%",
-                  fontSize: "30px",
+                  fontSize: "25px",
                 }}
               />
             </IconButton>
@@ -209,6 +209,7 @@ const Header = () => {
             onChange={(event, newValue) => {
               setNavigationValue(newValue);
             }}
+            sx={{ backgroundColor: "transparent" }}
           >
             <BottomNavigationAction
               sx={{ width: "100px", color: "black" }}
@@ -237,10 +238,10 @@ const Header = () => {
                 <PersonIcon
                   sx={{
                     color: "gray",
-                    border: "3px solid gray",
+                    border: "1px solid gray",
                     p: 0.5,
                     borderRadius: "100%",
-                    fontSize: "30px",
+                    fontSize: "25px",
                   }}
                 />
               </IconButton>

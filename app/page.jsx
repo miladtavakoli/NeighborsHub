@@ -1,26 +1,19 @@
 "use client";
-import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Link from "next/link";
-import BackgroundImage from "assets/images/landingPage.jpg";
-import Image from "next/image";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import IsometricCity from 'assets/images/isometircCity2.jpg'
-import Header from "components/header";
+import IsometricCity from "assets/images/isometircCity2.jpg";
 import Hidden from "@mui/material/Hidden";
 import Layout from "layout/HeaderFooter";
 
 const LandingPage = () => {
   return (
-    <Grid container sx={{ pt: { lg: 10, sm: 3 } }}>
+    <Grid container sx={{ pt: { lg: 2, sm: 3 } }}>
       <Grid
         container
         item
-        md={5}
+        md={6}
         xs={12}
         direction={"column"}
         sx={{ flex: 1, p: { md: 0, xs: 5 } }}
@@ -75,21 +68,27 @@ const LandingPage = () => {
         <Grid
           container
           item
-          xs={7}
+          xs={6}
           justifyContent={"flex-end"}
           sx={{
             flex: 1,
-            height: "calc( 100vh - 300px )",
+            height: "calc( 100vh - 150px )",
+            p: 2,
             pl: { md: 2, lg: 0 },
-            p: { lg: 2 },
+            overflow: "hidden",
           }}
         >
           <img
             src={IsometricCity.src}
             style={{
               maxWidth: "100%",
-              maxHeight: "600px",
+              maxHeight: "100%",
               objectFit: "cover",
+              borderTopRightRadius: "100px",
+              borderBottomLeftRadius: "100px",
+              borderTopLeftRadius: "20px",
+              borderBottomRightRadius: "20px",
+              border: "1px solid #c9c293",
             }}
             alt="Picture of the author"
           />
