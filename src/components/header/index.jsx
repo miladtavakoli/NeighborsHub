@@ -80,12 +80,17 @@ const Header = () => {
       .logout()
       .then(() => {
         localStorage.removeItem("token");
-        dispatch(clearStore());
         enqueueSnackbar("Log Out Successful", { variant: "info" });
         router.push("/");
       })
-      .catch((message) => {
-        enqueueSnackbar(message, { variant: "error" });
+      .catch((message, err) => {
+        if (message === "Token expired") {
+          localStorage.removeItem("token");
+          enqueueSnackbar("Log Out Successful", { variant: "info" });
+          router.push("/");
+        } else {
+          enqueueSnackbar(message, { variant: "error" });
+        }
       })
       .finally(() => {
         dispatch(endLoading());
