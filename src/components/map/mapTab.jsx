@@ -69,14 +69,15 @@ const MapTab = () => {
           {
             long: currentCenter[0],
             lat: currentCenter[1],
-            distance: calcCrow(
-              longBounds[0],
-              longBounds[1],
-              latBounds[0],
-              latBounds[1]
-            ),
+            // distance: calcCrow(
+            //   longBounds[0],
+            //   longBounds[1],
+            //   latBounds[0],
+            //   latBounds[1]
+            // ),
+            in_bbox: [longBounds[0], latBounds[0], longBounds[1], latBounds[1]],
             offset: 0,
-            limit: 30,
+            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 30,
           },
           controller.signal
         )

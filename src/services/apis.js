@@ -99,7 +99,8 @@ const Apis = {
         params: {
           user_latitude: data.lat,
           user_longitude: data.long,
-          user_distance: Math.round(data.distance),
+          // user_distance: Math.round(data.distance),
+          in_bbox: data.in_bbox,
           offset: data.offset,
           limit: data.limit,
         },

@@ -1,2 +1,2 @@
-import Layout from "layout/HeaderFooter";
+import Layout from "layout/AppLayout";
 export default Layout;
