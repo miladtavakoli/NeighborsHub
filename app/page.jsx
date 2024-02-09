@@ -76,6 +76,7 @@ const LandingPage = () => {
             p: 2,
             pl: { md: 2, lg: 0 },
             overflow: "hidden",
+            maxHeight: "500px",
           }}
         >
           <img

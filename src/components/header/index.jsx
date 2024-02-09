@@ -84,7 +84,10 @@ const Header = () => {
         router.push("/");
       })
       .catch((message, err) => {
-        if (message === "Token expired") {
+        if (
+          message === "Token expired" ||
+          message === "Incorrect authentication credentials."
+        ) {
           localStorage.removeItem("token");
           enqueueSnackbar("Log Out Successful", { variant: "info" });
           router.push("/");

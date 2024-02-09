@@ -19,10 +19,17 @@ import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import GoogleGLogo from "assets/svgs/google__G__logo.svg";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { googleAuth } from "store/actions/authActions";
+import { useRouter } from "next/navigation";
 
-const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
+const GetEmailPhoneNumber = ({
+  emailPhoneNumber,
+  setCurrentState,
+  setIsGoogle,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,11 +51,16 @@ const GetEmailPhoneNumber = ({ emailPhoneNumber, setCurrentState }) => {
   };
 
   const login = useGoogleLogin({
-    // onSuccess: (tokenResponse) => {
-    //   dispatch(googleAuth({ code: tokenResponse.access_token })).then(() =>
-    //     router.push("/app")
-    //   );
-    // },
+    onSuccess: (tokenResponse) => {
+      dispatch(googleAuth({ code: tokenResponse.access_token })).then((res) => {
+        if (!res.is_register) {
+          setCurrentState(STATUS.PASSWORD_SETTING);
+          setIsGoogle(true);
+        } else {
+          router.push("/app");
+        }
+      });
+    },
   });
 
   return (

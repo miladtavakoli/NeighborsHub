@@ -18,6 +18,8 @@ const Apis = {
     logout: () => apiConfig({ url: "/auth/logout", method: "get" }),
     googleAuth: (data) =>
       apiConfig({ url: `/auth/login/google?code=${data.code}`, method: "get" }),
+    setGooglePassword: (data) =>
+      apiConfig({ url: `auth/set-password/google`, method: "post", data }),
   },
   user: {
     myInfo: () => apiConfig({ url: "/me", method: "get" }),

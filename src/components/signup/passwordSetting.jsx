@@ -18,11 +18,13 @@ import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
+import { setGooglePassword } from "store/actions/authActions";
 
 const PasswordSetting = ({
   password,
   setCurrentState,
   emailPhoneNumber,
+  isGoogle,
   otp,
 }) => {
   const repeatPassword = useInputHandler();
@@ -35,24 +37,44 @@ const PasswordSetting = ({
     e.preventDefault();
     if (password.value === repeatPassword.value) {
       dispatch(startLoading());
-      Apis.auth
-        .register({
-          email_mobile: emailPhoneNumber.value,
-          password: password.value,
-          otp: otp.value,
-        })
-        .then((res) => {
-          enqueueSnackbar("Successful", { variant: "success" });
-          router.push("/app");
-          typeof window !== "undefined" &&
-            localStorage.setItem("token", res.access_token);
-        })
-        .catch((message) => {
-          enqueueSnackbar(message, { variant: "error" });
-        })
-        .finally(() => {
-          dispatch(endLoading());
-        });
+      if (isGoogle) {
+        dispatch(
+          setGooglePassword({
+            password: password.value,
+          })
+        )
+          .then((res) => {
+            enqueueSnackbar("Successful", { variant: "success" });
+            router.push("/app");
+            typeof window !== "undefined" &&
+              localStorage.setItem("token", res.access_token);
+          })
+          .catch((message) => {
+            enqueueSnackbar(message, { variant: "error" });
+          })
+          .finally(() => {
+            dispatch(endLoading());
+          });
+      } else {
+        Apis.auth
+          .register({
+            email_mobile: emailPhoneNumber.value,
+            password: password.value,
+            otp: otp.value,
+          })
+          .then((res) => {
+            enqueueSnackbar("Successful", { variant: "success" });
+            router.push("/app");
+            typeof window !== "undefined" &&
+              localStorage.setItem("token", res.access_token);
+          })
+          .catch((message) => {
+            enqueueSnackbar(message, { variant: "error" });
+          })
+          .finally(() => {
+            dispatch(endLoading());
+          });
+      }
     } else {
       enqueueSnackbar("password and repeat password are not the same", {
         variant: "error",
@@ -62,7 +84,15 @@ const PasswordSetting = ({
 
   const handleBack = () => {
     password.onChange({ target: { value: "" } });
-    setCurrentState(STATUS.OTP_CHECKING);
+    if (isGoogle) {
+      setCurrentState(STATUS.GET_EMAIL_MOBILE);
+    } else {
+      setCurrentState(STATUS.OTP_CHECKING);
+    }
+  };
+
+  const handleSkip = () => {
+    router.push("/app");
   };
 
   return (
@@ -162,6 +192,13 @@ const PasswordSetting = ({
           Back
         </Button>
       </form>
+      {isGoogle && (
+        <Grid container sx={{ mt: 3 }} justifyContent={"flex-end"}>
+          <Button type="text" onClick={handleSkip}>
+            Skip For Now
+          </Button>
+        </Grid>
+      )}
     </>
   );
 };

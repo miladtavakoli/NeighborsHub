@@ -14,7 +14,7 @@ import LoginImage from "assets/images/landingPage.jpg";
 
 const Signup = () => {
   const [currentState, setCurrentState] = useState(STATUS.GET_EMAIL_MOBILE);
-
+  const [isGoogle, setIsGoogle] = useState(false);
   const emailPhoneNumber = useInputHandler("");
   const otp = useInputHandler("");
   const password = useInputHandler("");
@@ -24,6 +24,7 @@ const Signup = () => {
       <GetEmailPhoneNumber
         emailPhoneNumber={emailPhoneNumber}
         setCurrentState={setCurrentState}
+        setIsGoogle={setIsGoogle}
       />
     ),
     [STATUS.OTP_CHECKING]: (
@@ -39,6 +40,7 @@ const Signup = () => {
         otp={otp}
         emailPhoneNumber={emailPhoneNumber}
         password={password}
+        isGoogle={isGoogle}
       />
     ),
   };
