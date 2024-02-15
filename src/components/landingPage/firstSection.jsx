@@ -1,8 +1,10 @@
+"use client";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
 import IsometricCity from "assets/images/isometircCity2.jpg";
+import Wave from "assets/svgs/wave.svg";
 import Hidden from "@mui/material/Hidden";
 
 const FirstSection = () => {
@@ -122,6 +124,9 @@ const FirstSection = () => {
             alt="Picture of the author"
           />
         </Grid>
+      </Hidden>
+      <Hidden lgUp>
+        <img src={Wave.src} style={{ marginLeft: "-30px", minWidth: "120%" }} />
       </Hidden>
     </Grid>
   );

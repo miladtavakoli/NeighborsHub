@@ -1,6 +1,7 @@
 "use client";
 import Grid from "@mui/material/Grid";
 import FirstSection from "components/landingPage/firstSection";
+import SecondSection from "components/landingPage/secondSection";
 import Layout from "layout/HeaderFooter";
 import "../app/globals.css";
 import { useTheme } from "@mui/material/styles";
@@ -10,11 +11,13 @@ const LandingPage = () => {
   return (
     <Grid
       container
+      direction={"column"}
       sx={{
         pt: { lg: 2, sm: 3 },
       }}
     >
       <FirstSection />
+      <SecondSection />
     </Grid>
   );
 };
