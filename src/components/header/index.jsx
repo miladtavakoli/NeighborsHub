@@ -270,7 +270,20 @@ const Header = () => {
           ) : (
             <>
               <Link href="/signin">
-                <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
+                <Button
+                  sx={{
+                    mx: 2,
+                    fontWeight: "500",
+                    color: "#e85a02",
+                    borderRadius: "15px",
+                    "&:hover": {
+                      backgroundImage:
+                        "linear-gradient(90deg, #f27527, #ff9959)",
+                      color: "white",
+                    },
+                  }}
+                  variant="text"
+                >
                   Sign in
                 </Button>
               </Link>
@@ -278,7 +291,7 @@ const Header = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: "#4F62C9",
+                    backgroundImage: "linear-gradient(90deg, #0D869C, #3BB4DD)",
                     borderRadius: "15px",
                     boxShadow: "none",
                   }}
