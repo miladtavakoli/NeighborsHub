@@ -7,7 +7,8 @@ import Layout from "layout/HeaderFooter";
 import "../app/globals.css";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import Footer from "components/landingPage/footer";
+import Divider from "@mui/material/Divider";
 const LandingPage = () => {
   return (
     <Grid
@@ -20,6 +21,8 @@ const LandingPage = () => {
       <FirstSection />
       <SecondSection />
       <ThirdSection />
+      <Divider />
+      <Footer />
     </Grid>
   );
 };
