@@ -39,10 +39,10 @@ const FirstSection = () => {
           </Typography>
         </Hidden>
         <Hidden smUp>
-          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
             Discover Your{" "}
             <Typography
-              variant="h3"
+              variant="h4"
               sx={{ color: "#f27527", fontWeight: "bold" }}
             >
               Neighborhood&apos;s
