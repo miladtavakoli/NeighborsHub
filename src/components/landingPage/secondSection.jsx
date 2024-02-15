@@ -5,6 +5,9 @@ import Typography from "@mui/material/Typography";
 import IsometricCity from "assets/images/isometircCity2.jpg";
 import Hidden from "@mui/material/Hidden";
 import BlobSvg from "assets/svgs/blob1.svg";
+import HandshakeIcon from "@mui/icons-material/Handshake";
+import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
+
 const SecondSection = () => {
   return (
     <Grid
@@ -37,7 +40,7 @@ const SecondSection = () => {
               maxHeight: "100%",
               width: "100%",
 
-            //   objectFit: "cover",
+              //   objectFit: "cover",
               mask: `url( '${IsometricCity.src}' )!important`,
               clipPath: `url( '${IsometricCity.src}' )`,
               //   WebkitMask: `url( '${IsometricCity.src}' )`,
@@ -72,47 +75,35 @@ const SecondSection = () => {
             Discover the Benefits of a Connected Neighborhood
           </Typography>
         </Hidden>
-        <Typography variant="body1" sx={{ pt: 2 }}>
+        <Typography variant="body1" sx={{ pt: 2, color: "#4d4d4d" }}>
           Experience the convenience of accessing local services and fostering
           meaningful community relationships.
         </Typography>
-        <Grid sx={{ pt: 4 }}>
-          <Link href="/app">
-            <Button
-              variant="contained"
-              sx={{
-                backgroundImage: "linear-gradient(90deg, #0D869C, #3BB4DD)",
-                borderRadius: "15px",
-                boxShadow: "none",
-                mt: 1,
-                mr: 1,
-              }}
-            >
-              Start for free
-            </Button>
-          </Link>
-          <Link href="/about-us">
-            <Button
-              variant="outlined"
-              sx={{
-                // backgroundColor: "#4F62C9",
-                borderRadius: "15px",
-                boxShadow: "none",
-                mx: { xs: 0 },
-                mt: 1,
-                backgroundColor: "transparent",
-                border: "1px solid #e85a02",
-                color: "#e85a02",
-                "&:hover": {
-                  backgroundImage: "linear-gradient(90deg, #f27527, #ff9959)",
-                  border: "1px solid #e85a02",
-                  color: "white",
-                },
-              }}
-            >
-              Learn More
-            </Button>
-          </Link>
+        <Grid container sx={{ pt: 4 }} justifyContent={"space-between"}>
+          <Grid container item xs={5} direction="column">
+            <Grid container alignItems={"center"}>
+              <HomeRepairServiceIcon sx={{ fontSize: "30px" }} />
+              <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>
+                Convenient Services
+              </Typography>
+            </Grid>
+            <Typography sx={{ mt: 2, color: "#4d4d4d" }}>
+              Easily find and connect with trusted local service providers for
+              your needs
+            </Typography>
+          </Grid>
+          <Grid container item xs={5} direction="column">
+            <Grid container alignItems={"center"}>
+              <HandshakeIcon sx={{ fontSize: "30px" }} />
+              <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>
+                Strong Community
+              </Typography>
+            </Grid>
+            <Typography sx={{ mt: 2, color: "#4d4d4d" }}>
+              Build lasting relationships with your neighbors and create a
+              supportive community.
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
