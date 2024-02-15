@@ -39,10 +39,10 @@ const FirstSection = () => {
           </Typography>
         </Hidden>
         <Hidden smUp>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
             Discover Your{" "}
             <Typography
-              variant="h4"
+              variant="h3"
               sx={{ color: "#f27527", fontWeight: "bold" }}
             >
               Neighborhood&apos;s
@@ -126,7 +126,13 @@ const FirstSection = () => {
         </Grid>
       </Hidden>
       <Hidden lgUp>
-        <img src={Wave.src} style={{ marginLeft: "-30px", minWidth: "120%" }} />
+        <img
+          src={Wave.src}
+          style={{
+            marginLeft: "-30px",
+            minWidth: "120%",
+          }}
+        />
       </Hidden>
     </Grid>
   );

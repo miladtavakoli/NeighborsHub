@@ -71,7 +71,7 @@ const SecondSection = () => {
           </Typography>
         </Hidden>
         <Hidden smUp>
-          <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
             Discover the Benefits of a Connected Neighborhood
           </Typography>
         </Hidden>

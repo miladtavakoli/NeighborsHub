@@ -2,6 +2,7 @@
 import Grid from "@mui/material/Grid";
 import FirstSection from "components/landingPage/firstSection";
 import SecondSection from "components/landingPage/secondSection";
+import ThirdSection from "components/landingPage/thirdSection";
 import Layout from "layout/HeaderFooter";
 import "../app/globals.css";
 import { useTheme } from "@mui/material/styles";
@@ -18,6 +19,7 @@ const LandingPage = () => {
     >
       <FirstSection />
       <SecondSection />
+      <ThirdSection />
     </Grid>
   );
 };
