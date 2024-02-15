@@ -1,4 +1,0 @@
-img.masked {
-  -webkit-mask-image: url();
-  mask-image: url(mask.png);
-}
