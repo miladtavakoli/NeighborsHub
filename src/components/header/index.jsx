@@ -86,7 +86,8 @@ const Header = () => {
       .catch((message, err) => {
         if (
           message === "Token expired" ||
-          message === "Incorrect authentication credentials."
+          message === "Incorrect authentication credentials." ||
+          message === "Token is not valid"
         ) {
           localStorage.removeItem("token");
           enqueueSnackbar("Log Out Successful", { variant: "info" });
