@@ -80,7 +80,7 @@ const SecondSection = () => {
           meaningful community relationships.
         </Typography>
         <Grid container sx={{ pt: 4 }} justifyContent={"space-between"}>
-          <Grid container item xs={5} direction="column">
+          <Grid container item xs={12} sm={5} direction="column">
             <Grid container alignItems={"center"}>
               <HomeRepairServiceIcon sx={{ fontSize: "30px" }} />
               <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>
@@ -92,7 +92,14 @@ const SecondSection = () => {
               your needs
             </Typography>
           </Grid>
-          <Grid container item xs={5} direction="column">
+          <Grid
+            container
+            item
+            xs={12}
+            sm={5}
+            sx={{ mt: { sm: 0, xs: 4 } }}
+            direction="column"
+          >
             <Grid container alignItems={"center"}>
               <HandshakeIcon sx={{ fontSize: "30px" }} />
               <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>
