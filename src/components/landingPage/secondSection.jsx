@@ -5,8 +5,6 @@ import Typography from "@mui/material/Typography";
 import IsometricCity from "assets/images/isometircCity2.jpg";
 import Hidden from "@mui/material/Hidden";
 import BlobSvg from "assets/svgs/blob1.svg";
-import Image from "next/image";
-import "./css.css";
 const SecondSection = () => {
   return (
     <Grid
