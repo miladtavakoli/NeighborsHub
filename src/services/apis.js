@@ -69,7 +69,6 @@ const Apis = {
         method: "get",
         params: {
           ...data,
-          user_distance: Math.round(data.distance),
           user_latitude: data.lat,
           user_longitude: data.long,
         },

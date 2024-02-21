@@ -79,6 +79,13 @@ export default function Map({
       var newCenter = map.current.getCenter();
       console.log(newCenter, "addedCordinates");
       handleCenterChanged?.(newCenter);
+      var bounds = map.current.getBounds();
+      handleBounds?.(
+        bounds.getEast(),
+        bounds.getWest(),
+        bounds.getNorth(),
+        bounds.getSouth()
+      );
     });
 
     //////////////////////////////////////////////////////////////////////////

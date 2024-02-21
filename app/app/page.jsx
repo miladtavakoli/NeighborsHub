@@ -12,12 +12,15 @@ import { useDispatch } from "react-redux";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Hidden from "@mui/material/Hidden";
+import { myAddressesSelector } from "store/slices/userSlices";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
   const [createPostModalOpen, setCreatePostModalOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const myAddressCordinate = useSelector(myAddressesSelector);
+  const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const theme = useTheme();
   const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -81,24 +84,37 @@ const App = () => {
           justifyContent={"center"}
           sx={{ height: "calc( 100vh - 160px )" }}
         >
-          <Grid
-            sx={{ height: "100%", overflowY: "auto" }}
-            container
-            item
-            lg={8}
-            md={6}
-          >
-            <MapTab />
-          </Grid>
-          <Grid
-            sx={{ height: "100%", overflowY: "auto" }}
-            container
-            item
-            lg={4}
-            md={6}
-          >
-            <PostsTab />
-          </Grid>
+          {mainAddress ? (
+            <>
+              <Grid
+                sx={{ height: "100%", overflowY: "auto" }}
+                container
+                item
+                lg={8}
+                md={6}
+              >
+                <MapTab />
+              </Grid>
+              <Grid
+                sx={{ height: "100%", overflowY: "auto" }}
+                container
+                item
+                lg={4}
+                md={6}
+              >
+                <PostsTab />
+              </Grid>
+            </>
+          ) : (
+            <Grid
+              sx={{ height: "100%", overflowY: "auto" }}
+              container
+              item
+              xs={12}
+            >
+              <MapTab />
+            </Grid>
+          )}
         </Grid>
       </Hidden>
       <Hidden mdUp>
