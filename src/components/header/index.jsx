@@ -1,12 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "next/link";
-import BackgroundImage from "assets/images/landingPage.jpg";
-import Image from "next/image";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -31,14 +27,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useSnackbar } from "notistack";
-import Apis from "services/apis";
 import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { startLoading, endLoading } from "store/slices/appSlices";
-import { clearStore } from "store/actions/appActions";
 import LocationOn from "@mui/icons-material/LocationOn";
-
+import { logoutAction } from "store/actions/authActions";
+import { clearStore } from "store/actions/appActions";
 const path = {
   "/": 0,
   "/app": 1,
@@ -53,7 +46,6 @@ const Header = () => {
   const menuOpen = Boolean(anchorEl);
   const isAutenticated =
     typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
-  const { enqueueSnackbar } = useSnackbar();
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -75,29 +67,12 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    dispatch(startLoading());
-    Apis.auth
-      .logout()
+    dispatch(logoutAction())
       .then(() => {
-        localStorage.removeItem("token");
-        enqueueSnackbar("Log Out Successful", { variant: "info" });
         router.push("/");
       })
-      .catch((message, err) => {
-        if (
-          message === "Token expired" ||
-          message === "Incorrect authentication credentials." ||
-          message === "Token is not valid"
-        ) {
-          localStorage.removeItem("token");
-          enqueueSnackbar("Log Out Successful", { variant: "info" });
-          router.push("/");
-        } else {
-          enqueueSnackbar(message, { variant: "error" });
-        }
-      })
       .finally(() => {
-        dispatch(endLoading());
+        clearStore();
         setOpen(false);
       });
   };

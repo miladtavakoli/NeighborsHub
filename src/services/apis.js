@@ -103,6 +103,7 @@ const Apis = {
           offset: data.offset,
           limit: data.limit,
         },
+        withoutLoading: true,
         signal,
       }),
     deletePost: (data) =>
