@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 // import { ScaleControl } from "maplibre-gl";
 import { MAP_API_KEY } from "constants";
 
-const addedCordinates = [];
+let addedCordinates = [];
 
 export default function Map({
   onClick,
@@ -118,20 +118,25 @@ export default function Map({
   }, [center[0], center[1]]);
 
   useEffect(() => {
+    addedCordinates.forEach((item) => {
+      // console.log(item, "ggggggggggg");
+      item.remove();
+    });
+    addedCordinates = [];
     cordinates.forEach((element) => {
-      const temp = addedCordinates.find(
-        (item) => item[0] === element[0] && item[1] === element[1]
-      );
-      if (!temp) {
-        const marker = new maplibregl.Marker({ color: "#FF0000" })
-          .setLngLat(element)
-          .addTo(map.current);
-        handleMarkerClicked &&
-          marker.getElement().addEventListener("click", () => {
-            handleMarkerClicked(element);
-          });
-        addedCordinates.push(element);
-      }
+      // const temp = addedCordinates.find(
+      //   (item) => item[0] === element[0] && item[1] === element[1]
+      // );
+      // if (!temp) {
+      const marker = new maplibregl.Marker({ color: "#FF0000" })
+        .setLngLat(element)
+        .addTo(map.current);
+      handleMarkerClicked &&
+        marker.getElement().addEventListener("click", () => {
+          handleMarkerClicked(element);
+        });
+      addedCordinates.push(marker);
+      // }
     });
   }, [cordinates]);
 

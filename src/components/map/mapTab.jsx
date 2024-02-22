@@ -34,32 +34,6 @@ const MapTab = () => {
   const [longBounds, setLongBounds] = useState([0, 0]);
   const [currentCenter, setCurrentCenter] = useState(initilaCordinate);
 
-  function calcCrow(lon1, lon2, lat1, lat2, unit = "K") {
-    if (lat1 == lat2 && lon1 == lon2) {
-      return 0;
-    } else {
-      var radlat1 = (Math.PI * lat1) / 180;
-      var radlat2 = (Math.PI * lat2) / 180;
-      var theta = lon1 - lon2;
-      var radtheta = (Math.PI * theta) / 180;
-      var dist =
-        Math.sin(radlat1) * Math.sin(radlat2) +
-        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = Math.acos(dist);
-      dist = (dist * 180) / Math.PI;
-      dist = dist * 60 * 1.1515;
-      if (unit == "K") {
-        dist = dist * 1.609344;
-      }
-      if (unit == "N") {
-        dist = dist * 0.8684;
-      }
-      return dist * 500; // * 1000 / 2
-    }
-  }
   useEffect(() => {
     if (latBounds[0]) {
       controller = new AbortController();
@@ -77,7 +51,7 @@ const MapTab = () => {
             // ),
             in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
             offset: 0,
-            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 30,
+            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
           },
           controller.signal
         )

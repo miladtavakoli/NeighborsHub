@@ -98,6 +98,7 @@ const Header = () => {
       })
       .finally(() => {
         dispatch(endLoading());
+        setOpen(false);
       });
   };
 
@@ -277,11 +278,11 @@ const Header = () => {
                     fontWeight: "500",
                     color: "#e85a02",
                     borderRadius: "15px",
-                    "&:hover": {
-                      backgroundImage:
-                        "linear-gradient(90deg, #f27527, #ff9959)",
-                      color: "white",
-                    },
+                    // "&:hover": {
+                    //   backgroundImage:
+                    //     "linear-gradient(90deg, #f27527, #ff9959)",
+                    //   color: "white",
+                    // },
                   }}
                   variant="text"
                 >

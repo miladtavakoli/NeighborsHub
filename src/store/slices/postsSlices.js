@@ -28,15 +28,15 @@ const postsSlices = createSlice({
     },
     setUniqueLocation: (state, { payload }) => {
       state.uniqueLocation = [
-        ...state.uniqueLocation,
+        // ...state.uniqueLocation,
         ...payload
           .map((item) => item.location.coordinates)
-          .filter(
-            (item) =>
-              !state.uniqueLocation.find(
-                (item2) => item2[0] === item[0] && item2[1] !== item[0]
-              )
-          ),
+          // .filter(
+          //   (item) =>
+          //     !state.uniqueLocation.find(
+          //       (item2) => item2[0] === item[0] && item2[1] !== item[0]
+          //     )
+          // ),
       ];
     },
     clearPosts: () => initialState,
