@@ -12,20 +12,20 @@ const PostTab = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
   const cordinates = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
+  const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const [currentDistance, setCurrentDistance] = useState(3.8);
 
   useEffect(() => {
-    dispatch(
-      getPosts({
-        lat: initilaCordinate[1],
-        long: initilaCordinate[0],
-        distance: currentDistance * 1000,
-        offset: 0,
-        limit: 30,
-      })
-    );
-  }, []);
+    if (mainAddress)
+      dispatch(
+        getPosts({
+          lat: initialCordinate[1],
+          long: initialCordinate[0],
+          offset: 0,
+          limit: 30,
+        })
+      );
+  }, [mainAddress]);
 
   return (
     <Grid container sx={{ px: 1 }}>

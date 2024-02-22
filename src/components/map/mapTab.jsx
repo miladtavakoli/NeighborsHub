@@ -32,7 +32,6 @@ const MapTab = () => {
 
   const [latBounds, setLatBounds] = useState([0, 0]);
   const [longBounds, setLongBounds] = useState([0, 0]);
-  const [currentCenter, setCurrentCenter] = useState(initilaCordinate);
 
   useEffect(() => {
     if (latBounds[0]) {
@@ -41,14 +40,6 @@ const MapTab = () => {
       dispatch(
         getUniqueLocation(
           {
-            long: currentCenter[0],
-            lat: currentCenter[1],
-            // distance: calcCrow(
-            //   longBounds[0],
-            //   longBounds[1],
-            //   latBounds[0],
-            //   latBounds[1]
-            // ),
             in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
             offset: 0,
             limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
@@ -62,8 +53,6 @@ const MapTab = () => {
     latBounds[1],
     longBounds[0],
     longBounds[1],
-    currentCenter[0],
-    currentCenter[1],
   ]);
 
   // useEffect(() => {
@@ -113,9 +102,9 @@ const MapTab = () => {
   };
 
   const handleCenterChanged = (center) => {
-    console.log(center.lng, "addedCordinates");
-    setCurrentCenter([center.lng, center.lat]);
-    controller?.abort();
+    // console.log(center.lng, "addedCordinates");
+    // setCurrentCenter([center.lng, center.lat]);
+    // controller?.abort();
   };
 
   const handleBounds = (long1, long2, lat1, lat2) => {
