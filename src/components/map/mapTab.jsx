@@ -10,7 +10,7 @@ import {
   uniqueLocationSelector,
   locationPostSelector,
 } from "store/slices/postsSlices";
-import { getLocationPosts, getMyPosts } from "store/actions/postsActions";
+import { getLocationPosts } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
 import { getUniqueLocation } from "store/actions/postsActions";
 
@@ -20,7 +20,7 @@ const MapTab = () => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
-  const cordinates = useSelector(uniqueLocationSelector);
+  const locations = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const zoom = mainAddress ? 14 : 0;
@@ -110,7 +110,7 @@ const MapTab = () => {
   return (
     <Grid container alignContent={"flex-start"}>
       <Map
-        cordinates={cordinates}
+        locations={locations}
         center={initialCordinate}
         zoom={zoom}
         myCordinate={myCordinate}

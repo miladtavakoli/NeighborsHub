@@ -8,14 +8,12 @@ import { startLoading, endLoading } from "store/slices/appSlices";
 import { emailUpdate, phoneNumberUpdate } from "store/slices/userSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
-  dispatch(startLoading());
   return Apis.address
     .getListOfAddress()
     .then((res) => {
       dispatch(setMyAddresses(res.addresses?.results || []));
       return res;
     })
-    .finally(() => dispatch(endLoading()));
 };
 
 export const addNewAddressAction = (payload) => async (dispatch) => {

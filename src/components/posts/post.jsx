@@ -102,7 +102,10 @@ const Post = ({
         )}
       </Grid>
       <Grid container justifyContent={"space-between"}>
-        <Typography sx={{ mt: 2, fontWeight: "bold", px: 2 }} variant="h5">
+        <Typography
+          sx={{ mt: 2, fontWeight: "bold", px: 2, wordBreak: "break-all" }}
+          variant="h5"
+        >
           {data.title}
         </Typography>
 
@@ -142,7 +145,10 @@ const Post = ({
           )}
         </Menu>
       </Grid>
-      <Typography sx={{ mt: 1, px: 3, color: "gray" }} variant="subtitle1">
+      <Typography
+        sx={{ mt: 1, px: 3, color: "gray", wordBreak: "break-all" }}
+        variant="subtitle1"
+      >
         {data.body}
       </Typography>
       <Button

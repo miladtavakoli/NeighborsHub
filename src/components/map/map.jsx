@@ -12,7 +12,7 @@ let addedCordinates = [];
 
 export default function Map({
   onClick,
-  cordinates = [],
+  locations = [],
   myCordinate = [],
   handleMarkerClicked,
   handleMyMarkerClicked,
@@ -128,7 +128,7 @@ export default function Map({
       item.remove();
     });
     addedCordinates = [];
-    cordinates.forEach((element) => {
+    locations.forEach((element) => {
       // const temp = addedCordinates.find(
       //   (item) => item[0] === element[0] && item[1] === element[1]
       // );
@@ -143,7 +143,7 @@ export default function Map({
       addedCordinates.push(marker);
       // }
     });
-  }, [cordinates]);
+  }, [locations]);
 
   return (
     <Grid container className="map-wrap">
