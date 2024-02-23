@@ -77,7 +77,6 @@ export default function Map({
     //////////////////////////////////////////////////////////////////////////
     map.current.on("moveend", () => {
       var newCenter = map.current.getCenter();
-      console.log(newCenter, "addedCordinates");
       handleCenterChanged?.(newCenter);
       var bounds = map.current.getBounds();
       handleBounds?.(
@@ -126,7 +125,6 @@ export default function Map({
 
   useEffect(() => {
     addedCordinates.forEach((item) => {
-      // console.log(item, "ggggggggggg");
       item.remove();
     });
     addedCordinates = [];

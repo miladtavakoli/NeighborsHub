@@ -72,7 +72,7 @@ const Header = () => {
         router.push("/");
       })
       .finally(() => {
-        clearStore();
+        // dispatch(clearStore());
         setOpen(false);
       });
   };

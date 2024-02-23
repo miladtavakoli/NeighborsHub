@@ -6,7 +6,6 @@ import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { optLoginCheckingAction } from "store/actions/authActions";
-
 const OtpChecking = ({ setCurrentState, otp, emailPhoneNumber }) => {
   const router = useRouter();
   const dispatch = useDispatch();

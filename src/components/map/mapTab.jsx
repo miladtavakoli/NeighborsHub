@@ -22,7 +22,7 @@ const MapTab = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
   const cordinates = useSelector(uniqueLocationSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
+  const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const zoom = mainAddress ? 14 : 0;
   const myCordinate = mainAddress?.location?.coordinates;
   const [open, setOpen] = useState(null);
@@ -36,7 +36,6 @@ const MapTab = () => {
   useEffect(() => {
     if (latBounds[0]) {
       controller = new AbortController();
-      console.log(longBounds[0], longBounds[1], latBounds[0], latBounds[1]);
       dispatch(
         getUniqueLocation(
           {
@@ -48,12 +47,7 @@ const MapTab = () => {
         )
       );
     }
-  }, [
-    latBounds[0],
-    latBounds[1],
-    longBounds[0],
-    longBounds[1],
-  ]);
+  }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1]]);
 
   // useEffect(() => {
   //   console.log(currentCenter, currentDistance);
@@ -81,8 +75,8 @@ const MapTab = () => {
       getLocationPosts({
         long: item[0],
         lat: item[1],
-        myAddressLong: initilaCordinate[0],
-        myAddressLat: initilaCordinate[1],
+        myAddressLong: initialCordinate[0],
+        myAddressLat: initialCordinate[1],
         user_distance: "1",
       })
     ).then(() => {
@@ -117,7 +111,7 @@ const MapTab = () => {
     <Grid container alignContent={"flex-start"}>
       <Map
         cordinates={cordinates}
-        center={initilaCordinate}
+        center={initialCordinate}
         zoom={zoom}
         myCordinate={myCordinate}
         handleMarkerClicked={handleMarkerClicked}

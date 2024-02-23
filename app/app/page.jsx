@@ -5,15 +5,14 @@ import MapTab from "components/map/mapTab";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PostsTab from "components/posts/postsTab";
-import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import CreatePostModal from "components/posts/createPostModal";
 import { useDispatch } from "react-redux";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
+import { getMyAddresses } from "store/actions/userActions";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -22,7 +21,10 @@ const App = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const theme = useTheme();
-  const smMatches = useMediaQuery(theme.breakpoints.up("sm"));
+
+  useEffect(() => {
+    dispatch(getMyAddresses());
+  }, []);
 
   const handleChange = (e, value) => {
     setTabValue(value);
@@ -72,7 +74,7 @@ const App = () => {
       <Grid
         container
         justifyContent={"flex-end"}
-        sx={{ py: 1, px: 4, backgroundColor: "lightBlue" }}
+        sx={{ py: 1, px: 4, backgroundColor: "#85CBFA" }}
       >
         <Button variant="contained" onClick={handleCreatePostModalOpen}>
           Add New Post
