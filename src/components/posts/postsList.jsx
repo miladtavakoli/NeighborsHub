@@ -11,10 +11,10 @@ import { postsSelector } from "store/slices/postsSlices";
 
 const PostsList = ({ showLocationOnMap = false }) => {
   const [open, setOpen] = useState(false);
-  const [cordinates, setCordinate] = useState([]);
+  const [locations, setLocations] = useState([]);
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  const initilaCordinate = mainAddress?.location.coordinates || [0, 0];
+  const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const posts = useSelector(postsSelector);
 
   const handleClose = () => {
@@ -22,7 +22,7 @@ const PostsList = ({ showLocationOnMap = false }) => {
   };
 
   const handleOpenModal = (post) => {
-    setCordinate([post.address.location.coordinates]);
+    setLocations([post.address.location.coordinates]);
     setOpen(true);
   };
 
@@ -62,9 +62,9 @@ const PostsList = ({ showLocationOnMap = false }) => {
           sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
         >
           <Map
-            myCordinate={initilaCordinate}
-            cordinates={cordinates}
-            center={cordinates[0]}
+            myCordinate={initialCordinate}
+            locations={locations}
+            center={locations[0]}
             zoom={15}
           />
         </Grid>
