@@ -165,11 +165,17 @@ const CreatePostModal = ({ open, handleClose }) => {
             />
           </Grid>
           <Button
+            sx={{
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "13px",
+              backgroundColor: "#0298e8",
+              mt: 2,
+            }}
             fullWidth
             variant="contained"
-            sx={{ mt: 2 }}
+            type="submit"
             onClick={handleSubmit}
-            disabled={!title.value || !description.value || !selectedAddress}
           >
             Submit
           </Button>

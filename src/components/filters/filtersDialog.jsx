@@ -36,9 +36,11 @@ const marks = [
   },
 ];
 
-const FiltersDialog = ({ open, handleClose }) => {
+const defaultFilters = { location: false, distance: false };
+
+const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
   const [state, setState] = useState({
-    filters: { location: false, distance: false },
+    filters: defaultFilters,
   });
   const [value, setValue] = useState([100, 500]);
   const handleChange = (event, newValue) => {
@@ -55,11 +57,11 @@ const FiltersDialog = ({ open, handleClose }) => {
   const handleClear = () => {
     setState((prevState) => ({
       ...prevState,
-      filters: { distance: false, location: false },
+      filters: defaultFilters,
     }));
+    handleClose();
+    handleSubmitFilters({ ...state, filters: defaultFilters });
   };
-
-  console.log(state, "state123");
 
   return (
     <Modal open={open} onClose={handleClose} width="sm">
@@ -169,7 +171,7 @@ const FiltersDialog = ({ open, handleClose }) => {
               type="submit"
               // disabled={loading || !emailPhoneNumber.value}
               name="passwordLogin"
-              // onClick={handleSubmitPassword}
+              onClick={() => handleSubmitFilters(state)}
             >
               Submit
             </Button>

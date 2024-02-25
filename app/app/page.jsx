@@ -18,6 +18,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FiltersDialog from "components/filters/filtersDialog";
+import AddIcon from "@mui/icons-material/Add";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -27,6 +28,7 @@ const App = () => {
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const theme = useTheme();
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
+  const [dialogFilters, setDialogFilters] = useState({});
 
   useEffect(() => {
     dispatch(getMyAddresses());
@@ -58,6 +60,18 @@ const App = () => {
   const handleOpenFilterDialog = () => {
     setOpenFilterDialog(true);
   };
+
+  const handleSubmitFilters = (state) => {
+    setDialogFilters(state);
+    handleFilterDialogClose();
+  };
+
+  console.log(
+    dialogFilters.filters
+      ? Object.values(dialogFilters.filters).filter(Boolean).length
+      : 0,
+    dialogFilters.filters
+  );
 
   return (
     <Grid
@@ -95,27 +109,28 @@ const App = () => {
           variant="contained"
           onClick={handleOpenFilterDialog}
         >
-          <Typography
+          <Typography sx={{ mr: 1 }}>Filters</Typography>
+          <Badge
+            badgeContent={
+              dialogFilters.filters
+                ? Object.values(dialogFilters.filters).filter(Boolean).length
+                : 0
+            }
             sx={{
-              mr: 2,
-              backgroundColor: "white",
-              color: "black",
-              borderRadius: "100%",
-              width: "30px",
-              height: "30px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: "bold",
+              "& .MuiBadge-badge": {
+                backgroundColor: "#0298e8",
+                border: "1px solid white",
+                top: "6px",
+                right: "-1px",
+              },
             }}
           >
-            43
-          </Typography>
-          <Typography sx={{ mr: 1 }}>Filters</Typography>
-          <FilterAltIcon color="action" sx={{ color: "white" }} />
+            <FilterAltIcon color="action" sx={{ color: "white", ml: 1 }} />
+          </Badge>
         </Button>
         <Button variant="contained" onClick={handleCreatePostModalOpen}>
           Add New Post
+          <AddIcon color="action" sx={{ color: "white", ml: 1 }} />
         </Button>
       </Grid>
       <Hidden mdDown>
@@ -173,6 +188,7 @@ const App = () => {
       <FiltersDialog
         open={openFilterDialog}
         handleClose={handleFilterDialogClose}
+        handleSubmitFilters={handleSubmitFilters}
       />
     </Grid>
   );
