@@ -16,7 +16,7 @@ import LandscapeIcon from "@mui/icons-material/Landscape";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@mui/material/Button";
-
+import SamplePostImage from "assets/images/samplePostImage.png";
 const Post = ({
   handleOpenModal,
   showLocationOnMap,
@@ -60,7 +60,7 @@ const Post = ({
     <Grid container direction={"column"} sx={{ pb: 3 }}>
       <Grid
         container
-        sx={{ backgroundColor: "black" }}
+        sx={{ backgroundColor: "lightGray" }}
         justifyContent={"center"}
         alignItems={"center"}
       >
@@ -98,7 +98,15 @@ const Post = ({
             ))}
           </Carousel>
         ) : (
-          <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
+          // <LandscapeIcon sx={{ fontSize: 300, color: "gray" }} />
+          <img
+            src={SamplePostImage.src}
+            style={{
+              width: "100%",
+              height: "300px",
+              objectFit: "contain",
+            }}
+          />
         )}
       </Grid>
       <Grid container justifyContent={"space-between"}>
