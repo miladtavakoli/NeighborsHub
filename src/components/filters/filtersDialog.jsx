@@ -154,6 +154,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
               color="secondary"
               name="otpLogin"
               onClick={handleClear}
+              disabled={!Object.values(state.filters).filter(Boolean).length}
             >
               Clear All Filters
             </Button>

@@ -105,11 +105,18 @@ const App = () => {
         sx={{ py: 1, px: 4, backgroundColor: "#85CBFA" }}
       >
         <Button
-          sx={{ mr: 4, color: "white" }}
+          sx={{
+            mr: 2,
+            color: "white",
+            borderRadius: "10px",
+            // height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#0298e8",
+          }}
           variant="contained"
           onClick={handleOpenFilterDialog}
         >
-          <Typography sx={{ mr: 1 }}>Filters</Typography>
+          Filters
           <Badge
             badgeContent={
               dialogFilters.filters
@@ -118,7 +125,7 @@ const App = () => {
             }
             sx={{
               "& .MuiBadge-badge": {
-                backgroundColor: "#0298e8",
+                backgroundColor: "red",
                 border: "1px solid white",
                 top: "6px",
                 right: "-1px",
@@ -128,7 +135,16 @@ const App = () => {
             <FilterAltIcon color="action" sx={{ color: "white", ml: 1 }} />
           </Badge>
         </Button>
-        <Button variant="contained" onClick={handleCreatePostModalOpen}>
+        <Button
+          variant="contained"
+          onClick={handleCreatePostModalOpen}
+          sx={{
+            borderRadius: "10px",
+            // height: "47px",
+            fontSize: "13px",
+            backgroundColor: "#0298e8",
+          }}
+        >
           Add New Post
           <AddIcon color="action" sx={{ color: "white", ml: 1 }} />
         </Button>
