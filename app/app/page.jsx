@@ -95,7 +95,6 @@ const App = () => {
           >
             <Tab label="Map" />
             <Tab label="Posts" />
-            <Tab label="Filter" />
           </Tabs>
         </Grid>
       </Hidden>
