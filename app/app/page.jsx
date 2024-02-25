@@ -13,6 +13,11 @@ import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
 import { getMyAddresses } from "store/actions/userActions";
+import Badge from "@mui/material/Badge";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import FiltersDialog from "components/filters/filtersDialog";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -21,6 +26,7 @@ const App = () => {
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
   const theme = useTheme();
+  const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
   useEffect(() => {
     dispatch(getMyAddresses());
@@ -43,6 +49,14 @@ const App = () => {
   };
   const handleCreatePostModalClose = () => {
     setCreatePostModalOpen(false);
+  };
+
+  const handleFilterDialogClose = () => {
+    setOpenFilterDialog(false);
+  };
+
+  const handleOpenFilterDialog = () => {
+    setOpenFilterDialog(true);
   };
 
   return (
@@ -76,6 +90,30 @@ const App = () => {
         justifyContent={"flex-end"}
         sx={{ py: 1, px: 4, backgroundColor: "#85CBFA" }}
       >
+        <Button
+          sx={{ mr: 4, color: "white" }}
+          variant="contained"
+          onClick={handleOpenFilterDialog}
+        >
+          <Typography
+            sx={{
+              mr: 2,
+              backgroundColor: "white",
+              color: "black",
+              borderRadius: "100%",
+              width: "30px",
+              height: "30px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: "bold",
+            }}
+          >
+            43
+          </Typography>
+          <Typography sx={{ mr: 1 }}>Filters</Typography>
+          <FilterAltIcon color="action" sx={{ color: "white" }} />
+        </Button>
         <Button variant="contained" onClick={handleCreatePostModalOpen}>
           Add New Post
         </Button>
@@ -131,6 +169,10 @@ const App = () => {
       <CreatePostModal
         open={createPostModalOpen}
         handleClose={handleCreatePostModalClose}
+      />
+      <FiltersDialog
+        open={openFilterDialog}
+        handleClose={handleFilterDialogClose}
       />
     </Grid>
   );

@@ -27,7 +27,7 @@ const AxiosInterceptor = ({ children }) => {
 
     const resInterceptor = (response) => {
       dispatch(endLoading());
-      return response.data.data;
+      return response?.data?.data;
     };
 
     const errInterceptor = (error) => {
