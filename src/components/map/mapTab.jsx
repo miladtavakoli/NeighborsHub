@@ -16,7 +16,7 @@ import { getUniqueLocation } from "store/actions/postsActions";
 
 let controller;
 
-const MapTab = () => {
+const MapTab = ({ filters }) => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -77,7 +77,6 @@ const MapTab = () => {
         lat: item[1],
         myAddressLong: initialCordinate[0],
         myAddressLat: initialCordinate[1],
-        user_distance: "1",
       })
     ).then(() => {
       setIsMyPosts(false);

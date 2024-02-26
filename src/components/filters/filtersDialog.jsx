@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { getPosts } from "store/actions/postsActions";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -19,8 +20,8 @@ function valuetext(value) {
 
 const marks = [
   {
-    value: 100,
-    label: "100 meter",
+    value: 0,
+    label: "0",
   },
   {
     value: 1000,
@@ -41,11 +42,8 @@ const defaultFilters = { location: false, distance: false };
 const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
   const [state, setState] = useState({
     filters: defaultFilters,
+    distance: [100, 200],
   });
-  const [value, setValue] = useState([100, 500]);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const handleCheckbox = (e) => {
     setState((prevState) => ({
@@ -61,6 +59,13 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
     }));
     handleClose();
     handleSubmitFilters({ ...state, filters: defaultFilters });
+  };
+
+  const handleSetDistance = (e, distance) => {
+    setState((prevState) => ({
+      ...prevState,
+      distance,
+    }));
   };
 
   return (
@@ -83,11 +88,11 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
           </Grid>
           <Grid sx={{ px: 4 }}>
             <Slider
-              value={value}
-              onChange={handleChange}
+              value={state.distance}
+              onChange={handleSetDistance}
               valueLabelDisplay="auto"
               getAriaValueText={valuetext}
-              min={100}
+              min={0}
               max={3000}
               step={100}
               marks={marks}

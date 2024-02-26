@@ -15,10 +15,10 @@ import { useSelector } from "react-redux";
 import { getMyAddresses } from "store/actions/userActions";
 import Badge from "@mui/material/Badge";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import FiltersDialog from "components/filters/filtersDialog";
 import AddIcon from "@mui/icons-material/Add";
+import { getPosts } from "store/actions/postsActions";
+import { postsSelector } from "store/slices/postsSlices";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -26,10 +26,10 @@ const App = () => {
   const dispatch = useDispatch();
   const myAddressCordinate = useSelector(myAddressesSelector);
   const mainAddress = myAddressCordinate.find((item) => item.is_main_address);
-  const theme = useTheme();
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const [dialogFilters, setDialogFilters] = useState({});
-
+  const initialCordinate = mainAddress?.location.coordinates || [0, 0];
+  const posts = useSelector(postsSelector);
   useEffect(() => {
     dispatch(getMyAddresses());
   }, []);
@@ -39,8 +39,8 @@ const App = () => {
   };
   const Content = useMemo(
     () => ({
-      0: <MapTab />,
-      1: <PostsTab />,
+      0: <MapTab filters={dialogFilters} />,
+      1: <PostsTab posts={posts} />,
       2: <></>,
     }),
     []
@@ -66,12 +66,23 @@ const App = () => {
     handleFilterDialogClose();
   };
 
-  console.log(
-    dialogFilters.filters
-      ? Object.values(dialogFilters.filters).filter(Boolean).length
-      : 0,
-    dialogFilters.filters
-  );
+  useEffect(() => {
+    if (mainAddress)
+      dispatch(
+        getPosts({
+          lat: initialCordinate[1],
+          long: initialCordinate[0],
+          offset: 0,
+          limit: 30,
+          from_distance: dialogFilters?.filters?.distance
+            ? dialogFilters?.distance?.[0]
+            : undefined,
+          to_distance: dialogFilters?.filters?.distance
+            ? dialogFilters?.distance?.[1]
+            : undefined,
+        })
+      );
+  }, [mainAddress, dialogFilters]);
 
   return (
     <Grid
@@ -163,7 +174,7 @@ const App = () => {
                 lg={8}
                 md={6}
               >
-                <MapTab />
+                <MapTab filters={dialogFilters} />
               </Grid>
               <Grid
                 sx={{ height: "100%", overflowY: "auto" }}
@@ -172,7 +183,7 @@ const App = () => {
                 lg={4}
                 md={6}
               >
-                <PostsTab />
+                <PostsTab filters={dialogFilters} posts={posts} />
               </Grid>
             </>
           ) : (
@@ -182,7 +193,7 @@ const App = () => {
               item
               xs={12}
             >
-              <MapTab />
+              <MapTab filters={dialogFilters} />
             </Grid>
           )}
         </Grid>

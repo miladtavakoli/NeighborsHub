@@ -110,16 +110,29 @@ const Post = ({
         )}
       </Grid>
       <Grid container justifyContent={"space-between"}>
-        <Typography
-          sx={{ mt: 2, fontWeight: "bold", px: 2, wordBreak: "break-all" }}
-          variant="h5"
+        <Grid
+          container
+          flexWrap={"nowrap"}
+          alignItems={"flex-start"}
+          sx={{ mt: 2 }}
         >
-          {data.title}
-        </Typography>
-
-        <IconButton onClick={handleOpenMenu}>
-          <MoreVertIcon />
-        </IconButton>
+          <Typography
+            sx={{ fontWeight: "bold", px: 2, wordBreak: "break-word" }}
+            variant="h5"
+          >
+            {data.title}
+          </Typography>
+          {(showLocationOnMap || isMyPost) && (
+            <IconButton onClick={handleOpenMenu}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
+        </Grid>
+        <Grid sx={{ px: 2, mt: 1 }}>
+          <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+            {data.distance} meter away from your location
+          </Typography>
+        </Grid>
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -135,7 +148,6 @@ const Post = ({
                 handleOpenModal(data);
                 setAnchorEl(null);
               }}
-              // sx={{ color: "red" }}
             >
               <LocationOnIcon sx={{ mr: 0.5 }} /> Show On Map
             </MenuItem>
