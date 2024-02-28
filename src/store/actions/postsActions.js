@@ -8,6 +8,8 @@ import {
   removePost,
   setUniqueLocation,
   setLocationPosts,
+  like,
+  deleteLike,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 
@@ -82,4 +84,18 @@ export const deletePost = (data) => async (dispatch) => {
       dispatch(removePost(data));
     })
     .finally(() => dispatch(endLoading()));
+};
+
+export const likeAction = (data) => async (dispatch) => {
+  return Apis.posts.like(data).then((res) => {
+    console.log(res, "test");
+    dispatch(like(data));
+  });
+};
+
+export const deleteLikeAction = (data) => async (dispatch) => {
+  return Apis.posts.deleteLike(data).then((res) => {
+    console.log(res, "test");
+    dispatch(deleteLike(data));
+  });
 };

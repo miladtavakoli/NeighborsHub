@@ -29,7 +29,6 @@ const MapTab = ({ filters }) => {
   const [selectedPosts, setSelectedPosts] = useState();
   const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
-
   const [latBounds, setLatBounds] = useState([0, 0]);
   const [longBounds, setLongBounds] = useState([0, 0]);
 

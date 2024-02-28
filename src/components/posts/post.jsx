@@ -17,6 +17,9 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@mui/material/Button";
 import SamplePostImage from "assets/images/samplePostImage.png";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import { likeAction, deleteLikeAction } from "store/actions/postsActions";
 const Post = ({
   handleOpenModal,
   showLocationOnMap,
@@ -50,6 +53,13 @@ const Post = ({
       handleClose();
       handleClosePostsList();
     });
+  };
+
+  const handleLike = () => {
+    dispatch(likeAction({ id: data.id }));
+  };
+  const handleRemoveLike = () => {
+    dispatch(deleteLikeAction({ id: data.id }));
   };
 
   const handleMoreDetails = () => {
@@ -122,6 +132,18 @@ const Post = ({
           >
             {data.title}
           </Typography>
+        </Grid>
+        <Grid sx={{ px: 2, mt: 1 }} container justifyContent={"space-between"}>
+          {data.is_user_liked ? (
+            <IconButton onClick={handleRemoveLike}>
+              <ThumbUpAltIcon sx={{ fill: "red" }} />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleLike}>
+              <ThumbUpOffAltIcon />
+            </IconButton>
+          )}
+
           {(showLocationOnMap || isMyPost) && (
             <IconButton onClick={handleOpenMenu}>
               <MoreVertIcon />

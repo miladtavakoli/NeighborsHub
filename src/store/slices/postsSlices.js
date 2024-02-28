@@ -29,14 +29,13 @@ const postsSlices = createSlice({
     setUniqueLocation: (state, { payload }) => {
       state.uniqueLocation = [
         // ...state.uniqueLocation,
-        ...payload
-          .map((item) => item.location.coordinates)
-          // .filter(
-          //   (item) =>
-          //     !state.uniqueLocation.find(
-          //       (item2) => item2[0] === item[0] && item2[1] !== item[0]
-          //     )
-          // ),
+        ...payload.map((item) => item.location.coordinates),
+        // .filter(
+        //   (item) =>
+        //     !state.uniqueLocation.find(
+        //       (item2) => item2[0] === item[0] && item2[1] !== item[0]
+        //     )
+        // ),
       ];
     },
     clearPosts: () => initialState,
@@ -54,6 +53,22 @@ const postsSlices = createSlice({
         );
       }
     },
+    like: (state, { payload }) => {
+      state.posts = state.posts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: true } : item
+      );
+      state.locationPosts = state.locationPosts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: true } : item
+      );
+    },
+    deleteLike: (state, { payload }) => {
+      state.posts = state.posts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: false } : item
+      );
+      state.locationPosts = state.locationPosts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: false } : item
+      );
+    },
   },
 });
 
@@ -68,6 +83,8 @@ export const {
   setLocationPosts,
   removelocationPosts,
   moreDetailsPost,
+  like,
+  deleteLike,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
