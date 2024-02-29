@@ -6,14 +6,13 @@ import {
 } from "store/slices/userSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { emailUpdate, phoneNumberUpdate } from "store/slices/userSlices";
+import { authenticated } from "store/slices/authSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
-  return Apis.address
-    .getListOfAddress()
-    .then((res) => {
-      dispatch(setMyAddresses(res.addresses?.results || []));
-      return res;
-    })
+  return Apis.address.getListOfAddress().then((res) => {
+    dispatch(setMyAddresses(res.addresses?.results || []));
+    return res;
+  });
 };
 
 export const addNewAddressAction = (payload) => async (dispatch) => {
@@ -25,19 +24,19 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
 };
 
 export const updateMyInfo = (data) => async (dispatch) => {
-  dispatch(startLoading());
-  return Apis.user
-    .updateMyInfo(data)
-    .then((res) => dispatch(setMyInfo(res)))
-    .finally(() => dispatch(endLoading()));
+  return Apis.user.updateMyInfo(data).then((res) => {
+    dispatch(setMyInfo(res));
+  });
 };
 
 export const myInfoAction = () => async (dispatch) => {
-  dispatch(startLoading());
   return Apis.user
     .myInfo()
-    .then((res) => dispatch(setMyInfo(res.user)))
-    .finally(() => dispatch(endLoading()));
+    .then((res) => {
+      dispatch(setMyInfo(res.user));
+      dispatch(authenticated(true));
+    })
+    .catch(() => dispatch(authenticated(false)));
 };
 
 export const sendOtpToEmail = (data) => async (dispatch) => {

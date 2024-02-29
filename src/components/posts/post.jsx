@@ -20,6 +20,14 @@ import SamplePostImage from "assets/images/samplePostImage.png";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { likeAction, deleteLikeAction } from "store/actions/postsActions";
+import { authSelector } from "store/slices/authSlices";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import { snackActions } from "utils/SnackbarUtils";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import SocialDistanceIcon from "@mui/icons-material/SocialDistance";
+
 const Post = ({
   handleOpenModal,
   showLocationOnMap,
@@ -31,7 +39,9 @@ const Post = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const myInfo = useSelector(myInfoSelector);
+  const isAuth = useSelector(authSelector);
   const isMyPost = myInfo.id === data.created_by.id;
+  const [contactOpen, setContactOpen] = useState(false);
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -64,6 +74,19 @@ const Post = ({
 
   const handleMoreDetails = () => {
     dispatch(getDetailsPost({ id: data.id }));
+  };
+
+  const handleCloseContactMenu = () => {
+    setContactOpen(false);
+  };
+
+  const handleCopyToClipboard = (value) => {
+    if (isAuth) {
+      navigator.clipboard.writeText(value);
+      snackActions.info("Copied To Clipboard");
+    } else {
+      snackActions.warning("You Need To Login To Use This Information");
+    }
   };
 
   return (
@@ -119,6 +142,7 @@ const Post = ({
           />
         )}
       </Grid>
+
       <Grid container justifyContent={"space-between"}>
         <Grid
           container
@@ -133,28 +157,82 @@ const Post = ({
             {data.title}
           </Typography>
         </Grid>
-        <Grid sx={{ px: 2, mt: 1 }} container justifyContent={"space-between"}>
-          {!isMyPost &&
-            (data.is_user_liked ? (
-              <IconButton onClick={handleRemoveLike}>
-                <ThumbUpAltIcon sx={{ fill: "red" }} />
-              </IconButton>
-            ) : (
-              <IconButton onClick={handleLike}>
-                <ThumbUpOffAltIcon />
-              </IconButton>
-            ))}
+        <Grid
+          container
+          justifyContent={"flex-start"}
+          alignItems={"center"}
+          sx={{ mt: 2, px: 2 }}
+          flexWrap={"nowrap"}
+        >
+          <Grid container alignItems={"center"}>
+            <Avatar
+              alt={data.created_by?.first_name}
+              src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
+            />
+            <Typography sx={{ ml: 1, fontWeight: "bold" }}>
+              {data.created_by?.first_name + " " + data.created_by?.last_name}
+            </Typography>
 
-          {(showLocationOnMap || isMyPost) && (
-            <IconButton onClick={handleOpenMenu}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
+            {!isMyPost &&
+              isAuth &&
+              (data.is_user_liked ? (
+                <IconButton onClick={handleRemoveLike}>
+                  <ThumbUpAltIcon sx={{ fill: "red" }} />
+                </IconButton>
+              ) : (
+                <IconButton onClick={handleLike}>
+                  <ThumbUpOffAltIcon />
+                </IconButton>
+              ))}
+          </Grid>
+          <Grid container justifyContent={"flex-end"}>
+            <Button
+              onClick={(e) => setContactOpen(e.currentTarget)}
+              variant="text"
+            >
+              Contact
+            </Button>
+            {(showLocationOnMap || isMyPost) && (
+              <IconButton onClick={handleOpenMenu}>
+                <MoreVertIcon />
+              </IconButton>
+            )}
+            <Menu
+              id="basic-menu"
+              anchorEl={contactOpen}
+              open={contactOpen}
+              onClose={handleCloseContactMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              sx={{ minWidth: "300px" }}
+            >
+              {data.created_by?.email && (
+                <MenuItem
+                  sx={{ minWidth: "300px" }}
+                  onClick={() => handleCopyToClipboard(data.created_by?.email)}
+                >
+                  <AlternateEmailIcon sx={{ mr: 1 }} />
+                  {data.created_by?.email}
+                </MenuItem>
+              )}
+              {data.created_by?.mobile && (
+                <MenuItem
+                  sx={{ minWidth: "300px" }}
+                  onClick={() => handleCopyToClipboard(data.created_by?.mobile)}
+                >
+                  <PhoneIphoneIcon sx={{ mr: 1 }} />
+                  {data.created_by?.mobile}
+                </MenuItem>
+              )}
+            </Menu>
+          </Grid>
         </Grid>
         {!isMyPost && data.distance && (
-          <Grid sx={{ px: 2, mt: 1 }}>
-            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              {data.distance} meter away from your location
+          <Grid container sx={{ px: 2, mt: 1 }}>
+            <SocialDistanceIcon />
+            <Typography variant="body2" sx={{ fontWeight: "bold", ml: 1 }}>
+              {data.distance} meter away
             </Typography>
           </Grid>
         )}
