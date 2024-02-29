@@ -70,8 +70,8 @@ const App = () => {
     if (mainAddress)
       dispatch(
         getPosts({
-          lat: initialCordinate[1],
-          long: initialCordinate[0],
+          user_latitude: initialCordinate[1] || undefined,
+          user_longitude: initialCordinate[0] || undefined,
           offset: 0,
           limit: 30,
           from_distance: dialogFilters?.filters?.distance

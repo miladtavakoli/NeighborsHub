@@ -38,7 +38,7 @@ export const getLocationPosts = (data) => async (dispatch) => {
   return Apis.posts
     .getLocationPosts(data)
     .then((res) => {
-      dispatch(setLocationPosts(res.posts?.results || []));
+      dispatch(setLocationPosts(res?.posts?.results || []));
       console.log(res, "test");
       return res;
     })

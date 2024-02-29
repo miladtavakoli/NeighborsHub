@@ -72,10 +72,10 @@ const MapTab = ({ filters }) => {
   const handleMarkerClicked = async (item) => {
     dispatch(
       getLocationPosts({
-        long: item[0],
-        lat: item[1],
-        myAddressLong: initialCordinate[0],
-        myAddressLat: initialCordinate[1],
+        post_longitude: item[0],
+        post_latitude: item[1],
+        user_longitude: initialCordinate[0] || undefined,
+        user_latitude: initialCordinate[1] || undefined,
       })
     ).then(() => {
       setIsMyPosts(false);

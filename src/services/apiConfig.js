@@ -4,7 +4,7 @@ import { APIS_BASE_URL } from "services/constants";
 import { useDispatch } from "react-redux";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
-
+import { authenticated } from "store/slices/authSlices";
 const instance = axios.create();
 
 const AxiosInterceptor = ({ children }) => {
@@ -25,18 +25,24 @@ const AxiosInterceptor = ({ children }) => {
       return { ...config, ...extendedConfig };
     };
 
-    const resInterceptor = (response) => {
+    const resSuccessInterceptor = (response) => {
       dispatch(endLoading());
+      dispatch(authenticated(true));
+      console.log(response?.data?.data, "successsss");
       return response?.data?.data;
     };
 
-    const errInterceptor = (error) => {
+    const resErrInterceptor = (error) => {
       dispatch(endLoading());
+      console.log(error, "errorrrr");
+      if (error.code === "ERR_CANCELED") return;
+      if (error.response?.status === 403 || error.response?.status === 400) {
+        dispatch(authenticated(false));
+        snackActions.error("You need to login again");
+        localStorage.removeItem("token");
+        return Promise.reject(error);
+      }
       snackActions.error(error.response.data.message);
-      console.log(error.response);
-      // if (error.response.status === 401) {
-      //   alert(401);
-      // }
 
       return Promise.reject(error);
     };
@@ -44,8 +50,8 @@ const AxiosInterceptor = ({ children }) => {
     const handleReqInterceptor =
       instance.interceptors.request.use(reqInterceptor);
     const handleResInterceptor = instance.interceptors.response.use(
-      resInterceptor,
-      errInterceptor
+      resSuccessInterceptor,
+      resErrInterceptor
     );
 
     return () => {

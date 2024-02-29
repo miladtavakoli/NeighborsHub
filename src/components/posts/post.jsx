@@ -134,15 +134,16 @@ const Post = ({
           </Typography>
         </Grid>
         <Grid sx={{ px: 2, mt: 1 }} container justifyContent={"space-between"}>
-          {data.is_user_liked ? (
-            <IconButton onClick={handleRemoveLike}>
-              <ThumbUpAltIcon sx={{ fill: "red" }} />
-            </IconButton>
-          ) : (
-            <IconButton onClick={handleLike}>
-              <ThumbUpOffAltIcon />
-            </IconButton>
-          )}
+          {!isMyPost &&
+            (data.is_user_liked ? (
+              <IconButton onClick={handleRemoveLike}>
+                <ThumbUpAltIcon sx={{ fill: "red" }} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleLike}>
+                <ThumbUpOffAltIcon />
+              </IconButton>
+            ))}
 
           {(showLocationOnMap || isMyPost) && (
             <IconButton onClick={handleOpenMenu}>
@@ -150,11 +151,13 @@ const Post = ({
             </IconButton>
           )}
         </Grid>
-        <Grid sx={{ px: 2, mt: 1 }}>
-          <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-            {data.distance} meter away from your location
-          </Typography>
-        </Grid>
+        {!isMyPost && data.distance && (
+          <Grid sx={{ px: 2, mt: 1 }}>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              {data.distance} meter away from your location
+            </Typography>
+          </Grid>
+        )}
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

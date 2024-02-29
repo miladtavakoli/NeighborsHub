@@ -67,22 +67,13 @@ const Apis = {
       apiConfig({
         url: `/post/`,
         method: "get",
-        params: {
-          ...data,
-          user_latitude: data.lat,
-          user_longitude: data.long,
-        },
+        params: data,
       }),
     getLocationPosts: (data) =>
       apiConfig({
         url: `/post/`,
         method: "get",
-        params: {
-          post_latitude: data.lat,
-          post_longitude: data.long,
-          user_latitude: data.myAddressLat,
-          user_longitude: data.myAddressLong,
-        },
+        params: data,
       }),
     getDetailsPost: (data) =>
       apiConfig({
