@@ -163,86 +163,95 @@ const Post = ({
             {data.title}
           </Typography>
         </Grid>
-        <Grid
-          container
-          justifyContent={"flex-start"}
-          alignItems={"center"}
-          sx={{ mt: 2, px: 2 }}
-          flexWrap={"nowrap"}
-        >
-          <Grid container alignItems={"center"} flexWrap={"nowrap"}>
-            <Grid
-              item
-              container
-              alignItems={"center"}
-              onClick={() => handleRirectToUserProfile(data.created_by.id)}
-              sx={{ cursor: "pointer" }}
-            >
-              <Avatar
-                alt={data.created_by?.first_name}
-                src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
-              />
-              <Typography sx={{ ml: 1, fontWeight: "bold" }}>
-                {data.created_by?.first_name + " " + data.created_by?.last_name}
-              </Typography>
+        {!isMyPost && (
+          <Grid
+            container
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+            sx={{ mt: 2, px: 2 }}
+            flexWrap={"nowrap"}
+          >
+            <Grid container alignItems={"center"} flexWrap={"nowrap"}>
+              <Grid
+                item
+                container
+                alignItems={"center"}
+                onClick={() => handleRirectToUserProfile(data.created_by.id)}
+                sx={{ cursor: "pointer" }}
+              >
+                <Avatar
+                  alt={data.created_by?.first_name}
+                  src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
+                />
+                <Typography sx={{ ml: 1, fontWeight: "bold" }}>
+                  {data.created_by?.first_name +
+                    " " +
+                    data.created_by?.last_name}
+                </Typography>
+              </Grid>
+              <Grid item>
+                {!isMyPost &&
+                  isAuth &&
+                  (data.is_user_liked ? (
+                    <IconButton onClick={handleRemoveLike}>
+                      <ThumbUpAltIcon sx={{ fill: "red" }} />
+                    </IconButton>
+                  ) : (
+                    <IconButton onClick={handleLike}>
+                      <ThumbUpOffAltIcon />
+                    </IconButton>
+                  ))}
+              </Grid>
             </Grid>
-            <Grid item>
-              {!isMyPost &&
-                isAuth &&
-                (data.is_user_liked ? (
-                  <IconButton onClick={handleRemoveLike}>
-                    <ThumbUpAltIcon sx={{ fill: "red" }} />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={handleLike}>
-                    <ThumbUpOffAltIcon />
-                  </IconButton>
-                ))}
+
+            <Grid container justifyContent={"flex-end"}>
+              <Button
+                onClick={(e) => setContactOpen(e.currentTarget)}
+                variant="text"
+              >
+                Contact
+              </Button>
+              {(showLocationOnMap || isMyPost) && (
+                <IconButton onClick={handleOpenMenu}>
+                  <MoreVertIcon />
+                </IconButton>
+              )}
+              <Menu
+                id="basic-menu"
+                anchorEl={contactOpen}
+                open={contactOpen}
+                onClose={handleCloseContactMenu}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+                sx={{ minWidth: "300px" }}
+              >
+                {data.created_by?.email && (
+                  <MenuItem
+                    sx={{ minWidth: "300px" }}
+                    onClick={() =>
+                      handleCopyToClipboard(data.created_by?.email)
+                    }
+                  >
+                    <AlternateEmailIcon sx={{ mr: 1 }} />
+                    {data.created_by?.email}
+                  </MenuItem>
+                )}
+                {data.created_by?.mobile && (
+                  <MenuItem
+                    sx={{ minWidth: "300px" }}
+                    onClick={() =>
+                      handleCopyToClipboard(data.created_by?.mobile)
+                    }
+                  >
+                    <PhoneIphoneIcon sx={{ mr: 1 }} />
+                    {data.created_by?.mobile}
+                  </MenuItem>
+                )}
+              </Menu>
             </Grid>
           </Grid>
-          <Grid container justifyContent={"flex-end"}>
-            <Button
-              onClick={(e) => setContactOpen(e.currentTarget)}
-              variant="text"
-            >
-              Contact
-            </Button>
-            {(showLocationOnMap || isMyPost) && (
-              <IconButton onClick={handleOpenMenu}>
-                <MoreVertIcon />
-              </IconButton>
-            )}
-            <Menu
-              id="basic-menu"
-              anchorEl={contactOpen}
-              open={contactOpen}
-              onClose={handleCloseContactMenu}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-              sx={{ minWidth: "300px" }}
-            >
-              {data.created_by?.email && (
-                <MenuItem
-                  sx={{ minWidth: "300px" }}
-                  onClick={() => handleCopyToClipboard(data.created_by?.email)}
-                >
-                  <AlternateEmailIcon sx={{ mr: 1 }} />
-                  {data.created_by?.email}
-                </MenuItem>
-              )}
-              {data.created_by?.mobile && (
-                <MenuItem
-                  sx={{ minWidth: "300px" }}
-                  onClick={() => handleCopyToClipboard(data.created_by?.mobile)}
-                >
-                  <PhoneIphoneIcon sx={{ mr: 1 }} />
-                  {data.created_by?.mobile}
-                </MenuItem>
-              )}
-            </Menu>
-          </Grid>
-        </Grid>
+        )}
         {!isMyPost && data.distance && (
           <Grid container sx={{ px: 2, mt: 1 }}>
             <SocialDistanceIcon />

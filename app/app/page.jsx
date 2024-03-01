@@ -12,7 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import Hidden from "@mui/material/Hidden";
 import { myAddressesSelector } from "store/slices/userSlices";
 import { useSelector } from "react-redux";
-import { getMyAddresses } from "store/actions/userActions";
+import { getMyAddresses, myInfoAction } from "store/actions/userActions";
 import Badge from "@mui/material/Badge";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FiltersDialog from "components/filters/filtersDialog";
@@ -20,7 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { getPosts } from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
 // import { categorySelector } from "store/slices/postsSlices";
-// import { getCategories } from "store/actions/postsActions";
+import { getMyPosts } from "store/actions/postsActions";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -35,6 +35,8 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getMyAddresses());
+    dispatch(getMyPosts());
+    dispatch(myInfoAction());
   }, []);
 
   const handleChange = (e, value) => {
