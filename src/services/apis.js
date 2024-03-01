@@ -102,6 +102,7 @@ const Apis = {
       apiConfig({ url: `/post/${data.id}/like`, method: "post", data }),
     deleteLike: (data) =>
       apiConfig({ url: `/post/${data.id}/like`, method: "delete" }),
+    categories: () => apiConfig({ url: `/post/category`, method: "get" }),
   },
 };
 

@@ -10,6 +10,7 @@ import {
   setLocationPosts,
   like,
   deleteLike,
+  categories,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
@@ -101,5 +102,11 @@ export const deleteLikeAction = (data) => async (dispatch) => {
     snackActions.info("Like Removed!");
 
     dispatch(deleteLike(data));
+  });
+};
+
+export const getCategories = () => async (dispatch) => {
+  return Apis.posts.categories(data).then((res) => {
+    dispatch(categories(res.category));
   });
 };

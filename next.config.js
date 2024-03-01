@@ -3,7 +3,7 @@
 const productionMode = process.env.NODE_ENV === 'production'
 const nextConfig = {
   basePath : productionMode ? '/NeighborsHub' : '',
-  output: "export",
+  // output: "export",
   images: {
     unoptimized: true,
   },

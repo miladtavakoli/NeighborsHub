@@ -27,6 +27,7 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { snackActions } from "utils/SnackbarUtils";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import SocialDistanceIcon from "@mui/icons-material/SocialDistance";
+import { useRouter } from "next/navigation";
 
 const Post = ({
   handleOpenModal,
@@ -42,6 +43,7 @@ const Post = ({
   const isAuth = useSelector(authSelector);
   const isMyPost = myInfo.id === data.created_by.id;
   const [contactOpen, setContactOpen] = useState(false);
+  const router = useRouter();
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -87,6 +89,10 @@ const Post = ({
     } else {
       snackActions.warning("You Need To Login To Use This Information");
     }
+  };
+
+  const handleRirectToUserProfile = (id) => {
+    router.push(`/app/user/${id}`);
   };
 
   return (
@@ -164,26 +170,35 @@ const Post = ({
           sx={{ mt: 2, px: 2 }}
           flexWrap={"nowrap"}
         >
-          <Grid container alignItems={"center"}>
-            <Avatar
-              alt={data.created_by?.first_name}
-              src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
-            />
-            <Typography sx={{ ml: 1, fontWeight: "bold" }}>
-              {data.created_by?.first_name + " " + data.created_by?.last_name}
-            </Typography>
-
-            {!isMyPost &&
-              isAuth &&
-              (data.is_user_liked ? (
-                <IconButton onClick={handleRemoveLike}>
-                  <ThumbUpAltIcon sx={{ fill: "red" }} />
-                </IconButton>
-              ) : (
-                <IconButton onClick={handleLike}>
-                  <ThumbUpOffAltIcon />
-                </IconButton>
-              ))}
+          <Grid container alignItems={"center"} flexWrap={"nowrap"}>
+            <Grid
+              item
+              container
+              alignItems={"center"}
+              onClick={() => handleRirectToUserProfile(data.created_by.id)}
+              sx={{ cursor: "pointer" }}
+            >
+              <Avatar
+                alt={data.created_by?.first_name}
+                src={BASE_URL + data.created_by?.avatar.avatar_thumbnail}
+              />
+              <Typography sx={{ ml: 1, fontWeight: "bold" }}>
+                {data.created_by?.first_name + " " + data.created_by?.last_name}
+              </Typography>
+            </Grid>
+            <Grid item>
+              {!isMyPost &&
+                isAuth &&
+                (data.is_user_liked ? (
+                  <IconButton onClick={handleRemoveLike}>
+                    <ThumbUpAltIcon sx={{ fill: "red" }} />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={handleLike}>
+                    <ThumbUpOffAltIcon />
+                  </IconButton>
+                ))}
+            </Grid>
           </Grid>
           <Grid container justifyContent={"flex-end"}>
             <Button
@@ -236,6 +251,11 @@ const Post = ({
             </Typography>
           </Grid>
         )}
+        <Grid container justifyContent={"flex-start"} sx={{ px: 2, mt: 1 }}>
+          {data.category.map((item) => (
+            <Chip label={item} key={item} />
+          ))}
+        </Grid>
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

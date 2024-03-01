@@ -19,6 +19,8 @@ import FiltersDialog from "components/filters/filtersDialog";
 import AddIcon from "@mui/icons-material/Add";
 import { getPosts } from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
+// import { categorySelector } from "store/slices/postsSlices";
+// import { getCategories } from "store/actions/postsActions";
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -30,6 +32,7 @@ const App = () => {
   const [dialogFilters, setDialogFilters] = useState({});
   const initialCordinate = mainAddress?.location.coordinates || [0, 0];
   const posts = useSelector(postsSelector);
+
   useEffect(() => {
     dispatch(getMyAddresses());
   }, []);
