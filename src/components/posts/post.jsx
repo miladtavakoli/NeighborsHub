@@ -189,33 +189,40 @@ const Post = ({
                     data.created_by?.last_name}
                 </Typography>
               </Grid>
-              <Grid item>
-                {!isMyPost &&
-                  isAuth &&
-                  (data.is_user_liked ? (
-                    <IconButton onClick={handleRemoveLike}>
-                      <ThumbUpAltIcon sx={{ fill: "red" }} />
-                    </IconButton>
-                  ) : (
-                    <IconButton onClick={handleLike}>
-                      <ThumbUpOffAltIcon />
-                    </IconButton>
-                  ))}
-              </Grid>
             </Grid>
 
-            <Grid container justifyContent={"flex-end"}>
-              <Button
-                onClick={(e) => setContactOpen(e.currentTarget)}
-                variant="text"
-              >
-                Contact
-              </Button>
-              {(showLocationOnMap || isMyPost) && (
-                <IconButton onClick={handleOpenMenu}>
-                  <MoreVertIcon />
-                </IconButton>
+            <Grid container justifyContent={"flex-end"} alignItems={"center"}>
+              {!isMyPost && isAuth && (
+                <Chip
+                  label={
+                    data.is_user_liked ? (
+                      <IconButton onClick={handleRemoveLike}>
+                        <ThumbUpAltIcon sx={{ fill: "red" }} />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={handleLike}>
+                        <ThumbUpOffAltIcon />
+                      </IconButton>
+                    )
+                  }
+                />
               )}
+              <Chip
+                onClick={(e) => setContactOpen(e.currentTarget)}
+                label="Contact"
+                sx={{ bgcolor: "#0298E8", color: "white", ml: 1 }}
+              />
+              {(showLocationOnMap || isMyPost) && (
+                <Chip
+                  label={
+                    <IconButton onClick={handleOpenMenu}>
+                      <MoreVertIcon sx={{ fill: "darkGray" }} />
+                    </IconButton>
+                  }
+                  sx={{ px: 0, ml: 1 }}
+                />
+              )}
+
               <Menu
                 id="basic-menu"
                 anchorEl={contactOpen}
