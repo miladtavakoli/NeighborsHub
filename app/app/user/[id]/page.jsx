@@ -11,9 +11,16 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import { snackActions } from "utils/SnackbarUtils";
 import { useState } from "react";
+import PostsList from "components/posts/postsList";
+import { postsSelector } from "store/slices/postsSlices";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+
 function Page({ params }) {
   const { id } = params;
-  const myInfo = useSelector(myInfoSelector);
+  const posts = useSelector(postsSelector);
+  const [tabValue, setTabValue] = useState(0);
+
   const [contactOpen, setContactOpen] = useState(null);
 
   const handleCopyToClipboard = (value) => {
@@ -29,8 +36,12 @@ function Page({ params }) {
     setContactOpen(false);
   };
 
+  const handleChange = (e, value) => {
+    setTabValue(value);
+  };
+
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="md">
       <Grid container direction={"column"}>
         <Grid>
           <img
@@ -77,6 +88,19 @@ function Page({ params }) {
               </MenuItem>
             )} */}
           </Menu>
+        </Grid>
+        <Grid container justifyContent={"center"}>
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <Tab label="Posts" />
+            <Tab label="Friends" />
+          </Tabs>
+        </Grid>
+        <Grid>
+          <PostsList posts={posts} />
         </Grid>
       </Grid>
     </Container>
