@@ -15,11 +15,14 @@ import PostsList from "components/posts/postsList";
 import { postsSelector } from "store/slices/postsSlices";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Map from "components/map/map";
+import Modal from "components/modal/modal";
 
 function Page({ params }) {
   const { id } = params;
   const posts = useSelector(postsSelector);
   const [tabValue, setTabValue] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const [contactOpen, setContactOpen] = useState(null);
 
@@ -40,6 +43,10 @@ function Page({ params }) {
     setTabValue(value);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Container maxWidth="md">
       <Grid container direction={"column"}>
@@ -56,9 +63,39 @@ function Page({ params }) {
           alignItems={"flex-start"}
         >
           <Avatar sx={{ height: "130px", width: "130px", mt: "-65px" }} />
-          <Button sx={{ mt: 1 }} variant="contained">
-            Contact
-          </Button>
+          <Grid item container xs={5} justifyContent={"flex-end"}>
+            <Button
+              sx={{
+                borderRadius: "10px",
+                height: "47px",
+                fontSize: "13px",
+                backgroundColor: "#e85a02",
+                mr: 1,
+                "&:hover": {
+                  backgroundColor: "#f27527",
+                },
+              }}
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              Location
+            </Button>
+            <Button
+              sx={{
+                borderRadius: "10px",
+                height: "47px",
+                fontSize: "13px",
+                backgroundColor: "#0298e8",
+              }}
+              variant="contained"
+              type="submit"
+            >
+              Contact
+            </Button>
+          </Grid>
           <Menu
             id="basic-menu"
             anchorEl={contactOpen}
@@ -103,6 +140,15 @@ function Page({ params }) {
           <PostsList posts={posts} />
         </Grid>
       </Grid>
+      <Modal open={open} onClose={handleClose}>
+        <Grid
+          container
+          justifyContent={"center"}
+          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
+        >
+          <Map center={[51.36, 35.74]} zoom={15} locations={[[51.36, 35.74]]} />
+        </Grid>
+      </Modal>
     </Container>
   );
   // const { slug } = params;

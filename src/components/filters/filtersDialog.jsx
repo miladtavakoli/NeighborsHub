@@ -42,7 +42,7 @@ const defaultFilters = { location: false, distance: false };
 const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
   const [state, setState] = useState({
     filters: defaultFilters,
-    distance: [100, 200],
+    distance: [0, 1000],
   });
 
   const handleCheckbox = (e) => {
