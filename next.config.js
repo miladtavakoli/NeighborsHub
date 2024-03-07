@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const productionMode = process.env.NODE_ENV === 'production'
+const productionMode = process.env.NODE_ENV === "production";
 const nextConfig = {
-  basePath : productionMode ? '/NeighborsHub' : '',
-  // output: "export",
+  basePath: productionMode ? "/NeighborsHub" : "",
+  output: "export",
   images: {
     unoptimized: true,
   },
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;

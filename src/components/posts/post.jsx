@@ -92,7 +92,7 @@ const Post = ({
   };
 
   const handleRirectToUserProfile = (id) => {
-    router.push(`/app/user/${id}`);
+    router.push(`/app/user?id=${id}`);
   };
 
   return (

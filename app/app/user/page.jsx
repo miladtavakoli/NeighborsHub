@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
@@ -17,14 +18,28 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Map from "components/map/map";
 import Modal from "components/modal/modal";
+import { useSearchParams } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { getUserDetails } from "store/actions/userActions";
+import { userInfoSelector } from "store/slices/userSlices";
+import { authSelector } from "store/slices/authSlices";
+import Typography from "@mui/material/Typography";
 
-function Page({ params }) {
-  const { id } = params;
+function Page() {
   const posts = useSelector(postsSelector);
+  const userInfo = useSelector(userInfoSelector);
+  const isAuth = useSelector(authSelector);
+
   const [tabValue, setTabValue] = useState(0);
   const [open, setOpen] = useState(false);
-
+  const searchParams = useSearchParams();
   const [contactOpen, setContactOpen] = useState(null);
+  const userId = searchParams.get("id");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserDetails({ id: userId }));
+  }, []);
 
   const handleCopyToClipboard = (value) => {
     if (isAuth) {
@@ -47,6 +62,10 @@ function Page({ params }) {
     setOpen(false);
   };
 
+  const handleOpenContactMenu = (e) => {
+    setContactOpen(e.currentTarget);
+  };
+
   return (
     <Container maxWidth="md">
       <Grid container direction={"column"}>
@@ -62,7 +81,10 @@ function Page({ params }) {
           alignContent={"flex-start"}
           alignItems={"flex-start"}
         >
-          <Avatar sx={{ height: "130px", width: "130px", mt: "-65px" }} />
+          <Avatar
+            sx={{ height: "130px", width: "130px", mt: "-65px" }}
+            src={userInfo.avatar.avatar_thumbnail}
+          />
           <Grid item container xs={5} justifyContent={"flex-end"}>
             <Button
               sx={{
@@ -92,6 +114,7 @@ function Page({ params }) {
               }}
               variant="contained"
               type="submit"
+              onClick={handleOpenContactMenu}
             >
               Contact
             </Button>
@@ -106,25 +129,30 @@ function Page({ params }) {
             }}
             sx={{ minWidth: "300px" }}
           >
-            {/* {data.created_by?.email && (
+            {userInfo.email && (
               <MenuItem
                 sx={{ minWidth: "300px" }}
-                onClick={() => handleCopyToClipboard(data.created_by?.email)}
+                onClick={() => handleCopyToClipboard(userInfo.email)}
               >
                 <AlternateEmailIcon sx={{ mr: 1 }} />
-                {data.created_by?.email}
+                {userInfo.email}
               </MenuItem>
             )}
-            {data.created_by?.mobile && (
+            {userInfo.mobile && (
               <MenuItem
                 sx={{ minWidth: "300px" }}
-                onClick={() => handleCopyToClipboard(data.created_by?.mobile)}
+                onClick={() => handleCopyToClipboard(userInfo.mobile)}
               >
                 <PhoneIphoneIcon sx={{ mr: 1 }} />
-                {data.created_by?.mobile}
+                {userInfo.mobile}
               </MenuItem>
-            )} */}
+            )}
           </Menu>
+        </Grid>
+        <Grid container sx={{ pl: 2, mt: 2 }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            {userInfo.first_name + " " + userInfo.last_name}{" "}
+          </Typography>
         </Grid>
         <Grid container justifyContent={"center"}>
           <Tabs
@@ -151,8 +179,6 @@ function Page({ params }) {
       </Modal>
     </Container>
   );
-  // const { slug } = params;
-  // ...
 }
 
 export default Page;

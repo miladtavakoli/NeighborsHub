@@ -5,7 +5,11 @@ import {
   setMyInfo,
 } from "store/slices/userSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
-import { emailUpdate, phoneNumberUpdate } from "store/slices/userSlices";
+import {
+  emailUpdate,
+  phoneNumberUpdate,
+  setUserInfo,
+} from "store/slices/userSlices";
 import { authenticated } from "store/slices/authSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
@@ -81,3 +85,10 @@ export const verifyPhoneOtp = (data) => async (dispatch) => {
     })
     .finally(() => dispatch(endLoading()));
 };
+
+export const getUserDetails = (data) => async (dispatch) =>
+  Apis.user.getUserDetails(data).then((res) => {
+    console.log(res);
+    dispatch(setUserInfo(res.user));
+    return res;
+  });

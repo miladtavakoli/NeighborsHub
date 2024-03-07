@@ -32,6 +32,8 @@ const Apis = {
       apiConfig({ url: "/auth/send-verify-mobile", method: "post", data }),
     verifyPhoneOtp: (data) =>
       apiConfig({ url: "/auth/verify-mobile", method: "post", data }),
+    getUserDetails: (data) =>
+      apiConfig({ url: `/user/${data.id}`, method: "get" }),
   },
   address: {
     getIpLocation: () =>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   myInfo: {},
   addresses: [],
+  userInfo: {},
 };
 
 const userSlices = createSlice({
@@ -31,6 +32,9 @@ const userSlices = createSlice({
     phoneNumberUpdate: (state, { payload }) => {
       state.myInfo = { ...state.myInfo, mobile: payload.mobile };
     },
+    setUserInfo: (state, { payload }) => {
+      state.userInfo = payload;
+    },
   },
 });
 
@@ -43,9 +47,11 @@ export const {
   setMyInfo,
   emailUpdate,
   phoneNumberUpdate,
+  setUserInfo,
 } = userSlices.actions;
 
 export const myAddressesSelector = (state) => state.user.addresses;
 export const myInfoSelector = (state) => state.user.myInfo;
+export const userInfoSelector = (state) => state.user.userInfo;
 
 export default userSlices.reducer;
