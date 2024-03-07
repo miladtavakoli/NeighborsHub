@@ -7,7 +7,7 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { myAddressesSelector } from "store/slices/userSlices";
-
+import LandscapeIcon from "@mui/icons-material/Landscape";
 const PostsList = ({ posts = [], showLocationOnMap = false }) => {
   const [open, setOpen] = useState(false);
   const [locations, setLocations] = useState([]);
@@ -50,7 +50,8 @@ const PostsList = ({ posts = [], showLocationOnMap = false }) => {
             pb: 8,
           }}
         >
-          <Typography>There is notting here</Typography>
+          <LandscapeIcon sx={{ fontSize: "120px", fill: "lightGray" }} />
+          <Typography sx={{ color: "gray" }}>No Post</Typography>
         </Grid>
       )}
       <Modal open={open} onClose={handleClose}>

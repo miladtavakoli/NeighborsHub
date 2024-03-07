@@ -34,6 +34,8 @@ const Apis = {
       apiConfig({ url: "/auth/verify-mobile", method: "post", data }),
     getUserDetails: (data) =>
       apiConfig({ url: `/user/${data.id}`, method: "get" }),
+    setMyAvatar: (data) =>
+      apiConfig({ url: `/avatar/me`, method: "post", data, isFormData: true }),
   },
   address: {
     getIpLocation: () =>
@@ -60,7 +62,7 @@ const Apis = {
   posts: {
     createPost: (data) =>
       apiConfig({
-        url: "/post/me/create",
+        url: "/me/post/create",
         method: "post",
         data,
         isFormData: true,
@@ -82,7 +84,7 @@ const Apis = {
         url: `/post/${data.id}`,
         method: "get",
       }),
-    getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
+    getMyPosts: (data) => apiConfig({ url: "/me/post/", method: "get", data }),
     getUniqueLocation: (data, signal) =>
       apiConfig({
         url: `/post/location-count`,
@@ -99,12 +101,14 @@ const Apis = {
         signal,
       }),
     deletePost: (data) =>
-      apiConfig({ url: `/post/me/${data.id}`, method: "delete" }),
+      apiConfig({ url: `/me/post/${data.id}`, method: "delete" }),
     like: (data) =>
       apiConfig({ url: `/post/${data.id}/like`, method: "post", data }),
     deleteLike: (data) =>
       apiConfig({ url: `/post/${data.id}/like`, method: "delete" }),
-    categories: () => apiConfig({ url: `/post/category`, method: "get" }),
+    categories: () => apiConfig({ url: `/post/category/`, method: "get" }),
+    getUserPosts: ({ id, params }) =>
+      apiConfig({ url: `/user/${id}/post/`, method: "get", params }),
   },
 };
 

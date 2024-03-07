@@ -11,7 +11,7 @@ const CustomModal = ({ open, onClose, children, width = "md" }) => {
     <Modal
       open={open}
       onClose={onClose}
-      sx={{ display: "flex", alignItems: "center" }}
+      sx={{ display: "flex", alignItems: "center", outline: "none" }}
     >
       <Container maxWidth={width} fullWidth>
         <Grid container justifyContent={"flex-end"}>

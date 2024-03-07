@@ -9,6 +9,7 @@ import {
   emailUpdate,
   phoneNumberUpdate,
   setUserInfo,
+  setMyAvatar,
 } from "store/slices/userSlices";
 import { authenticated } from "store/slices/authSlices";
 
@@ -29,7 +30,7 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
 
 export const updateMyInfo = (data) => async (dispatch) => {
   return Apis.user.updateMyInfo(data).then((res) => {
-    dispatch(setMyInfo(res));
+    dispatch(setMyInfo(res.user));
   });
 };
 
@@ -90,5 +91,11 @@ export const getUserDetails = (data) => async (dispatch) =>
   Apis.user.getUserDetails(data).then((res) => {
     console.log(res);
     dispatch(setUserInfo(res.user));
+    return res;
+  });
+
+export const setMyAvatarAction = (data) => async (dispatch) =>
+  Apis.user.setMyAvatar(data).then((res) => {
+    dispatch(setMyAvatar(res.avatar));
     return res;
   });

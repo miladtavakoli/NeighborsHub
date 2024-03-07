@@ -43,9 +43,11 @@ const App = () => {
   const matcheMdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
-    dispatch(getMyAddresses());
-    dispatch(getMyPosts());
-    dispatch(myInfoAction());
+    setTimeout(() => {
+      dispatch(getMyAddresses());
+      dispatch(getMyPosts());
+      dispatch(myInfoAction());
+    }, 500);
   }, []);
 
   const handleChange = (e, value) => {

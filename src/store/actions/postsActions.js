@@ -11,6 +11,7 @@ import {
   like,
   deleteLike,
   categories,
+  setUserPosts,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
 import { snackActions } from "utils/SnackbarUtils";
@@ -110,3 +111,9 @@ export const getCategories = () => async (dispatch) => {
     dispatch(categories(res.category));
   });
 };
+
+export const getUserPosts = (data) => async (dispatch) =>
+  Apis.posts.getUserPosts(data).then((res) => {
+    dispatch(setUserPosts(res.posts.results));
+    return res;
+  });

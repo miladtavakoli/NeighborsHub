@@ -31,7 +31,9 @@ import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
 import LocationOn from "@mui/icons-material/LocationOn";
 import { logoutAction } from "store/actions/authActions";
-import { clearStore } from "store/actions/appActions";
+import { authSelector } from "store/slices/authSlices";
+import { useSelector } from "react-redux";
+
 const path = {
   "/": 0,
   "/app": 1,
@@ -44,8 +46,8 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
-  const isAutenticated =
-    typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
+  const isAuth = useSelector(authSelector);
+
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -62,7 +64,7 @@ const Header = () => {
   };
 
   const handlePushToProfile = () => {
-    router.push("/profile");
+    router.push("/app/profile");
     setAnchorEl(null);
   };
 
@@ -136,7 +138,7 @@ const Header = () => {
               onClick={handleOpenMenu}
               edge="start"
               sx={{
-                visibility: isAutenticated ? "" : "hidden",
+                visibility: isAuth ? "" : "hidden",
               }}
             >
               <PersonIcon
@@ -212,7 +214,7 @@ const Header = () => {
           </BottomNavigation>
         </Grid>
         <Grid sx={{ width: "200px" }} container justifyContent={"flex-end"}>
-          {isAutenticated ? (
+          {isAuth ? (
             <>
               <IconButton
                 color="inherit"
@@ -334,9 +336,9 @@ const Header = () => {
             </Link>
             <Divider />
 
-            {isAutenticated ? (
+            {isAuth ? (
               <>
-                <Link href="/profile">
+                <Link href="/app/profile">
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>

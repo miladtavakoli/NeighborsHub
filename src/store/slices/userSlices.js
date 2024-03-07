@@ -35,6 +35,9 @@ const userSlices = createSlice({
     setUserInfo: (state, { payload }) => {
       state.userInfo = payload;
     },
+    setMyAvatar: (state, { payload }) => {
+      state.myInfo = { ...state.myInfo, avatar: payload };
+    },
   },
 });
 
@@ -48,6 +51,7 @@ export const {
   emailUpdate,
   phoneNumberUpdate,
   setUserInfo,
+  setMyAvatar,
 } = userSlices.actions;
 
 export const myAddressesSelector = (state) => state.user.addresses;

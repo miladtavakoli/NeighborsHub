@@ -44,7 +44,7 @@ export const passwordLoginAction = (data) => (dispatch) => {
   });
 };
 
-function loginActions(res , dispatch) {
+function loginActions(res, dispatch) {
   localStorage.setItem("token", res.access_token);
   dispatch(getMyAddresses({ token: res.access_token }));
   snackActions.success("Successful");
