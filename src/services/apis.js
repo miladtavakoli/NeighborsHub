@@ -96,6 +96,7 @@ const Apis = {
           in_bbox: data.in_bbox,
           offset: data.offset,
           limit: data.limit,
+          category: data.category,
         },
         withoutLoading: true,
         signal,
@@ -106,7 +107,7 @@ const Apis = {
       apiConfig({ url: `/post/${data.id}/like`, method: "post", data }),
     deleteLike: (data) =>
       apiConfig({ url: `/post/${data.id}/like`, method: "delete" }),
-    categories: () => apiConfig({ url: `/post/category/`, method: "get" }),
+    getCategories: () => apiConfig({ url: `/post/category/`, method: "get" }),
     getUserPosts: ({ id, params }) =>
       apiConfig({ url: `/user/${id}/post/`, method: "get", params }),
   },

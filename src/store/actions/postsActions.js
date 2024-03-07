@@ -10,7 +10,7 @@ import {
   setLocationPosts,
   like,
   deleteLike,
-  categories,
+  setCategories,
   setUserPosts,
 } from "store/slices/postsSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
@@ -107,8 +107,8 @@ export const deleteLikeAction = (data) => async (dispatch) => {
 };
 
 export const getCategories = () => async (dispatch) => {
-  return Apis.posts.categories(data).then((res) => {
-    dispatch(categories(res.category));
+  return Apis.posts.getCategories().then((res) => {
+    dispatch(setCategories(res.categories.results));
   });
 };
 

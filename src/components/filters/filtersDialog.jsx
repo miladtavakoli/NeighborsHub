@@ -13,6 +13,8 @@ import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { getPosts } from "store/actions/postsActions";
+import { categoriesSelector } from "store/slices/postsSlices";
+import { useSelector } from "react-redux";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -40,9 +42,11 @@ const marks = [
 const defaultFilters = { location: false, distance: false };
 
 const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
+  const categories = useSelector(categoriesSelector);
   const [state, setState] = useState({
     filters: defaultFilters,
     distance: [0, 1000],
+    selectedCategories: [],
   });
 
   const handleCheckbox = (e) => {
@@ -66,6 +70,23 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
       ...prevState,
       distance,
     }));
+  };
+
+  const handleSelectCategories = (name) => {
+    const prevStatus = state.selectedCategories.find((item) => item === name);
+    if (prevStatus) {
+      setState((prevState) => ({
+        ...prevState,
+        selectedCategories: prevState.selectedCategories.filter(
+          (item) => item !== name
+        ),
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        selectedCategories: [...prevState.selectedCategories, name],
+      }));
+    }
   };
 
   return (
@@ -105,21 +126,45 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={state.filters.location}
+                  checked={state.filters.categories}
                   onChange={handleCheckbox}
-                  name="location"
+                  name="categories"
                 />
               }
-              label="Location"
+              label="Categories"
             />
           </Grid>
           <Grid container>
+            {categories.map((item) => {
+              const isSelected = state.selectedCategories.find(
+                (item2) => item2 === item.internal_code
+              );
+              return (
+                <Chip
+                  label={item.title}
+                  sx={{
+                    mr: 1,
+                    mb: 1,
+                    backgroundColor: isSelected ? "#4c34eb" : "",
+                    color: isSelected ? "white" : "",
+                    "&:hover": {
+                      backgroundColor: isSelected ? "#6652eb" : "",
+                    },
+                  }}
+                  onClick={() => handleSelectCategories(item.internal_code)}
+                  key={item.title}
+                  disabled={!state.filters.categories}
+                />
+              );
+            })}
+          </Grid>
+          {/* <Grid container>
             <Grid
               container
               alignItems={"center"}
               sx={{
                 border: "1px solid #DEDEDE",
-                backgroundColor: state.filters.location ? "#ebf7fc" : "#f2f2f2",
+                
                 width: "auto",
                 borderRadius: "30px",
                 p: 0.5,
@@ -139,7 +184,7 @@ const FiltersDialog = ({ open, handleClose, handleSubmitFilters }) => {
                 <CloseIcon sx={{ color: "#7a7a7a" }} />
               </IconButton>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
         <Grid container sx={{ mt: 3 }}>
           <Grid container xs={6} sx={{ px: 0.5 }}>

@@ -269,7 +269,14 @@ const Post = ({
         )}
         <Grid container justifyContent={"flex-start"} sx={{ px: 2, mt: 1 }}>
           {data.category.map((item) => (
-            <Chip label={item} key={item} />
+            <Chip
+              label={item.title}
+              key={item.title}
+              sx={{
+                backgroundColor: "#4c34eb",
+                color: "white",
+              }}
+            />
           ))}
         </Grid>
         <Menu

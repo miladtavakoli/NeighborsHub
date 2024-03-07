@@ -17,9 +17,9 @@ import Badge from "@mui/material/Badge";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FiltersDialog from "components/filters/filtersDialog";
 import AddIcon from "@mui/icons-material/Add";
-import { getPosts } from "store/actions/postsActions";
+import { getPosts, getCategories } from "store/actions/postsActions";
 import { postsSelector } from "store/slices/postsSlices";
-// import { categorySelector } from "store/slices/postsSlices";
+
 import { getMyPosts } from "store/actions/postsActions";
 import TextField from "@mui/material/TextField";
 import { useInputHandler } from "hooks/useInputHandler";
@@ -46,7 +46,7 @@ const App = () => {
     setTimeout(() => {
       dispatch(getMyAddresses());
       dispatch(getMyPosts());
-      dispatch(myInfoAction());
+      dispatch(getCategories());
     }, 500);
   }, []);
 
@@ -95,6 +95,9 @@ const App = () => {
             : undefined,
           to_distance: dialogFilters?.filters?.distance
             ? dialogFilters?.distance?.[1]
+            : undefined,
+          category: dialogFilters.filters?.categories
+            ? dialogFilters.selectedCategories.toString()
             : undefined,
         })
       );

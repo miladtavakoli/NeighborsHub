@@ -41,12 +41,15 @@ const MapTab = ({ filters }) => {
             in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
             offset: 0,
             limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
+            category: filters.filters?.categories
+              ? filters.selectedCategories.toString()
+              : undefined,
           },
           controller.signal
         )
       );
     }
-  }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1]]);
+  }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1], filters]);
 
   // useEffect(() => {
   //   console.log(currentCenter, currentDistance);
@@ -76,6 +79,9 @@ const MapTab = ({ filters }) => {
         post_latitude: item[1],
         user_longitude: initialCordinate[0] || undefined,
         user_latitude: initialCordinate[1] || undefined,
+        category: filters.filters?.categories
+          ? filters.selectedCategories.toString()
+          : undefined,
       })
     ).then(() => {
       setIsMyPosts(false);

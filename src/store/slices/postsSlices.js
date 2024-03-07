@@ -71,7 +71,7 @@ const postsSlices = createSlice({
         item.id === payload.id ? { ...item, is_user_liked: false } : item
       );
     },
-    categories: (state, { payload }) => {
+    setCategories: (state, { payload }) => {
       state.categories = payload;
     },
     setUserPosts: (state, { payload }) => {
@@ -93,7 +93,7 @@ export const {
   moreDetailsPost,
   like,
   deleteLike,
-  categories,
+  setCategories,
   setUserPosts,
 } = postsSlices.actions;
 
