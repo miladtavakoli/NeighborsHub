@@ -5,6 +5,9 @@ const initialState = {
   locationPosts: [],
   myPosts: [],
   uniqueLocation: [],
+  categories: [],
+  userPosts: [],
+  post: {},
 };
 
 const postsSlices = createSlice({
@@ -28,15 +31,14 @@ const postsSlices = createSlice({
     },
     setUniqueLocation: (state, { payload }) => {
       state.uniqueLocation = [
-        ...state.uniqueLocation,
-        ...payload
-          .map((item) => item.location.coordinates)
-          .filter(
-            (item) =>
-              !state.uniqueLocation.find(
-                (item2) => item2[0] === item[0] && item2[1] !== item[0]
-              )
-          ),
+        // ...state.uniqueLocation,
+        ...payload.map((item) => item.location.coordinates),
+        // .filter(
+        //   (item) =>
+        //     !state.uniqueLocation.find(
+        //       (item2) => item2[0] === item[0] && item2[1] !== item[0]
+        //     )
+        // ),
       ];
     },
     clearPosts: () => initialState,
@@ -54,6 +56,31 @@ const postsSlices = createSlice({
         );
       }
     },
+    like: (state, { payload }) => {
+      state.posts = state.posts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: true } : item
+      );
+      state.locationPosts = state.locationPosts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: true } : item
+      );
+    },
+    deleteLike: (state, { payload }) => {
+      state.posts = state.posts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: false } : item
+      );
+      state.locationPosts = state.locationPosts.map((item) =>
+        item.id === payload.id ? { ...item, is_user_liked: false } : item
+      );
+    },
+    setCategories: (state, { payload }) => {
+      state.categories = payload;
+    },
+    setUserPosts: (state, { payload }) => {
+      state.userPosts = payload;
+    },
+    setPost: (state, { payload }) => {
+      state.post = payload;
+    },
   },
 });
 
@@ -68,11 +95,19 @@ export const {
   setLocationPosts,
   removelocationPosts,
   moreDetailsPost,
+  like,
+  deleteLike,
+  setCategories,
+  setUserPosts,
+  setPost,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
 export const myPostsSelector = (state) => state.posts.myPosts;
 export const uniqueLocationSelector = (state) => state.posts.uniqueLocation;
 export const locationPostSelector = (state) => state.posts.locationPosts;
+export const categoriesSelector = (state) => state.posts.categories;
+export const userPostsSelector = (state) => state.posts.userPosts;
+export const postSelector = (state) => state.posts.post;
 
 export default postsSlices.reducer;

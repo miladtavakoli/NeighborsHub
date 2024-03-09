@@ -8,11 +8,11 @@ import Grid from "@mui/material/Grid";
 // import { ScaleControl } from "maplibre-gl";
 import { MAP_API_KEY } from "constants";
 
-const addedCordinates = [];
+let addedCordinates = [];
 
 export default function Map({
   onClick,
-  cordinates = [],
+  locations = [],
   myCordinate = [],
   handleMarkerClicked,
   handleMyMarkerClicked,
@@ -77,8 +77,14 @@ export default function Map({
     //////////////////////////////////////////////////////////////////////////
     map.current.on("moveend", () => {
       var newCenter = map.current.getCenter();
-      console.log(newCenter, "addedCordinates");
       handleCenterChanged?.(newCenter);
+      var bounds = map.current.getBounds();
+      handleBounds?.(
+        bounds.getEast(),
+        bounds.getWest(),
+        bounds.getNorth(),
+        bounds.getSouth()
+      );
     });
 
     //////////////////////////////////////////////////////////////////////////
@@ -118,22 +124,26 @@ export default function Map({
   }, [center[0], center[1]]);
 
   useEffect(() => {
-    cordinates.forEach((element) => {
-      const temp = addedCordinates.find(
-        (item) => item[0] === element[0] && item[1] === element[1]
-      );
-      if (!temp) {
-        const marker = new maplibregl.Marker({ color: "#FF0000" })
-          .setLngLat(element)
-          .addTo(map.current);
-        handleMarkerClicked &&
-          marker.getElement().addEventListener("click", () => {
-            handleMarkerClicked(element);
-          });
-        addedCordinates.push(element);
-      }
+    addedCordinates.forEach((item) => {
+      item.remove();
     });
-  }, [cordinates]);
+    addedCordinates = [];
+    locations.forEach((element) => {
+      // const temp = addedCordinates.find(
+      //   (item) => item[0] === element[0] && item[1] === element[1]
+      // );
+      // if (!temp) {
+      const marker = new maplibregl.Marker({ color: "#FF0000" })
+        .setLngLat(element)
+        .addTo(map.current);
+      handleMarkerClicked &&
+        marker.getElement().addEventListener("click", () => {
+          handleMarkerClicked(element);
+        });
+      addedCordinates.push(marker);
+      // }
+    });
+  }, [locations]);
 
   return (
     <Grid container className="map-wrap">

@@ -5,17 +5,19 @@ import {
   setMyInfo,
 } from "store/slices/userSlices";
 import { startLoading, endLoading } from "store/slices/appSlices";
-import { emailUpdate, phoneNumberUpdate } from "store/slices/userSlices";
+import {
+  emailUpdate,
+  phoneNumberUpdate,
+  setUserInfo,
+  setMyAvatar,
+} from "store/slices/userSlices";
+import { authenticated } from "store/slices/authSlices";
 
 export const getMyAddresses = () => async (dispatch) => {
-  dispatch(startLoading());
-  return Apis.address
-    .getListOfAddress()
-    .then((res) => {
-      dispatch(setMyAddresses(res.addresses?.results || []));
-      return res;
-    })
-    .finally(() => dispatch(endLoading()));
+  return Apis.address.getListOfAddress().then((res) => {
+    dispatch(setMyAddresses(res.addresses?.results || []));
+    return res;
+  });
 };
 
 export const addNewAddressAction = (payload) => async (dispatch) => {
@@ -27,19 +29,19 @@ export const addNewAddressAction = (payload) => async (dispatch) => {
 };
 
 export const updateMyInfo = (data) => async (dispatch) => {
-  dispatch(startLoading());
-  return Apis.user
-    .updateMyInfo(data)
-    .then((res) => dispatch(setMyInfo(res)))
-    .finally(() => dispatch(endLoading()));
+  return Apis.user.updateMyInfo(data).then((res) => {
+    dispatch(setMyInfo(res.user));
+  });
 };
 
 export const myInfoAction = () => async (dispatch) => {
-  dispatch(startLoading());
   return Apis.user
     .myInfo()
-    .then((res) => dispatch(setMyInfo(res.user)))
-    .finally(() => dispatch(endLoading()));
+    .then((res) => {
+      dispatch(setMyInfo(res.user));
+      dispatch(authenticated(true));
+    })
+    .catch(() => dispatch(authenticated(false)));
 };
 
 export const sendOtpToEmail = (data) => async (dispatch) => {
@@ -84,3 +86,16 @@ export const verifyPhoneOtp = (data) => async (dispatch) => {
     })
     .finally(() => dispatch(endLoading()));
 };
+
+export const getUserDetails = (data) => async (dispatch) =>
+  Apis.user.getUserDetails(data).then((res) => {
+    console.log(res);
+    dispatch(setUserInfo(res.user));
+    return res;
+  });
+
+export const setMyAvatarAction = (data) => async (dispatch) =>
+  Apis.user.setMyAvatar(data).then((res) => {
+    dispatch(setMyAvatar(res.avatar));
+    return res;
+  });

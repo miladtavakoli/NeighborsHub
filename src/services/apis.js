@@ -32,6 +32,10 @@ const Apis = {
       apiConfig({ url: "/auth/send-verify-mobile", method: "post", data }),
     verifyPhoneOtp: (data) =>
       apiConfig({ url: "/auth/verify-mobile", method: "post", data }),
+    getUserDetails: (data) =>
+      apiConfig({ url: `/user/${data.id}`, method: "get" }),
+    setMyAvatar: (data) =>
+      apiConfig({ url: `/avatar/me`, method: "post", data, isFormData: true }),
   },
   address: {
     getIpLocation: () =>
@@ -58,7 +62,7 @@ const Apis = {
   posts: {
     createPost: (data) =>
       apiConfig({
-        url: "/post/me/create",
+        url: "/me/post/create",
         method: "post",
         data,
         isFormData: true,
@@ -67,31 +71,20 @@ const Apis = {
       apiConfig({
         url: `/post/`,
         method: "get",
-        params: {
-          ...data,
-          user_distance: Math.round(data.distance),
-          user_latitude: data.lat,
-          user_longitude: data.long,
-        },
+        params: data,
       }),
     getLocationPosts: (data) =>
       apiConfig({
         url: `/post/`,
         method: "get",
-        params: {
-          post_latitude: data.lat,
-          post_longitude: data.long,
-          user_distance: 10,
-          user_latitude: data.myAddressLat,
-          user_longitude: data.myAddressLong,
-        },
+        params: data,
       }),
     getDetailsPost: (data) =>
       apiConfig({
         url: `/post/${data.id}`,
         method: "get",
       }),
-    getMyPosts: (data) => apiConfig({ url: "/post/me", method: "get", data }),
+    getMyPosts: (data) => apiConfig({ url: "/me/post/", method: "get", data }),
     getUniqueLocation: (data, signal) =>
       apiConfig({
         url: `/post/location-count`,
@@ -103,11 +96,20 @@ const Apis = {
           in_bbox: data.in_bbox,
           offset: data.offset,
           limit: data.limit,
+          category: data.category,
         },
+        withoutLoading: true,
         signal,
       }),
     deletePost: (data) =>
-      apiConfig({ url: `/post/me/${data.id}`, method: "delete" }),
+      apiConfig({ url: `/me/post/${data.id}`, method: "delete" }),
+    like: (data) =>
+      apiConfig({ url: `/post/${data.id}/like`, method: "post", data }),
+    deleteLike: (data) =>
+      apiConfig({ url: `/post/${data.id}/like`, method: "delete" }),
+    getCategories: () => apiConfig({ url: `/post/category/`, method: "get" }),
+    getUserPosts: ({ id, params }) =>
+      apiConfig({ url: `/user/${id}/post/`, method: "get", params }),
   },
 };
 

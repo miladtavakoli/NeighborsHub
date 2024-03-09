@@ -1,12 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "next/link";
-import BackgroundImage from "assets/images/landingPage.jpg";
-import Image from "next/image";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -31,13 +27,12 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useSnackbar } from "notistack";
-import Apis from "services/apis";
 import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { startLoading, endLoading } from "store/slices/appSlices";
-import { clearStore } from "store/actions/appActions";
 import LocationOn from "@mui/icons-material/LocationOn";
+import { logoutAction } from "store/actions/authActions";
+import { authSelector } from "store/slices/authSlices";
+import { useSelector } from "react-redux";
 
 const path = {
   "/": 0,
@@ -51,9 +46,8 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
-  const isAutenticated =
-    typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
-  const { enqueueSnackbar } = useSnackbar();
+  const isAuth = useSelector(authSelector);
+
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -70,33 +64,18 @@ const Header = () => {
   };
 
   const handlePushToProfile = () => {
-    router.push("/profile");
+    router.push("/app/profile");
     setAnchorEl(null);
   };
 
   const handleLogout = () => {
-    dispatch(startLoading());
-    Apis.auth
-      .logout()
+    dispatch(logoutAction())
       .then(() => {
-        localStorage.removeItem("token");
-        enqueueSnackbar("Log Out Successful", { variant: "info" });
         router.push("/");
       })
-      .catch((message, err) => {
-        if (
-          message === "Token expired" ||
-          message === "Incorrect authentication credentials."
-        ) {
-          localStorage.removeItem("token");
-          enqueueSnackbar("Log Out Successful", { variant: "info" });
-          router.push("/");
-        } else {
-          enqueueSnackbar(message, { variant: "error" });
-        }
-      })
       .finally(() => {
-        dispatch(endLoading());
+        // dispatch(clearStore());
+        setOpen(false);
       });
   };
 
@@ -159,7 +138,7 @@ const Header = () => {
               onClick={handleOpenMenu}
               edge="start"
               sx={{
-                visibility: isAutenticated ? "" : "hidden",
+                visibility: isAuth ? "" : "hidden",
               }}
             >
               <PersonIcon
@@ -235,7 +214,7 @@ const Header = () => {
           </BottomNavigation>
         </Grid>
         <Grid sx={{ width: "200px" }} container justifyContent={"flex-end"}>
-          {isAutenticated ? (
+          {isAuth ? (
             <>
               <IconButton
                 color="inherit"
@@ -270,7 +249,20 @@ const Header = () => {
           ) : (
             <>
               <Link href="/signin">
-                <Button sx={{ mx: 2, fontWeight: "500" }} variant="text">
+                <Button
+                  sx={{
+                    mx: 2,
+                    fontWeight: "500",
+                    color: "#e85a02",
+                    borderRadius: "15px",
+                    // "&:hover": {
+                    //   backgroundImage:
+                    //     "linear-gradient(90deg, #f27527, #ff9959)",
+                    //   color: "white",
+                    // },
+                  }}
+                  variant="text"
+                >
                   Sign in
                 </Button>
               </Link>
@@ -278,7 +270,7 @@ const Header = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: "#4F62C9",
+                    backgroundImage: "linear-gradient(90deg, #0D869C, #3BB4DD)",
                     borderRadius: "15px",
                     boxShadow: "none",
                   }}
@@ -344,9 +336,9 @@ const Header = () => {
             </Link>
             <Divider />
 
-            {isAutenticated ? (
+            {isAuth ? (
               <>
-                <Link href="/profile">
+                <Link href="/app/profile">
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>

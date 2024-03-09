@@ -1,56 +1,24 @@
 "use client";
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import Container from "@mui/material/Container";
-import { useInputHandler } from "hooks/useInputHandler";
 import TextField from "@mui/material/TextField";
-// import { MuiTelInput } from "mui-tel-input";
-// import ReactPhoneInput from 'react-phone-input-material-ui';
-import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import GoogleIcon from "@mui/icons-material/Google";
-import Typography from "@mui/material/Typography";
-import Apis from "services/apis";
-import { useSnackbar } from "notistack";
-import CircularProgress from "@mui/material/CircularProgress";
 import STATUS from "components/signup/status";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { startLoading, endLoading } from "store/slices/appSlices";
-import { getMyAddresses } from "store/actions/userActions";
-
-const PasswordChecking = ({
-  password,
-  setCurrentState,
-  emailPhoneNumber,
-  otp,
-}) => {
-  const { enqueueSnackbar } = useSnackbar();
+import { passwordLoginAction } from "store/actions/authActions";
+const PasswordChecking = ({ password, setCurrentState, emailPhoneNumber }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(startLoading());
-    Apis.auth
-      .passwordLogin({
+    dispatch(
+      passwordLoginAction({
         email_mobile: emailPhoneNumber.value,
         password: password.value,
       })
-      .then((res) => {
-        enqueueSnackbar("Successful", { variant: "success" });
-        typeof window !== "undefined" &&
-          localStorage.setItem("token", res.access_token);
-        dispatch(getMyAddresses({ token: res.access_token }));
-        router.push("/app");
-      })
-      .catch((message) => {
-        enqueueSnackbar(message, { variant: "error" });
-      })
-      .finally(() => {
-        dispatch(endLoading());
-      });
+    ).then(() => {
+      router.push("/app");
+    });
   };
 
   const handleBack = () => {

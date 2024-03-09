@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import Link from "next/link";
 import Address from "components/profile/addresses/addresses";
+import { authSelector } from "store/slices/authSlices";
 
 const CreatePostModal = ({ open, handleClose }) => {
   const dispatch = useDispatch();
@@ -29,8 +30,7 @@ const CreatePostModal = ({ open, handleClose }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [files, setFiles] = useState([]);
   const isCompletedProfile = Boolean(addresses.length);
-  const isLogin = Boolean(localStorage.getItem("token"));
-
+  const isAuth = useSelector(authSelector);
   useEffect(() => {
     setSelectedAddress(addresses.find((item) => item.is_main_address));
   }, [addresses]);
@@ -79,7 +79,7 @@ const CreatePostModal = ({ open, handleClose }) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <Grid container direction={"column"} sx={{ position: "relative" }}>
-        {!isLogin && (
+        {!isAuth && (
           <Grid
             sx={{
               position: "absolute",
@@ -96,7 +96,7 @@ const CreatePostModal = ({ open, handleClose }) => {
               zIndex: 1000,
             }}
           >
-            {/* {!isLogin ? (
+            {/* {!isAuth ? (
               <>
                 <Typography>
                   You need to sign in to your account to create a post
@@ -120,7 +120,7 @@ const CreatePostModal = ({ open, handleClose }) => {
                 </Grid>
               </>
             )} */}
-            {!isLogin && (
+            {!isAuth && (
               <>
                 <Typography>
                   You need to sign in to your account to create a post
@@ -137,7 +137,7 @@ const CreatePostModal = ({ open, handleClose }) => {
         <Grid
           container
           direction={"column"}
-          sx={{ filter: isLogin ? "" : "blur(4px)" }}
+          sx={{ filter: isAuth ? "" : "blur(4px)" }}
         >
           <Typography variant="h6" textAlign={"center"}>
             Create Post
@@ -165,11 +165,17 @@ const CreatePostModal = ({ open, handleClose }) => {
             />
           </Grid>
           <Button
+            sx={{
+              borderRadius: "10px",
+              height: "47px",
+              fontSize: "13px",
+              backgroundColor: "#0298e8",
+              mt: 2,
+            }}
             fullWidth
             variant="contained"
-            sx={{ mt: 2 }}
+            type="submit"
             onClick={handleSubmit}
-            disabled={!title.value || !description.value || !selectedAddress}
           >
             Submit
           </Button>
