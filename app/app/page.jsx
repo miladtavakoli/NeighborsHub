@@ -50,7 +50,7 @@ const App = () => {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      dispatch(getMyAddresses()).then(() => setLoading(false));
+      dispatch(getMyAddresses()).finally(() => setLoading(false));
       dispatch(getMyPosts());
       dispatch(getCategories());
     }, 500);
