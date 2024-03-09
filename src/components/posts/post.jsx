@@ -28,12 +28,14 @@ import { snackActions } from "utils/SnackbarUtils";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import SocialDistanceIcon from "@mui/icons-material/SocialDistance";
 import { useRouter } from "next/navigation";
+import moment from "moment";
 
 const Post = ({
   handleOpenModal,
   showLocationOnMap,
   data,
   handleClosePostsList,
+  isPostPage,
 }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const Post = ({
   const menuOpen = Boolean(anchorEl);
   const myInfo = useSelector(myInfoSelector);
   const isAuth = useSelector(authSelector);
-  const isMyPost = myInfo.id === data.created_by.id;
+  const isMyPost = myInfo.id === data.created_by?.id;
   const [contactOpen, setContactOpen] = useState(false);
   const router = useRouter();
 
@@ -93,6 +95,10 @@ const Post = ({
 
   const handleRirectToUserProfile = (id) => {
     router.push(`/app/user?id=${id}`);
+  };
+
+  const handleRedirectToPostPage = (id) => {
+    !isPostPage && router.push(`/app/post?id=${id}`);
   };
 
   return (
@@ -157,10 +163,31 @@ const Post = ({
           sx={{ mt: 2 }}
         >
           <Typography
-            sx={{ fontWeight: "bold", px: 2, wordBreak: "break-word" }}
+            sx={{
+              fontWeight: "bold",
+              px: 2,
+              wordBreak: "break-word",
+              cursor: isPostPage ? "" : "pointer",
+              "&:hover": {
+                color: !isPostPage ? "gray" : "",
+              },
+            }}
             variant="h5"
+            onClick={() => handleRedirectToPostPage(data.id)}
           >
             {data.title}
+          </Typography>
+        </Grid>
+        <Grid sx={{ mt: 1 }} contianer justifyContent={"flex-start"}>
+          <Typography
+            sx={{
+              px: 2,
+              color: "gray",
+              fontSize: "14px",
+              fontStyle: "italic",
+            }}
+          >
+            {moment(data.created_by).format("YY/MM/DD HH:mm")}
           </Typography>
         </Grid>
         {!isMyPost && (
@@ -268,7 +295,7 @@ const Post = ({
           </Grid>
         )}
         <Grid container justifyContent={"flex-start"} sx={{ px: 2, mt: 1 }}>
-          {data.category.map((item) => (
+          {data.category?.map((item) => (
             <Chip
               label={item.title}
               key={item.title}
@@ -317,13 +344,15 @@ const Post = ({
       >
         {data.body}
       </Typography>
-      <Button
-        variant="text"
-        // sx={{ mt: 1, px: 3, color: "gray" }}
-        onClick={handleMoreDetails}
-      >
-        More Details
-      </Button>
+      {!isPostPage && (
+        <Button
+          variant="text"
+          // sx={{ mt: 1, px: 3, color: "gray" }}
+          onClick={handleMoreDetails}
+        >
+          More Details
+        </Button>
+      )}
       <ConfirmationModal
         open={open}
         handleClose={handleClose}

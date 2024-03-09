@@ -7,6 +7,7 @@ const initialState = {
   uniqueLocation: [],
   categories: [],
   userPosts: [],
+  post: {},
 };
 
 const postsSlices = createSlice({
@@ -77,6 +78,9 @@ const postsSlices = createSlice({
     setUserPosts: (state, { payload }) => {
       state.userPosts = payload;
     },
+    setPost: (state, { payload }) => {
+      state.post = payload;
+    },
   },
 });
 
@@ -95,6 +99,7 @@ export const {
   deleteLike,
   setCategories,
   setUserPosts,
+  setPost,
 } = postsSlices.actions;
 
 export const postsSelector = (state) => state.posts.posts;
@@ -103,5 +108,6 @@ export const uniqueLocationSelector = (state) => state.posts.uniqueLocation;
 export const locationPostSelector = (state) => state.posts.locationPosts;
 export const categoriesSelector = (state) => state.posts.categories;
 export const userPostsSelector = (state) => state.posts.userPosts;
+export const postSelector = (state) => state.posts.post;
 
 export default postsSlices.reducer;
