@@ -12,11 +12,8 @@ import {
 } from "store/slices/postsSlices";
 import { getLocationPosts } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
-import { getUniqueLocation } from "store/actions/postsActions";
 
-let controller;
-
-const MapTab = ({ filters }) => {
+const MapTab = ({ filters, handleBounds }) => {
   const myPosts = useSelector(myPostsSelector);
   const locationPosts = useSelector(locationPostSelector);
   const myAddressCordinate = useSelector(myAddressesSelector);
@@ -29,27 +26,6 @@ const MapTab = ({ filters }) => {
   const [selectedPosts, setSelectedPosts] = useState();
   const [isMyPosts, setIsMyPosts] = useState(false);
   const dispatch = useDispatch();
-  const [latBounds, setLatBounds] = useState([0, 0]);
-  const [longBounds, setLongBounds] = useState([0, 0]);
-
-  useEffect(() => {
-    if (latBounds[0]) {
-      controller = new AbortController();
-      dispatch(
-        getUniqueLocation(
-          {
-            in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
-            offset: 0,
-            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
-            category: filters.filters?.categories
-              ? filters.selectedCategories.toString()
-              : undefined,
-          },
-          controller.signal
-        )
-      );
-    }
-  }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1], filters]);
 
   // useEffect(() => {
   //   console.log(currentCenter, currentDistance);
@@ -103,12 +79,6 @@ const MapTab = ({ filters }) => {
     // console.log(center.lng, "addedCordinates");
     // setCurrentCenter([center.lng, center.lat]);
     // controller?.abort();
-  };
-
-  const handleBounds = (long1, long2, lat1, lat2) => {
-    setLongBounds([long1, long2]);
-    setLatBounds([lat1, lat2]);
-    controller?.abort();
   };
 
   return (

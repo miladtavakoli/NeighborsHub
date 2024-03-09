@@ -27,6 +27,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { getUniqueLocation } from "store/actions/postsActions";
+
+let controller;
 
 const App = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -41,10 +44,13 @@ const App = () => {
   const posts = useSelector(postsSelector);
   const search = useInputHandler("");
   const matcheMdDown = useMediaQuery(theme.breakpoints.down("md"));
-
+  const [latBounds, setLatBounds] = useState([0, 0]);
+  const [longBounds, setLongBounds] = useState([0, 0]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     setTimeout(() => {
-      dispatch(getMyAddresses());
+      dispatch(getMyAddresses()).then(() => setLoading(false));
       dispatch(getMyPosts());
       dispatch(getCategories());
     }, 500);
@@ -55,11 +61,11 @@ const App = () => {
   };
   const Content = useMemo(
     () => ({
-      0: <MapTab filters={dialogFilters} />,
+      0: !loading && <MapTab filters={dialogFilters} />,
       1: <PostsTab posts={posts} />,
       2: <></>,
     }),
-    []
+    [loading, dialogFilters, posts]
   );
 
   const handleCreatePostModalOpen = () => {
@@ -102,6 +108,49 @@ const App = () => {
         })
       );
   }, [mainAddress, dialogFilters]);
+
+  useEffect(() => {
+    if (latBounds[0]) {
+      controller = new AbortController();
+      dispatch(
+        getUniqueLocation(
+          {
+            in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
+            offset: 0,
+            limit: Math.abs(longBounds[0] - longBounds[1]) < 0.02 ? 100000 : 15,
+            category: dialogFilters.filters?.categories
+              ? dialogFilters.selectedCategories.toString()
+              : undefined,
+          },
+          controller.signal
+        )
+      );
+    }
+  }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1], dialogFilters]);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   controller = new AbortController();
+  //   dispatch(
+  //     getUniqueLocation(
+  //       {
+  //         in_bbox: `${longBounds[1]},${latBounds[1]},${longBounds[0]},${latBounds[0]}`,
+  //         offset: 0,
+  //         limit: 30,
+  //         category: dialogFilters.filters?.categories
+  //           ? dialogFilters.selectedCategories.toString()
+  //           : undefined,
+  //       },
+  //       controller.signal
+  //     )
+  //   );
+  // }, []);
+
+  const handleBounds = (long1, long2, lat1, lat2) => {
+    setLongBounds([long1, long2]);
+    setLatBounds([lat1, lat2]);
+    controller?.abort();
+  };
 
   const handleSearch = () => {};
 
@@ -254,7 +303,9 @@ const App = () => {
                 lg={8}
                 md={6}
               >
-                <MapTab filters={dialogFilters} />
+                {!loading && (
+                  <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+                )}
               </Grid>
               <Grid
                 sx={{ height: "100%", overflowY: "auto" }}
@@ -273,7 +324,9 @@ const App = () => {
               item
               xs={12}
             >
-              <MapTab filters={dialogFilters} />
+              {!loading && (
+                <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+              )}
             </Grid>
           )}
         </Grid>
