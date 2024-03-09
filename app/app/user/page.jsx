@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
 import { myInfoSelector } from "store/slices/userSlices";
@@ -84,96 +84,97 @@ function Page() {
   };
 
   return (
-    <Container maxWidth="md">
-      <Grid container direction={"column"}>
-        <Grid>
-          <img
-            style={{ width: "100%", height: "200px", objectFit: "overlay" }}
-          />
-        </Grid>
-        <Grid
-          container
-          sx={{ pl: 2 }}
-          justifyContent={"space-between"}
-          alignContent={"flex-start"}
-          alignItems={"flex-start"}
-        >
-          <Avatar
-            sx={{ height: "130px", width: "130px", mt: "-65px" }}
-            src={userInfo.avatar?.avatar_thumbnail}
-          />
-          <Grid item container xs={5} justifyContent={"flex-end"}>
-            <Button
-              sx={{
-                borderRadius: "10px",
-                height: "47px",
-                fontSize: "13px",
-                backgroundColor: "#e85a02",
-                mr: 1,
-                "&:hover": {
-                  backgroundColor: "#f27527",
-                },
-              }}
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              Location
-            </Button>
-            <Button
-              sx={{
-                borderRadius: "10px",
-                height: "47px",
-                fontSize: "13px",
-                backgroundColor: "#0298e8",
-              }}
-              variant="contained"
-              type="submit"
-              onClick={handleOpenContactMenu}
-            >
-              Contact
-            </Button>
+    <Suspense>
+      <Container maxWidth="md">
+        <Grid container direction={"column"}>
+          <Grid>
+            <img
+              style={{ width: "100%", height: "200px", objectFit: "overlay" }}
+            />
           </Grid>
-          <Menu
-            id="basic-menu"
-            anchorEl={contactOpen}
-            open={contactOpen}
-            onClose={handleCloseContactMenu}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-            sx={{ minWidth: "300px" }}
+          <Grid
+            container
+            sx={{ pl: 2 }}
+            justifyContent={"space-between"}
+            alignContent={"flex-start"}
+            alignItems={"flex-start"}
           >
-            {userInfo.email && (
-              <MenuItem
-                sx={{ minWidth: "300px" }}
-                onClick={() => handleCopyToClipboard(userInfo.email)}
+            <Avatar
+              sx={{ height: "130px", width: "130px", mt: "-65px" }}
+              src={userInfo.avatar?.avatar_thumbnail}
+            />
+            <Grid item container xs={5} justifyContent={"flex-end"}>
+              <Button
+                sx={{
+                  borderRadius: "10px",
+                  height: "47px",
+                  fontSize: "13px",
+                  backgroundColor: "#e85a02",
+                  mr: 1,
+                  "&:hover": {
+                    backgroundColor: "#f27527",
+                  },
+                }}
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setOpen(true);
+                }}
               >
-                <AlternateEmailIcon sx={{ mr: 1 }} />
-                {userInfo.email}
-              </MenuItem>
-            )}
-            {userInfo.mobile && (
-              <MenuItem
-                sx={{ minWidth: "300px" }}
-                onClick={() => handleCopyToClipboard(userInfo.mobile)}
+                Location
+              </Button>
+              <Button
+                sx={{
+                  borderRadius: "10px",
+                  height: "47px",
+                  fontSize: "13px",
+                  backgroundColor: "#0298e8",
+                }}
+                variant="contained"
+                type="submit"
+                onClick={handleOpenContactMenu}
               >
-                <PhoneIphoneIcon sx={{ mr: 1 }} />
-                {userInfo.mobile}
-              </MenuItem>
-            )}
-          </Menu>
-        </Grid>
-        {userInfo.first_name && userInfo.last_name && (
-          <Grid container sx={{ pl: 2, mt: 2 }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-              {userInfo.first_name + " " + userInfo.last_name}{" "}
-            </Typography>
+                Contact
+              </Button>
+            </Grid>
+            <Menu
+              id="basic-menu"
+              anchorEl={contactOpen}
+              open={contactOpen}
+              onClose={handleCloseContactMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              sx={{ minWidth: "300px" }}
+            >
+              {userInfo.email && (
+                <MenuItem
+                  sx={{ minWidth: "300px" }}
+                  onClick={() => handleCopyToClipboard(userInfo.email)}
+                >
+                  <AlternateEmailIcon sx={{ mr: 1 }} />
+                  {userInfo.email}
+                </MenuItem>
+              )}
+              {userInfo.mobile && (
+                <MenuItem
+                  sx={{ minWidth: "300px" }}
+                  onClick={() => handleCopyToClipboard(userInfo.mobile)}
+                >
+                  <PhoneIphoneIcon sx={{ mr: 1 }} />
+                  {userInfo.mobile}
+                </MenuItem>
+              )}
+            </Menu>
           </Grid>
-        )}
-        {/* <Grid container justifyContent={"center"}>
+          {userInfo.first_name && userInfo.last_name && (
+            <Grid container sx={{ pl: 2, mt: 2 }}>
+              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                {userInfo.first_name + " " + userInfo.last_name}{" "}
+              </Typography>
+            </Grid>
+          )}
+          {/* <Grid container justifyContent={"center"}>
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -183,20 +184,25 @@ function Page() {
             <Tab label="Friends" />
           </Tabs>
         </Grid> */}
-        <Grid sx={{ mt: 4 }}>
-          <PostsList posts={posts} />
+          <Grid sx={{ mt: 4 }}>
+            <PostsList posts={posts} />
+          </Grid>
         </Grid>
-      </Grid>
-      <Modal open={open} onClose={handleClose}>
-        <Grid
-          container
-          justifyContent={"center"}
-          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
-        >
-          <Map center={[51.36, 35.74]} zoom={15} locations={[[51.36, 35.74]]} />
-        </Grid>
-      </Modal>
-    </Container>
+        <Modal open={open} onClose={handleClose}>
+          <Grid
+            container
+            justifyContent={"center"}
+            sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
+          >
+            <Map
+              center={[51.36, 35.74]}
+              zoom={15}
+              locations={[[51.36, 35.74]]}
+            />
+          </Grid>
+        </Modal>
+      </Container>
+    </Suspense>
   );
 }
 

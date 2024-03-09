@@ -1,7 +1,7 @@
 "use client";
 import Post from "components/posts/post";
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { getPost } from "store/actions/postsActions";
 import { useDispatch } from "react-redux";
@@ -33,29 +33,31 @@ const PostPage = () => {
   };
 
   return (
-    <Grid>
-      <Post
-        data={post}
-        isPostPage
-        showLocationOnMap
-        handleOpenModal={handleOpenModal}
-        handleClosePostsList={handleClose}
-      />
-      <Modal open={open} onClose={handleClose} sx={{ outline: "none" }}>
-        <Grid
-          container
-          justifyContent={"center"}
-          sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
-        >
-          <Map
-            // myCordinate={post.address?.locations.coordinates}
-            locations={[locations]}
-            center={post.address?.location.coordinates}
-            zoom={15}
-          />
-        </Grid>
-      </Modal>
-    </Grid>
+    <Suspense>
+      <Grid>
+        <Post
+          data={post}
+          isPostPage
+          showLocationOnMap
+          handleOpenModal={handleOpenModal}
+          handleClosePostsList={handleClose}
+        />
+        <Modal open={open} onClose={handleClose} sx={{ outline: "none" }}>
+          <Grid
+            container
+            justifyContent={"center"}
+            sx={{ mt: 3, overflowY: "auto", height: "calc( 100vh - 330px )" }}
+          >
+            <Map
+              // myCordinate={post.address?.locations.coordinates}
+              locations={[locations]}
+              center={post.address?.location.coordinates}
+              zoom={15}
+            />
+          </Grid>
+        </Modal>
+      </Grid>
+    </Suspense>
   );
 };
 export default PostPage;
