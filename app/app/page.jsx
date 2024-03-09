@@ -56,38 +56,6 @@ const App = () => {
     }, 500);
   }, []);
 
-  const handleChange = (e, value) => {
-    setTabValue(value);
-  };
-  const Content = useMemo(
-    () => ({
-      0: !loading && <MapTab filters={dialogFilters} />,
-      1: <PostsTab posts={posts} />,
-      2: <></>,
-    }),
-    [loading, dialogFilters, posts]
-  );
-
-  const handleCreatePostModalOpen = () => {
-    setCreatePostModalOpen(true);
-  };
-  const handleCreatePostModalClose = () => {
-    setCreatePostModalOpen(false);
-  };
-
-  const handleFilterDialogClose = () => {
-    setOpenFilterDialog(false);
-  };
-
-  const handleOpenFilterDialog = () => {
-    setOpenFilterDialog(true);
-  };
-
-  const handleSubmitFilters = (state) => {
-    setDialogFilters(state);
-    handleFilterDialogClose();
-  };
-
   useEffect(() => {
     if (mainAddress)
       dispatch(
@@ -128,6 +96,40 @@ const App = () => {
     }
   }, [latBounds[0], latBounds[1], longBounds[0], longBounds[1], dialogFilters]);
 
+  const handleChange = (e, value) => {
+    setTabValue(value);
+  };
+  const Content = useMemo(
+    () => ({
+      0: !loading && (
+        <MapTab filters={dialogFilters} handleBounds={handleBounds} />
+      ),
+      1: <PostsTab posts={posts} />,
+      2: <></>,
+    }),
+    [loading, dialogFilters, posts]
+  );
+
+  const handleCreatePostModalOpen = () => {
+    setCreatePostModalOpen(true);
+  };
+  const handleCreatePostModalClose = () => {
+    setCreatePostModalOpen(false);
+  };
+
+  const handleFilterDialogClose = () => {
+    setOpenFilterDialog(false);
+  };
+
+  const handleOpenFilterDialog = () => {
+    setOpenFilterDialog(true);
+  };
+
+  const handleSubmitFilters = (state) => {
+    setDialogFilters(state);
+    handleFilterDialogClose();
+  };
+
   // useEffect(() => {
   //   setLoading(true);
   //   controller = new AbortController();
@@ -146,11 +148,11 @@ const App = () => {
   //   );
   // }, []);
 
-  const handleBounds = (long1, long2, lat1, lat2) => {
+  function handleBounds(long1, long2, lat1, lat2) {
     setLongBounds([long1, long2]);
     setLatBounds([lat1, lat2]);
     controller?.abort();
-  };
+  }
 
   const handleSearch = () => {};
 
